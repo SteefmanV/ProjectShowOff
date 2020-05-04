@@ -20,6 +20,8 @@ public class ThrashSpawner : MonoBehaviour
         {
             spawnRandomThrash();
             _timer = 0;
+
+            if (_spawnTime < 0.1f) _spawnTime = 0.1f;
         }
     }
 

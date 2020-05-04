@@ -19,6 +19,6 @@ public class Fish : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("thrash")) Destroy(gameObject);
+        if(collision.gameObject.CompareTag("thrash")) Destroy(transform.parent.gameObject);
     }
 }

@@ -5,6 +5,19 @@ using UnityEngine;
 public class Thrash : MonoBehaviour
 {
     [SerializeField] private float _startFallSpeed = 1;
+    private GameManager _gameManager = null;
+
+    private void Awake()
+    {
+        GameObject managerHolder = GameObject.FindGameObjectWithTag("GameManager");
+        if (managerHolder == null)
+        {
+            Debug.LogWarning("GameManager gameobject does not exist");
+            return;
+        }
+
+        _gameManager = managerHolder.GetComponent<GameManager>();
+    }
 
 
     void Update()
@@ -17,6 +30,7 @@ public class Thrash : MonoBehaviour
 
     private void OnMouseDown()
     {
+        _gameManager.ThrashDestroyed();
         Destroy(gameObject);
     }
 }
