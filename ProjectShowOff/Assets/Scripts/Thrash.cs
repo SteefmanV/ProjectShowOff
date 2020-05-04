@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Thrash : MonoBehaviour
 {
-    [SerializeField] private float _fallSpeed = 1;
+    [SerializeField] private float _startFallSpeed = 1;
 
 
     void Update()
     {
         Vector3 position = transform.position;
-        position.y -= _fallSpeed;
+        position.y -= (_startFallSpeed * Time.deltaTime);
         transform.position = position;
     }
 

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6548436452049891918}
   m_Layer: 0
   m_Name: Thrash
-  m_TagString: Untagged
+  m_TagString: thrash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,4 +106,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d77f878f7153c940a781101002321a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fallSpeed: 0.04
+  _startFallSpeed: 3
