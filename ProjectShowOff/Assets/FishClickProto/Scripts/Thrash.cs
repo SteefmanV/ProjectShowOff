@@ -2,35 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Thrash : MonoBehaviour
+namespace clickProto
 {
-    [SerializeField] private float _startFallSpeed = 1;
-    private GameManager _gameManager = null;
-
-    private void Awake()
+    public class Thrash : MonoBehaviour
     {
-        GameObject managerHolder = GameObject.FindGameObjectWithTag("GameManager");
-        if (managerHolder == null)
+        [SerializeField] private float _startFallSpeed = 1;
+        private GameManager _gameManager = null;
+
+        private void Awake()
         {
-            Debug.LogWarning("GameManager gameobject does not exist");
-            return;
+            GameObject managerHolder = GameObject.FindGameObjectWithTag("GameManager");
+            if (managerHolder == null)
+            {
+                Debug.LogWarning("GameManager gameobject does not exist");
+                return;
+            }
+
+            _gameManager = managerHolder.GetComponent<GameManager>();
         }
 
-        _gameManager = managerHolder.GetComponent<GameManager>();
-    }
+
+        void Update()
+        {
+            Vector3 position = transform.position;
+            position.y -= (_startFallSpeed * Time.deltaTime);
+            transform.position = position;
+        }
 
 
-    void Update()
-    {
-        Vector3 position = transform.position;
-        position.y -= (_startFallSpeed * Time.deltaTime);
-        transform.position = position;
-    }
-
-
-    private void OnMouseDown()
-    {
-        _gameManager.ThrashDestroyed();
-        Destroy(gameObject);
+        private void OnMouseDown()
+        {
+            _gameManager.ThrashDestroyed();
+            Destroy(gameObject);
+        }
     }
 }

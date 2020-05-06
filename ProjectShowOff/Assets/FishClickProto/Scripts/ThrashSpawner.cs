@@ -2,38 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThrashSpawner : MonoBehaviour
+namespace clickProto
 {
-    [SerializeField] private GameObject[] _thrashPrefabs = new GameObject[0];
-    [SerializeField] private Vector2 _spawnRange = new Vector2(0,0);
-
-    [SerializeField] private float _spawnTime = 2;
-    [SerializeField] private float _speedupPerSpawn = 0.01f;
-
-    private float _timer = 0;
-
-    void Update()
+    public class ThrashSpawner : MonoBehaviour
     {
-        _timer += Time.deltaTime;
+        [SerializeField] private GameObject[] _thrashPrefabs = new GameObject[0];
+        [SerializeField] private Vector2 _spawnRange = new Vector2(0, 0);
 
-        if(_timer > _spawnTime)
+        [SerializeField] private float _spawnTime = 2;
+        [SerializeField] private float _speedupPerSpawn = 0.01f;
+
+        private float _timer = 0;
+
+        void Update()
         {
-            spawnRandomThrash();
-            _timer = 0;
+            _timer += Time.deltaTime;
 
-            if (_spawnTime < 0.1f) _spawnTime = 0.1f;
+            if (_timer > _spawnTime)
+            {
+                spawnRandomThrash();
+                _timer = 0;
+
+                if (_spawnTime < 0.1f) _spawnTime = 0.1f;
+            }
         }
-    }
 
-    private void spawnRandomThrash()
-    {
-        GameObject thrash = Instantiate(
-            _thrashPrefabs[Random.Range(0, _thrashPrefabs.Length)],
-            new Vector3(Random.Range(_spawnRange.x, _spawnRange.y), 0, 0),
-            Quaternion.identity,
-            this.transform
-         );
+        private void spawnRandomThrash()
+        {
+            GameObject thrash = Instantiate(
+                _thrashPrefabs[Random.Range(0, _thrashPrefabs.Length)],
+                new Vector3(Random.Range(_spawnRange.x, _spawnRange.y), 0, 0),
+                Quaternion.identity,
+                this.transform
+             );
 
-        _spawnTime -= _speedupPerSpawn;
+            _spawnTime -= _speedupPerSpawn;
+        }
     }
 }

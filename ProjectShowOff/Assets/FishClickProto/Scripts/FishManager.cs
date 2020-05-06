@@ -3,33 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class FishManager : MonoBehaviour
+namespace clickProto
 {
-    [SerializeField] private Transform _fishHolder = null;
-    [SerializeField] private GameObject gameOverScreen = null;
-    [SerializeField] private TextMeshProUGUI _fishCount = null;
-
-    public bool gameOver { get; private set; }
-
-    private void Update()
+    public class FishManager : MonoBehaviour
     {
-        updateFishState();
-    }
+        [SerializeField] private Transform _fishHolder = null;
+        [SerializeField] private GameObject gameOverScreen = null;
+        [SerializeField] private TextMeshProUGUI _fishCount = null;
 
-    private void updateFishState()
-    {
-        if (gameOver) return;
+        public bool gameOver { get; private set; }
 
-        _fishCount.text = "Fish: " + getFishCount();
-
-        if(getFishCount() <= 0)
+        private void Update()
         {
-            gameOverScreen.SetActive(true);
+            updateFishState();
         }
-    }
 
-    private int getFishCount()
-    {
-        return _fishHolder.childCount;
+        private void updateFishState()
+        {
+            if (gameOver) return;
+
+            _fishCount.text = "Fish: " + getFishCount();
+
+            if (getFishCount() <= 0)
+            {
+                gameOverScreen.SetActive(true);
+            }
+        }
+
+        private int getFishCount()
+        {
+            return _fishHolder.childCount;
+        }
     }
 }

@@ -2,23 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(Animator))]
-public class Fish : MonoBehaviour
+namespace clickProto
 {
-    private Animator _fishAnim;
-
-    private void Awake()
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Animator))]
+    public class Fish : MonoBehaviour
     {
-        float startTime = Random.Range(0, 10f);
-        _fishAnim = GetComponent<Animator>();
+        private Animator _fishAnim;
 
-        _fishAnim.Play("fishSwim", 0, startTime);
-    }
+        private void Awake()
+        {
+            float startTime = Random.Range(0, 10f);
+            _fishAnim = GetComponent<Animator>();
+
+            _fishAnim.Play("fishSwim", 0, startTime);
+        }
 
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("thrash")) Destroy(transform.parent.gameObject);
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("thrash")) Destroy(transform.parent.gameObject);
+        }
     }
 }
