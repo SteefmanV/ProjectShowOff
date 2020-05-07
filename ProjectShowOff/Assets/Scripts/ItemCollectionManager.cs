@@ -11,7 +11,9 @@ public class ItemCollectionManager : MonoBehaviour
     private List<Item> _justCollected = new List<Item>();
     private PowerUp _powerUp = null;
 
-    [SerializeField] private TextMeshProUGUI _bottleUI = null;
+    [SerializeField] private GameObject bottle1;
+    [SerializeField] private GameObject bottle2;
+    [SerializeField] private GameObject bottle3;
 
 
     private void Start()
@@ -35,6 +37,13 @@ public class ItemCollectionManager : MonoBehaviour
     }
 
 
+    public void ResetCount()
+    {
+        _justCollected.Clear();
+        updateUI();
+    }
+
+
     private void setupItems()
     {
         _itemsCollected.Add(Item.bottle, 0);
@@ -50,8 +59,7 @@ public class ItemCollectionManager : MonoBehaviour
     private bool netPowerUp()
     {
         if(getItemInListCount(Item.bottle) >= 3)
-        {
-            _justCollected.Clear();
+        {           
             _powerUp.ActivateNet();
             return true;
         }
@@ -74,6 +82,13 @@ public class ItemCollectionManager : MonoBehaviour
 
     private void updateUI()
     {
-        _bottleUI.text = getItemInListCount(Item.bottle) + " / 3";
+        bottle1.SetActive(false);
+        bottle2.SetActive(false);
+        bottle3.SetActive(false);
+
+        int count = getItemInListCount(Item.bottle);
+        if (count >= 1) bottle1.SetActive(true);
+        if (count >= 2) bottle2.SetActive(true);
+        if (count >= 3) bottle3.SetActive(true);
     }
 }

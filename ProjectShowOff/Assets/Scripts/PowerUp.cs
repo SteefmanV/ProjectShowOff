@@ -6,12 +6,15 @@ public class PowerUp : MonoBehaviour
 {
     [SerializeField] private NetPowerUp _netPowerUp = null;
 
-    private PlayerMovement _playerMovement;
+    private PlayerMovement _playerMovement = null;
+    private ItemCollectionManager _itemCollection = null;
     private bool activateNetNextJump = false;
 
 
     private void Awake()
     {
+        _itemCollection = FindObjectOfType<ItemCollectionManager>();
+
         _playerMovement = FindObjectOfType<PlayerMovement>();
         _playerMovement.startJump += OnStartJump;
         _playerMovement.endJump += OnEndJump;
@@ -38,6 +41,7 @@ public class PowerUp : MonoBehaviour
         {
             _netPowerUp.stopNet(pPosition);
             activateNetNextJump = false;
+            _itemCollection.ResetCount();
         }
     }
 

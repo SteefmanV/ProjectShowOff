@@ -43,6 +43,6 @@ public class NetPowerUp : MonoBehaviour
         netRotation.z = angle;
         netObject.transform.rotation = Quaternion.Euler(netRotation);
 
-        netObject.transform.localScale = new Vector3(direction.magnitude, .2f, 1);
+        netObject.transform.localScale = new Vector3(direction.magnitude, .2f, .2f);
     }
 }
