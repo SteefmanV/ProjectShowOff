@@ -4,63 +4,42 @@ using System.Net;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(LineRenderer))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float _shootSpeed = 1;
+    [Header("Shoot settings")]
+    [SerializeField] private float _shootStrength = 1;
+    [SerializeField] private float _maximumShootSpeed = 10;
+
+    [Header("Drag / Trail settings")]
+    [SerializeField] private float _minimumDragLength = 1;
+    [SerializeField] private float _dragTrailOffsetStrength = 0.1f;
+
     private Rigidbody _rb = null;
+    private LineRenderer _lineRender;
+    private Camera _camera;
+    private bool _isDragging = false;
 
-    [SerializeField] private Vector2 minPower;
-    [SerializeField] private Vector2 maxPower;
-    [SerializeField] private LineRenderer _lineRender;
-
-    private Vector3 startPosition;
-    private Vector3 endPosition;
-    private Vector2 force;
-    private Camera cam;
-    private bool isDragging = false;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        cam = Camera.main;
+        _lineRender = GetComponent<LineRenderer>();
+        _camera = Camera.main;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        //arrowPos();
         dragAndShoot();
-
-        Debug.Log("Is mouse over object? " + isMouseOverObject());
     }
 
 
-    //private void arrowPos()
-    //{
-    //    float degAngle = Mathf.Rad2Deg * angleBetweenMouseAndObject();
-    //    Vector3 currentRotation = _arrowObject.transform.rotation.eulerAngles;
-    //    _arrowObject.transform.rotation = Quaternion.Euler(currentRotation.x, currentRotation.y, degAngle);
-    //}
-
-
-    private float angleBetweenMouseAndObject()
-    {
-        Vector2 objPos = Camera.main.WorldToScreenPoint(transform.position);
-        Vector2 mousePos = Input.mousePosition;
-        return Mathf.Atan2(mousePos.y - objPos.y, mousePos.x - objPos.x);
-    }
-
-
-    private Vector2 direction()
-    {
-        Vector2 deltaPos = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-        return deltaPos.normalized;
-    }
-
-
+    /// <summary>
+    /// Handle Player collision
+    /// </summary>
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("collision");
         if (collision.gameObject.CompareTag("sticky"))
         {
             _rb.velocity = Vector3.zero;
@@ -68,60 +47,99 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void clickAndShoot()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (_rb.velocity.magnitude < 0.01f)
-            {
-                _rb.AddForce(direction() * _shootSpeed, ForceMode.Force);
-            }
-        }
-    }
-
-
+    /// <summary>
+    /// Update drag and shoot mechanic
+    /// </summary>
     private void dragAndShoot()
     {
-        // Start drag
-        if (Input.GetMouseButtonDown(0) && isMouseOverObject())
+        if (Input.GetMouseButtonDown(0) && isMouseOverObject()) // Drag start
         {
             if (_rb.velocity.magnitude < 0.01f)
             {
-                isDragging = true;
-                startPosition = transform.position;
-                startPosition.z = -1;
-                _lineRender.positionCount = 2;
-                _lineRender.SetPosition(0, startPosition);
+                _isDragging = true;
+                dragStart();
             }
         }
 
-        if (isDragging)
+        if (_isDragging)
         {
-            // Update drag line
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0)) // Drag stay
             {
-                Vector3 mouse = cam.ScreenToWorldPoint(Input.mousePosition);
-                mouse.z = -1;
-                _lineRender.SetPosition(1, mouse);
-                _lineRender.SetPosition(0, startPosition);
+                dragUpdate();
             }
 
-            // Drag stop
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0)) // Drag Stop
             {
-                if (!isMouseOverObject())
-                {
-                    endPosition = cam.ScreenToWorldPoint(Input.mousePosition);
-                    force = new Vector2(Mathf.Clamp(startPosition.x - endPosition.x, minPower.x, maxPower.x), Mathf.Clamp(startPosition.y - endPosition.y, minPower.y, maxPower.y));
-                    _rb.AddForce(force * _shootSpeed, ForceMode.Impulse);
-                }
-
-                _lineRender.positionCount = 0;
-
-                isDragging = false;
+                dragStop();
+                _isDragging = false;
             }
         }
     }
+
+
+    /// <summary>
+    /// Setup startPosition and Linerender 
+    /// </summary>
+    private void dragStart()
+    {
+        Vector3 startPos = transform.position;
+        startPos.z = -1;
+
+        _lineRender.positionCount = 2;
+        _lineRender.SetPosition(0, startPos);
+    }
+
+
+    /// <summary>
+    /// Update drag linerender
+    /// </summary>
+    private void dragUpdate()
+    {
+        Vector3 startPos = transform.position;
+        Vector3 mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
+        startPos.z = -1;
+        mouse.z = -1;
+
+        Vector3 delta = mouse - startPos;
+
+        if (delta.magnitude > _minimumDragLength)
+        {
+            _lineRender.positionCount = 2;
+            _lineRender.SetPosition(0, startPos + delta.normalized * _dragTrailOffsetStrength);
+            _lineRender.SetPosition(1, mouse);
+        }
+        else _lineRender.positionCount = 0;
+    }
+
+
+    /// <summary>
+    /// Drag stop, shoot player (if able) and clear linerender
+    /// </summary>
+    private void dragStop()
+    {
+        if (!isMouseOverObject())
+        {
+            Vector3 endPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 shootForce = _shootStrength * new Vector2(transform.position.x - endPosition.x, transform.position.y - endPosition.y);
+
+            Vector3 mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
+            mouse.z = -1;
+            Vector3 delta = mouse - transform.position;
+
+            if (delta.magnitude > _minimumDragLength)
+            {
+                if (shootForce.magnitude > _maximumShootSpeed)
+                {
+                    shootForce = shootForce.normalized * _maximumShootSpeed; // Limit shoot speed
+                }
+
+                _rb.AddForce(shootForce, ForceMode.Impulse);
+            }
+        }
+
+        _lineRender.positionCount = 0;
+    }
+
 
     /// <summary>
     /// Return true if the mouse is hovering over this gameObject
@@ -137,4 +155,42 @@ public class PlayerMovement : MonoBehaviour
 
         return false;
     }
+
+
+
+    #region ClickAndShoot
+    //Leggacy, not used anymore
+    private void clickAndShoot()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (_rb.velocity.magnitude < 0.01f)
+            {
+                _rb.AddForce(direction() * _shootStrength, ForceMode.Force);
+            }
+        }
+    }
+
+    private void arrowPos()
+    {
+        float degAngle = Mathf.Rad2Deg * angleBetweenMouseAndObject();
+        //Vector3 currentRotation = _arrowObject.transform.rotation.eulerAngles;
+        // _arrowObject.transform.rotation = Quaternion.Euler(currentRotation.x, currentRotation.y, degAngle);
+    }
+
+
+    private float angleBetweenMouseAndObject()
+    {
+        Vector2 objPos = Camera.main.WorldToScreenPoint(transform.position);
+        Vector2 mousePos = Input.mousePosition;
+        return Mathf.Atan2(mousePos.y - objPos.y, mousePos.x - objPos.x);
+    }
+
+
+    private Vector2 direction()
+    {
+        Vector2 deltaPos = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+        return deltaPos.normalized;
+    }
+    #endregion
 }
