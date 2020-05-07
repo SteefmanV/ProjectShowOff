@@ -443,12 +443,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d2c1f65e2d90e2448cd766a02b832a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrashObjects:
-  - {fileID: 1295525259969906772, guid: f9ad1563e2e3b0344b69f920747c473c, type: 3}
-  _timeBetweenSpawns: 3
-  _timeDecreasementPerSpawn: 0.8
+  state: 0
+  _spawnWaves:
+  - {fileID: 11400000, guid: 72b3a40aa8ffe284f9c51dd12abfa359, type: 2}
+  - {fileID: 11400000, guid: 89d812315640ad5419e7dea980172ea9, type: 2}
+  - {fileID: 11400000, guid: 809b20d6f5cbcdb4ea3a03a020291f48, type: 2}
+  - {fileID: 11400000, guid: 2ecf18c7ee42d874f9cef5e552565187, type: 2}
+  - {fileID: 11400000, guid: 44756386faef63c4f8a6a83685a35e3c, type: 2}
+  _timeBetweenWaves: 10
   minMaxX: {x: -5.7, y: 4.7}
   spawnHeight: 8
+  currentWaveNumber: 0
+  _timer: 0
+  _timeToCurrentSpawn: 0
+  currentObjectCount: 0
 --- !u!1 &280451415
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,6 +23,7 @@ public class Thrash : MonoBehaviour
         _rb.AddForce(new Vector3(0, _startFallSpeed, 0), ForceMode.Force);
     }
 
+
     private void Update()
     {
         minimumForce = new Vector3(0, _startFallSpeed * _minForcePercentage, 0);

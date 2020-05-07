@@ -1,38 +1,155 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class ThrashSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] thrashObjects = new GameObject[0];
+    private enum SpawnerState { idle, waitingForNextWave, spawningObjects }
+    [SerializeField] private SpawnerState state = SpawnerState.idle;
+    [SerializeField] private List<Wave> _spawnWaves = new List<Wave>();
+    private Wave currentWave;
 
     [Header("Spawn Settings")]
-    [SerializeField] private float _timeBetweenSpawns = 2;
-    [SerializeField] private float _timeDecreasementPerSpawn = 0.1f;
+    [SerializeField] private float _timeBetweenWaves = 2;
 
     [Header("Spawn Position")]
-    [SerializeField] private Vector2 minMaxX = new Vector2(0,0);
+    [SerializeField] private Vector2 minMaxX = new Vector2(0, 0);
     [SerializeField] private float spawnHeight = 0;
 
-    private float _timer;
+    [Header("System Information, don't touch")]
+    [SerializeField] private int currentWaveNumber = 0;
+    [SerializeField] private float _timer = 0;
+    [SerializeField] private float _timeToCurrentSpawn = 0;
 
+    [SerializeField] private int currentObjectCount = 0;
+
+    private void Start()
+    {
+        StartSpawning();
+    }
     private void Update()
     {
-        _timer += Time.deltaTime;
+        updateState();
+    }
 
-        if(_timer > _timeBetweenSpawns)
+
+    /// <summary>
+    /// Start spawn system
+    /// </summary>
+    public void StartSpawning()
+    {
+        Debug.Log("<color=green><b> Spawn system enabled! </b></color>");
+
+        if (!prepareNextWave()) StopSpawning();
+        else state = SpawnerState.spawningObjects;
+    }
+
+
+    /// <summary>
+    /// Stop spawn system
+    /// </summary>
+    public void StopSpawning()
+    {
+        Debug.Log("<color=red><b> Stopped spawn system... </b></color>");
+        state = SpawnerState.idle;
+    }
+
+
+    /// <summary>
+    /// Update Finite state
+    /// </summary>
+    private void updateState()
+    {
+        _timer += Time.deltaTime;
+        switch (state)
         {
-            SpawnRandomThrash();
-            _timer = 0;
-            _timeBetweenSpawns -= _timeDecreasementPerSpawn;
-            if (_timeBetweenSpawns < .2f) _timeBetweenSpawns = .2f;
+            case SpawnerState.idle:
+                // do nothing
+                break;
+            case SpawnerState.spawningObjects:
+                if (_timer > _timeToCurrentSpawn)
+                {
+                    if (currentObjectCount < currentWave.objectCount)
+                    {
+                        SpawnRandomThrash(currentWave.Objects);
+                        prepareNextSpawn();
+                    }
+                    else
+                    {
+                        if (!prepareNextWave()) StopSpawning();
+                    }
+                }
+                break;
+            case SpawnerState.waitingForNextWave:
+                if (_timer > _timeBetweenWaves)
+                {
+                    startNextWave();
+                }
+                break;
         }
     }
 
-    private void SpawnRandomThrash()
+
+    /// <summary>
+    /// Spawns an random object
+    /// </summary>
+    private void SpawnRandomThrash(GameObject[] objects)
     {
-        GameObject randomObject = thrashObjects[Random.Range(0, thrashObjects.Length)];
+        GameObject randomObject = objects[Random.Range(0, objects.Length)];
+
         Vector3 randomPosition = new Vector3(Random.Range(minMaxX.x, minMaxX.y), spawnHeight, 0);
+        Debug.Log("<color=orange><b> Spawn: " + randomObject.name + "</b></color>");
         Instantiate(randomObject, randomPosition, Quaternion.identity, transform);
+    }
+
+
+    /// <summary>
+    /// Setup settings for the next spawn
+    /// </summary>
+    private void prepareNextSpawn()
+    {
+        _timeToCurrentSpawn = currentWave.timeBetweenSpawn - Random.Range(currentWave.minMaxTimeRandomeness.x, currentWave.minMaxTimeRandomeness.y);
+        _timer = 0;
+        currentObjectCount++;
+
+        Debug.Log("<color=orange><b> Next object in: " + _timeToCurrentSpawn + " (" + currentObjectCount + " / " + currentWave.objectCount + ") </b></color>");
+    }
+
+    /// <summary>
+    /// Prepare Next Wave 
+    /// </summary>
+    /// <returns> false if no more waves are available </returns>
+    private bool prepareNextWave()
+    {
+        currentWaveNumber += 1;
+        if (currentWaveNumber > _spawnWaves.Count)
+        {
+            Debug.Log("<color=red><b> No more waves available... </b></color>");
+            return false;
+        }
+
+        currentObjectCount = 0;
+        _timer = 0;
+        currentObjectCount = 0;
+        state = SpawnerState.waitingForNextWave;
+        currentWave = _spawnWaves[currentWaveNumber - 1];
+
+        Debug.Log("<color=orange><b> Spawning wave completed, wait for next wave </b></color>");
+
+        return true;
+    }
+
+
+    /// <summary>
+    /// Start Next Wave 
+    /// </summary>
+    /// <returns> false if no more waves are available </returns>
+    private void startNextWave()
+    {
+        currentWave = _spawnWaves[currentWaveNumber - 1];
+        Debug.Log("<color=orange><b>==========| -=< NEW WAVE( " + currentWaveNumber.ToString() + " ) >=- |==========</b></color>");
+        prepareNextSpawn();
+        state = SpawnerState.spawningObjects;
     }
 }
