@@ -5,16 +5,20 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Thrash : MonoBehaviour
 {
+    [SerializeField] private ItemCollectionManager.Item thrashType;
+
     [SerializeField] private float _startFallSpeed = 1;
     [SerializeField] private Rigidbody _rb = null;
     [SerializeField] private float _minForcePercentage = 0.2f;
 
     [SerializeField] private Vector3 minimumForce;
+    private ItemCollectionManager _powerUpManager;
+
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-
+        _powerUpManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ItemCollectionManager>();
     }
 
 
@@ -37,8 +41,9 @@ public class Thrash : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
+            _powerUpManager.CollectedItem(thrashType);
             Destroy(gameObject);
         }
     }

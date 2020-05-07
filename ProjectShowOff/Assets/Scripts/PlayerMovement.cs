@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
@@ -7,6 +8,9 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class PlayerMovement : MonoBehaviour
 {
+    public event EventHandler<Vector3> startJump;
+    public event EventHandler<Vector3> endJump;
+
     [Header("Shoot settings")]
     [SerializeField] private float _shootStrength = 1;
     [SerializeField] private float _maximumShootSpeed = 10;
@@ -14,6 +18,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Drag / Trail settings")]
     [SerializeField] private float _minimumDragLength = 1;
     [SerializeField] private float _dragTrailOffsetStrength = 0.1f;
+    [SerializeField] private float _dragThresholdSpeed = 0.1f; // If the player moves slower than this speed, allow to shoot
+
+    [Header("Extra info, don't touch")]
+    [SerializeField] private float _movingSpeed = 0;
 
     private Rigidbody _rb = null;
     private LineRenderer _lineRender;
@@ -43,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("sticky"))
         {
             _rb.velocity = Vector3.zero;
+            endJump?.Invoke(this, transform.position);
         }
     }
 
@@ -52,9 +61,11 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void dragAndShoot()
     {
+        _movingSpeed = _rb.velocity.magnitude;
+
         if (Input.GetMouseButtonDown(0) && isMouseOverObject()) // Drag start
         {
-            if (_rb.velocity.magnitude < 0.01f)
+            if (_rb.velocity.magnitude < _dragThresholdSpeed)
             {
                 _isDragging = true;
                 dragStart();
@@ -133,7 +144,8 @@ public class PlayerMovement : MonoBehaviour
                     shootForce = shootForce.normalized * _maximumShootSpeed; // Limit shoot speed
                 }
 
-                _rb.AddForce(shootForce, ForceMode.Impulse);
+                startJump?.Invoke(this, transform.position);
+                _rb.AddForce(shootForce, ForceMode.Impulse);               
             }
         }
 
