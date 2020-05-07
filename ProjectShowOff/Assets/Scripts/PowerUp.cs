@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
+    [Required, SceneObjectsOnly]
     [SerializeField] private NetPowerUp _netPowerUp = null;
 
     private PlayerMovement _playerMovement = null;

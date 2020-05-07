@@ -5,13 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Thrash : MonoBehaviour
 {
+    [Header("Thrash Settings")]
     [SerializeField] private ItemCollectionManager.Item thrashType;
-
     [SerializeField] private float _startFallSpeed = 1;
-    [SerializeField] private Rigidbody _rb = null;
-    [SerializeField] private float _minForcePercentage = 0.2f;
 
-    [SerializeField] private Vector3 minimumForce;
+    [SerializeField, Tooltip("This is minimum movespeed,  % of the _startFallSpeed ")] 
+    private float _minForcePercentage = 0.2f;
+    
+    private Rigidbody _rb = null;
     private ItemCollectionManager _powerUpManager;
 
 
@@ -30,7 +31,7 @@ public class Thrash : MonoBehaviour
 
     private void Update()
     {
-        minimumForce = new Vector3(0, _startFallSpeed * _minForcePercentage, 0);
+        Vector3 minimumForce = new Vector3(0, _startFallSpeed * _minForcePercentage, 0);
 
         if (_rb.velocity.magnitude < minimumForce.magnitude)
         {

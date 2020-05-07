@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class NetPowerUp : MonoBehaviour
 {
+    [Required("Please add a Net prefab")]
     [SerializeField] private GameObject _netPrefab = null;
-    public bool netActive = false;
+    [ReadOnly] public bool netActive = false;
     private Vector3 netStartPos = new Vector3();
     private Vector3 netStopPos = new Vector3();
 

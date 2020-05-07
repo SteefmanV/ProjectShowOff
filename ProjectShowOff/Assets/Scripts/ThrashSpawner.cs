@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
@@ -6,7 +7,6 @@ using UnityEngine;
 public class ThrashSpawner : MonoBehaviour
 {
     private enum SpawnerState { idle, waitingForNextWave, spawningObjects }
-    [SerializeField] private SpawnerState state = SpawnerState.idle;
     [SerializeField] private List<Wave> _spawnWaves = new List<Wave>();
     private Wave currentWave;
 
@@ -17,17 +17,33 @@ public class ThrashSpawner : MonoBehaviour
     [SerializeField] private Vector2 minMaxX = new Vector2(0, 0);
     [SerializeField] private float spawnHeight = 0;
 
-    [Header("System Information, don't touch")]
-    [SerializeField] private int currentWaveNumber = 0;
-    [SerializeField] private float _timer = 0;
-    [SerializeField] private float _timeToCurrentSpawn = 0;
 
-    [SerializeField] private int currentObjectCount = 0;
+    [FoldoutGroup("Spawner Information"), SerializeField, ReadOnly]
+    private SpawnerState state = SpawnerState.idle;
+
+    [FoldoutGroup("Spawner Information"), SerializeField, ReadOnly]
+    private int currentWaveNumber = 0;
+
+    [FoldoutGroup("Spawner Information"), SerializeField, ReadOnly]
+    private float _timer = 0;
+
+    [FoldoutGroup("Spawner Information"), SerializeField, ReadOnly]
+    private float _timeToCurrentSpawn = 0;
+
+    [FoldoutGroup("Spawner Information"), SerializeField, ReadOnly, ProgressBar(0, "objectsThisWave")]
+    private int currentObjectCount = 0;
+
+    [BoxGroup("Dynamic Range")]
+    private int objectsThisWave;
+
+
 
     private void Start()
     {
         StartSpawning();
     }
+
+
     private void Update()
     {
         updateState();
@@ -94,9 +110,9 @@ public class ThrashSpawner : MonoBehaviour
     /// <summary>
     /// Spawns an random object
     /// </summary>
-    private void SpawnRandomThrash(GameObject[] objects)
+    private void SpawnRandomThrash(List<GameObject> objects)
     {
-        GameObject randomObject = objects[Random.Range(0, objects.Length)];
+        GameObject randomObject = objects[Random.Range(0, objects.Count)];
 
         Vector3 randomPosition = new Vector3(Random.Range(minMaxX.x, minMaxX.y), spawnHeight, 0);
         Debug.Log("<color=orange><b> Spawn: " + randomObject.name + "</b></color>");
@@ -134,6 +150,7 @@ public class ThrashSpawner : MonoBehaviour
         currentObjectCount = 0;
         state = SpawnerState.waitingForNextWave;
         currentWave = _spawnWaves[currentWaveNumber - 1];
+        objectsThisWave = currentWave.objectCount;
 
         Debug.Log("<color=orange><b> Spawning wave completed, wait for next wave </b></color>");
 

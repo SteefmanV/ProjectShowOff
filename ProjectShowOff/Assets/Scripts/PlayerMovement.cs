@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -20,13 +21,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _dragTrailOffsetStrength = 0.1f;
     [SerializeField] private float _dragThresholdSpeed = 0.1f; // If the player moves slower than this speed, allow to shoot
 
-    [Header("Extra info, don't touch")]
-    [SerializeField] private float _movingSpeed = 0;
+    [TitleGroup("Movement Information")]
+    [SerializeField, ReadOnly] private float _movingSpeed = 0;
 
+    [SerializeField, ReadOnly] private bool _isDragging = false;
     private Rigidbody _rb = null;
     private LineRenderer _lineRender;
     private Camera _camera;
-    private bool _isDragging = false;
 
 
     void Awake()
