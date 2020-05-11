@@ -14,12 +14,15 @@ public class Thrash : MonoBehaviour
     
     private Rigidbody _rb = null;
     private ItemCollectionManager _powerUpManager;
+    private ScoreManager _scoreManager;
 
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _powerUpManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ItemCollectionManager>();
+        GameObject gameManager = GameObject.FindGameObjectWithTag("GameManager");
+        _powerUpManager = gameManager.GetComponent<ItemCollectionManager>();
+        _scoreManager = gameManager.GetComponent<ScoreManager>();
     }
 
 
@@ -45,6 +48,7 @@ public class Thrash : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             _powerUpManager.CollectedItem(thrashType);
+            _scoreManager.ThrashDestroyed();
             Destroy(gameObject);
         }
     }

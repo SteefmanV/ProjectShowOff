@@ -1,7 +1,5 @@
 ﻿using Sirenix.OdinInspector;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class ThrashSpawner : MonoBehaviour
@@ -36,10 +34,12 @@ public class ThrashSpawner : MonoBehaviour
     [BoxGroup("Dynamic Range")]
     private int objectsThisWave;
 
-
+    private GameManager _gameManager;
 
     private void Start()
     {
+        _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
         StartSpawning();
     }
 
@@ -142,6 +142,7 @@ public class ThrashSpawner : MonoBehaviour
         if (currentWaveNumber > _spawnWaves.Count)
         {
             Debug.Log("<color=red><b> No more waves available... </b></color>");
+            _gameManager.GameWon();
             return false;
         }
 

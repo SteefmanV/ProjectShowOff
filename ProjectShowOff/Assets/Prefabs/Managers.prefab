@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 996405564823753624}
   - component: {fileID: 996405564823753625}
+  - component: {fileID: 7849662949339538595}
   - component: {fileID: 996405564823753606}
+  - component: {fileID: 8161966764526716548}
   m_Layer: 0
   m_Name: Managers
   m_TagString: GameManager
@@ -44,7 +46,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39b58955d7fc374f9fa07761246f061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bottleUI: {fileID: 0}
+  bottle1: {fileID: 0}
+  bottle2: {fileID: 0}
+  bottle3: {fileID: 0}
+--- !u!114 &7849662949339538595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996405564823753627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7712787d28d2e22409c5b9a478e6ebd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scorePerThrash: 0
+  _scoreUI: {fileID: 0}
 --- !u!114 &996405564823753606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,3 +78,16 @@ MonoBehaviour:
   _netPrefab: {fileID: 7993722373040090991, guid: 542a55decc17702498d580968df60113,
     type: 3}
   netActive: 0
+--- !u!114 &8161966764526716548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996405564823753627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb4babf6abe13614382fa0e67b0d0240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishHolder: {fileID: 0}
