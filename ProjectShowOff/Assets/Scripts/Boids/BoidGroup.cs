@@ -14,10 +14,10 @@ public class BoidGroup : MonoBehaviour
     public bool randomTarget = true;
 
 
-    [Title("Fish Settings")]
+    [Title("Boid parameters")]
     [ShowInInspector] public float rotationSpeed { get; private set; } = 4.0f;
-    [ShowInInspector] public float neighbourDistanceThrashhold { get; private set; } = 3;
-    [ShowInInspector] public Vector2 minMaxFishSpeed { get; private set; } = new Vector3(0.5f, 1);
+    [ShowInInspector] public Vector2 minMaxFishSpeed { get; private set; } = new Vector3(0.5f, 10);
+    public float groupRange = 3f;
 
 
     private void Awake()
