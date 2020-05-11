@@ -30,6 +30,12 @@ public class PowerUp : MonoBehaviour
     }
 
 
+    public void ActivateBubblePack()
+    {
+        // do you powerup
+    }
+
+
     private void OnStartJump(object pSender, Vector3 pPosition)
     {
         if (activateNetNextJump) _netPowerUp.startNet(pPosition);
@@ -46,7 +52,4 @@ public class PowerUp : MonoBehaviour
             _itemCollection.ResetCount();
         }
     }
-
-
-
 }

@@ -6,7 +6,7 @@ using UnityEngine.PlayerLoop;
 
 public class ItemCollectionManager : MonoBehaviour
 {
-    public enum Item { bottle }
+    public enum Item { bottle, rings, straw }
     private Dictionary<Item, int> _itemsCollected = new Dictionary<Item, int>();
     private List<Item> _justCollected = new List<Item>();
     private PowerUp _powerUp = null;
@@ -47,12 +47,15 @@ public class ItemCollectionManager : MonoBehaviour
     private void setupItems()
     {
         _itemsCollected.Add(Item.bottle, 0);
+        _itemsCollected.Add(Item.rings, 0);
+        _itemsCollected.Add(Item.straw, 0);
     }
 
 
     private void checkForPowerUp()
     {
         if (netPowerUp()) return;
+        else if(bubblePackPowerUp()) return;
     }
 
 
@@ -61,6 +64,18 @@ public class ItemCollectionManager : MonoBehaviour
         if(getItemInListCount(Item.bottle) >= 3)
         {           
             _powerUp.ActivateNet();
+            return true;
+        }
+
+        return false;
+    }
+
+
+    private bool bubblePackPowerUp()
+    {
+        if (getItemInListCount(Item.bottle) >= 1 && getItemInListCount(Item.rings) >= 1)
+        {
+            _powerUp.ActivateBubblePack();
             return true;
         }
 
