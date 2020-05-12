@@ -1,165 +1,95 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
-namespace oldBoids
+public class Boid : MonoBehaviour
 {
-    public class Boid : MonoBehaviour
+    private BoidSettings _settings;
+    private Transform _target;
+    private Vector3 _velocity;
+
+
+    /// <summary>
+    /// Set settings and target
+    /// </summary>
+    public void Initialize(BoidSettings pBoidSettings, Transform pTarget)
     {
-        public float speed = 0.001f;
+        _settings = pBoidSettings;
+        _target = pTarget;
+        _velocity = transform.forward * ((_settings.minSpeed + _settings.maxSpeed) / 2);
+    }
 
-        private BoidGroup _group;
-        private Camera _cam;
-        bool turning = false;
 
-        private void Awake()
+    /// <summary>
+    /// Perform boid algorithm 
+    /// </summary>
+    public void UpdateBoid(BoidData pBoidData)
+    {
+        Vector3 acceleration = Vector3.zero;
+
+        if (_target != null)
         {
-            _group = GetComponentInParent<BoidGroup>();
-            _cam = Camera.main;
-            setRandomdirection();
-
-            speed = Random.Range(_group.minMaxFishSpeed.x, _group.minMaxFishSpeed.y);
+            acceleration = turnTowards(_target.position - transform.position) * _settings.targetStrength; // Turn towards target
         }
 
-        public Vector3 GetDirection()
+        if (pBoidData.flockSize != 0)
         {
-            return transform.forward;
+            pBoidData.flockCentre /= pBoidData.flockSize;
+
+            acceleration += turnTowards(pBoidData.flockDirection) * _settings.alignStrength; // allignment
+            acceleration += turnTowards(pBoidData.flockCentre - transform.position) * _settings.cohesionStrength; // Cohesion
+            acceleration += turnTowards(pBoidData.avoidDirection) * _settings.seperationStrength; // seperation
         }
 
-
-        private void Update()
+        if (isCloseToCollision()) // First perform low cost check
         {
-            //turning = (Vector3.Distance(transform.position, Vector3.zero) >= _group.tankSize);
-
-            //if (turning)
-            //{
-            //    Vector3 direction = Vector3.zero - transform.position;
-            //    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), _group.rotationSpeed * Time.deltaTime);
-            //    speed = Random.Range(_group.minMaxFishSpeed.x, _group.minMaxFishSpeed.y);
-            //}
-            //else
-            //{
-            //    if (Random.Range(0, 5) < 1) applyRules();
-            //}
-
-            simulateBoid();
-            move();
-            // outOfScreenCheck();
+            Vector3 collisionAvoidDir = getObstacleDirection(); // More expensive high precission check
+            Vector3 collisionAvoidForce = turnTowards(collisionAvoidDir) * _settings.avoidCollisionWeight;
+            acceleration += collisionAvoidForce;
         }
+        
+        _velocity += acceleration * Time.deltaTime;
+        _velocity = _velocity.normalized * Mathf.Clamp(_velocity.magnitude, _settings.minSpeed, _settings.maxSpeed); // move direction * clamped speed
+        transform.forward = _velocity.normalized;
+
+        transform.position += _velocity * Time.deltaTime;
+    }
 
 
-        private void move()
+
+    private Vector3 turnTowards(Vector3 vector)
+    {
+        Vector3 turnedVector = vector.normalized * _settings.maxSpeed - _velocity;
+        return Vector3.ClampMagnitude(turnedVector, _settings.maxTurnForce);
+    }
+
+
+    private bool isCloseToCollision()
+    {
+        return (Physics.SphereCast(transform.position, _settings.boundsRadius, transform.forward, out RaycastHit hit, _settings.collisionThreshold, _settings.obstacleLayer));
+    }
+
+
+    /// <summary>
+    /// Return obstacle direction
+    /// </summary>
+    private Vector3 getObstacleDirection()
+    {
+        Vector3[] rayDirections = FibonacciSphere.pointsAroundSphere;
+
+        for (int i = 0; i < rayDirections.Length; i++)
         {
-            transform.Translate(0, 0, Time.deltaTime * speed);
-        }
-
-
-        private void simulateBoid()
-        {
-            Vector3 boidDirection = Allign();
-            if (boidDirection != Vector3.zero) transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(boidDirection), _group.rotationSpeed * Time.deltaTime);
-        }
-
-
-        private void setRandomdirection()
-        {
-            transform.position = new Vector3(Random.Range(-_group.tankSize, _group.tankSize), Random.Range(-_group.tankSize, _group.tankSize), Random.Range(-_group.tankSize, _group.tankSize));
-            transform.rotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
-        }
-
-
-        private void outOfScreenCheck()
-        {
-            Vector3 position = transform.position;
-            float maxY = _cam.transform.position.y + _cam.orthographicSize;
-            float maxX = _cam.transform.position.x + (_cam.orthographicSize * ((float)Screen.width / (float)Screen.height));
-            float maxZ = 10;
-
-            if (position.y > maxY) position.y = -maxY;
-            else if (position.y < -maxY) position.y = maxY;
-            else if (position.x > maxX) position.x = -maxX;
-            else if (position.x < -maxX) position.x = maxX;
-            else if (position.z > maxZ) position.z = 0;
-            else if (position.z < 0) position.z = maxZ;
-
-            transform.position = position;
-        }
-
-
-        private void applyRules()
-        {
-            Boid[] boids = _group.boids.ToArray();
-
-            Vector3 groupCenter = Vector3.zero;
-            Vector3 vavoid = Vector3.zero;
-            float totalGroupSpeed = 0.1f;
-
-            int groupSize = 0;
-
-            foreach (Boid otherBoid in boids)
+            Vector3 direction = transform.TransformDirection(rayDirections[i]);
+            //Debug.DrawRay(transform.position, direction, Color.green, _settings.boundsRadius);
+            Ray ray = new Ray(transform.position, direction);
+            if (!Physics.SphereCast(ray, _settings.boundsRadius, _settings.collisionThreshold, _settings.obstacleLayer)) // If ray hit obstacle
             {
-                if (otherBoid != this)
-                {
-                    float distance = Vector3.Distance(otherBoid.transform.position, transform.position);
-
-                    if (distance <= _group.groupRange)
-                    {
-                        if (distance < 1) vavoid = vavoid += (transform.position - otherBoid.transform.position);
-
-                        groupCenter += otherBoid.transform.position;
-                        totalGroupSpeed = totalGroupSpeed + otherBoid.speed;
-                        groupSize++;
-                    }
-                }
-            }
-
-            if (groupSize > 0)
-            {
-                groupCenter = groupCenter / groupSize + (_group.targetPosition - transform.position);
-                speed = totalGroupSpeed / groupSize;
-
-                Vector3 direction = (groupCenter + vavoid) - transform.position;
-                if (direction != Vector3.zero)
-                {
-                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), _group.rotationSpeed * Time.deltaTime);
-                }
+                //Debug.DrawRay(transform.position, direction, Color.red, _settings.boundsRadius);
+                return direction;
             }
         }
 
-
-        /// <summary>
-        /// Return the steering direction
-        /// </summary>
-        /// <returns></returns>
-        private Vector3 Allign()
-        {
-            Boid[] boids = _group.boids.ToArray();
-            Vector3 avrgGroupDirection = Vector3.zero;
-            int boidCount = 0;
-
-            foreach (Boid other in boids)
-            {
-                if (other != this)
-                {
-                    float dis = Vector3.Distance(this.transform.position, other.transform.position);
-                    if (dis < _group.groupRange)
-                    {
-                        //avrgGroupDirection += other.transform.position;
-                        avrgGroupDirection += other.GetDirection();
-                        boidCount++;
-                    }
-                }
-            }
-
-
-            if (boidCount > 0)
-            {
-                avrgGroupDirection += (_group.targetPosition - transform.position);
-                avrgGroupDirection = avrgGroupDirection / boidCount;
-            }
-
-            return avrgGroupDirection - transform.position;
-        }
+        return transform.forward;
     }
 }
