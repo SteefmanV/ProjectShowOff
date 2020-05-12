@@ -45,7 +45,7 @@ public class Boid : MonoBehaviour
         if (isCloseToCollision()) // First perform low cost check
         {
             Vector3 collisionAvoidDir = getObstacleDirection(); // More expensive high precission check
-            Vector3 collisionAvoidForce = turnTowards(collisionAvoidDir) * _settings.avoidCollisionWeight;
+            Vector3 collisionAvoidForce = turnTowards(collisionAvoidDir) * _settings.avoidCollisionStrength;
             acceleration += collisionAvoidForce;
         }
         
@@ -81,11 +81,11 @@ public class Boid : MonoBehaviour
         for (int i = 0; i < rayDirections.Length; i++)
         {
             Vector3 direction = transform.TransformDirection(rayDirections[i]);
-            //Debug.DrawRay(transform.position, direction, Color.green, _settings.boundsRadius);
+            Debug.DrawRay(transform.position, direction, Color.green, _settings.boundsRadius);
             Ray ray = new Ray(transform.position, direction);
             if (!Physics.SphereCast(ray, _settings.boundsRadius, _settings.collisionThreshold, _settings.obstacleLayer)) // If ray hit obstacle
             {
-                //Debug.DrawRay(transform.position, direction, Color.red, _settings.boundsRadius);
+                Debug.DrawRay(transform.position, direction, Color.red, _settings.boundsRadius);
                 return direction;
             }
         }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class ThrashSpawner : MonoBehaviour
 {
     private enum SpawnerState { idle, waitingForNextWave, spawningObjects }
+    [SerializeField] private bool _log = false;
     [SerializeField] private List<Wave> _spawnWaves = new List<Wave>();
     private Wave currentWave;
 
@@ -55,7 +56,7 @@ public class ThrashSpawner : MonoBehaviour
     /// </summary>
     public void StartSpawning()
     {
-        Debug.Log("<color=green><b> Spawn system enabled! </b></color>");
+        if (_log) Debug.Log("<color=green><b> Spawn system enabled! </b></color>");
 
         if (!prepareNextWave()) StopSpawning();
         else state = SpawnerState.spawningObjects;
@@ -67,7 +68,7 @@ public class ThrashSpawner : MonoBehaviour
     /// </summary>
     public void StopSpawning()
     {
-        Debug.Log("<color=red><b> Stopped spawn system... </b></color>");
+        if (_log) Debug.Log("<color=red><b> Stopped spawn system... </b></color>");
         state = SpawnerState.idle;
     }
 
@@ -115,7 +116,7 @@ public class ThrashSpawner : MonoBehaviour
         GameObject randomObject = objects[Random.Range(0, objects.Count)];
 
         Vector3 randomPosition = new Vector3(Random.Range(minMaxX.x, minMaxX.y), spawnHeight, 0);
-        Debug.Log("<color=orange><b> Spawn: " + randomObject.name + "</b></color>");
+        if (_log) Debug.Log("<color=orange><b> Spawn: " + randomObject.name + "</b></color>");
         Instantiate(randomObject, randomPosition, randomObject.transform.rotation, transform);
     }
 
@@ -129,7 +130,7 @@ public class ThrashSpawner : MonoBehaviour
         _timer = 0;
         currentObjectCount++;
 
-        Debug.Log("<color=orange><b> Next object in: " + _timeToCurrentSpawn + " (" + currentObjectCount + " / " + currentWave.objectCount + ") </b></color>");
+        if (_log) Debug.Log("<color=orange><b> Next object in: " + _timeToCurrentSpawn + " (" + currentObjectCount + " / " + currentWave.objectCount + ") </b></color>");
     }
 
     /// <summary>
@@ -141,7 +142,7 @@ public class ThrashSpawner : MonoBehaviour
         currentWaveNumber += 1;
         if (currentWaveNumber > _spawnWaves.Count)
         {
-            Debug.Log("<color=red><b> No more waves available... </b></color>");
+            if (_log) Debug.Log("<color=red><b> No more waves available... </b></color>");
             _gameManager.GameWon();
             return false;
         }
@@ -153,7 +154,7 @@ public class ThrashSpawner : MonoBehaviour
         currentWave = _spawnWaves[currentWaveNumber - 1];
         objectsThisWave = currentWave.objectCount;
 
-        Debug.Log("<color=orange><b> Spawning wave completed, wait for next wave </b></color>");
+        if (_log) Debug.Log("<color=orange><b> Spawning wave completed, wait for next wave </b></color>");
 
         return true;
     }
@@ -166,7 +167,7 @@ public class ThrashSpawner : MonoBehaviour
     private void startNextWave()
     {
         currentWave = _spawnWaves[currentWaveNumber - 1];
-        Debug.Log("<color=orange><b>==========| -=< NEW WAVE( " + currentWaveNumber.ToString() + " ) >=- |==========</b></color>");
+        if(_log) Debug.Log("<color=orange><b>==========| -=< NEW WAVE( " + currentWaveNumber.ToString() + " ) >=- |==========</b></color>");
         prepareNextSpawn();
         state = SpawnerState.spawningObjects;
     }
