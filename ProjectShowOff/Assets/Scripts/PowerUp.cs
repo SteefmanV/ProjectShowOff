@@ -49,7 +49,7 @@ public class PowerUp : MonoBehaviour
     private void OnStartJump(object pSender, Vector3 pPosition)
     {
         if (activateNetNextJump) _netPowerUp.startNet(pPosition);
-        if (activateAirTrapNextJump) _airTrapPowerUp.setUp(pPosition, _playerMovement.shootDirection);
+        if (activateAirTrapNextJump) _airTrapPowerUp.SetUp(pPosition, _playerMovement.shootDirection);
         if (_bubblePackPowerUp.bbPackActive)
         {
             _bubblePackPowerUp.landing();
@@ -67,7 +67,7 @@ public class PowerUp : MonoBehaviour
         }
         else if (_airTrapPowerUp.airTrapActive)
         {
-            _airTrapPowerUp.landing();
+            _airTrapPowerUp.Land();
             activateAirTrapNextJump = false;
             _itemCollection.ResetCount();
         }

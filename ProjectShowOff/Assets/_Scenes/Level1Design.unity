@@ -472,7 +472,7 @@ GameObject:
   - component: {fileID: 120795599}
   - component: {fileID: 120795598}
   - component: {fileID: 120795597}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (15)
   m_TagString: sticky
   m_Icon: {fileID: 0}
@@ -751,7 +751,7 @@ GameObject:
   - component: {fileID: 213208979}
   - component: {fileID: 213208978}
   - component: {fileID: 213208977}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (18)
   m_TagString: sticky
   m_Icon: {fileID: 0}
@@ -1428,7 +1428,7 @@ GameObject:
   - component: {fileID: 436082690}
   - component: {fileID: 436082689}
   - component: {fileID: 436082688}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (6)
   m_TagString: sticky
   m_Icon: {fileID: 0}
@@ -2008,12 +2008,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753788108}
   m_CullTransparentMesh: 0
---- !u!1 &757869559 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 20406607023755635, guid: 7b50e844984fa5f4c80253e501253e08,
-    type: 3}
-  m_PrefabInstance: {fileID: 1938167233}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &804018787
 GameObject:
   m_ObjectHideFlags: 0
@@ -2192,7 +2186,7 @@ GameObject:
   - component: {fileID: 919551616}
   - component: {fileID: 919551615}
   - component: {fileID: 919551614}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (16)
   m_TagString: sticky
   m_Icon: {fileID: 0}
@@ -2583,7 +2577,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d36faf302c4a1849af1cb6f7e1f59ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubblePackEffect: {fileID: 757869559}
   player: {fileID: 342653438}
   bbPackActive: 0
   startShootStrength: 0
@@ -2600,14 +2593,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e4ebdc5d5db3c848850f2deb3511a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  airTrapActive: 0
   _airTrapPrefab: {fileID: 8838638268291901701, guid: e4ac40b380e368b4cb813a8360f97941,
     type: 3}
-  mask:
+  _player: {fileID: 342653438}
+  _rayCastMask:
     serializedVersion: 2
-    m_Bits: 1
-  player: {fileID: 342653438}
-  buildRange: 25
-  airTrapActive: 0
+    m_Bits: 8192
 --- !u!1 &1256703374
 GameObject:
   m_ObjectHideFlags: 0
@@ -3221,7 +3213,7 @@ GameObject:
   - component: {fileID: 1348843600}
   - component: {fileID: 1348843599}
   - component: {fileID: 1348843598}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (1)
   m_TagString: sticky
   m_Icon: {fileID: 0}
@@ -3314,7 +3306,7 @@ GameObject:
   - component: {fileID: 1368600755}
   - component: {fileID: 1368600754}
   - component: {fileID: 1368600753}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: sticky
   m_Icon: {fileID: 0}
@@ -3679,7 +3671,7 @@ GameObject:
   - component: {fileID: 1569867852}
   - component: {fileID: 1569867851}
   - component: {fileID: 1569867850}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (22)
   m_TagString: sticky
   m_Icon: {fileID: 0}
@@ -4216,7 +4208,7 @@ GameObject:
   - component: {fileID: 1909698685}
   - component: {fileID: 1909698684}
   - component: {fileID: 1909698683}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (7)
   m_TagString: sticky
   m_Icon: {fileID: 0}

@@ -137,6 +137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3fd1dd4a9f08bb408ec82aabc60415d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _trapDuration: 35
-  holdPosition: {fileID: 884891217855404757}
   trashObject: {fileID: 0}
+  _trapDuration: 35
+  _holdPosition: {fileID: 884891217855404757}

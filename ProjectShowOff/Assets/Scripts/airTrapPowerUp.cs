@@ -1,61 +1,85 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class airTrapPowerUp : MonoBehaviour
 {
-    [SerializeField] private GameObject _airTrapPrefab = null;
-    [SerializeField] private LayerMask mask;
-    [SerializeField] private GameObject player;
-    [SerializeField] private float buildRange = 0f;
     [ReadOnly] public bool airTrapActive = false;
-    private Vector3 startPosition;
-    private Vector3 calculatedEndposition;
-    private Vector3 endPosition;
-    
-    private Vector3 spawnPosition1;
-    private Vector3 spawnPosition2;
-    private Vector3 spawnPosition3;
 
-    public void setUp(Vector3 pPosition, Vector3 pDirection)
+    [SerializeField] private GameObject _airTrapPrefab = null;
+    [SerializeField] private GameObject _player = null;
+    [SerializeField] private LayerMask _rayCastMask;
+
+    private Vector3[] trapPosition = new Vector3[3];
+    private Vector3 _startPosition;
+
+    private float _totalTrapDistance = 0;
+    private float _widthOffset = 0;
+    private int _spawnedTraps = 0;
+
+
+    private void Awake()
     {
-        startPosition = pPosition;
+        _widthOffset = _airTrapPrefab.GetComponent<MeshFilter>().sharedMesh.bounds.size.x + _player.GetComponent<MeshFilter>().sharedMesh.bounds.size.x; // Trap.width + player.width
+    }
 
-        RaycastHit hit;
-        if(Physics.Raycast(startPosition, pDirection, out hit, Mathf.Infinity, mask))
+
+    private void Update()
+    {
+        if (airTrapActive) updateTrapSpawn();
+    }
+
+
+    public void SetUp(Vector3 pPosition, Vector3 pDirection)
+    {
+        _startPosition = pPosition;
+
+        if (Physics.Raycast(_startPosition, pDirection, out RaycastHit hit, Mathf.Infinity, _rayCastMask))
         {
-            Debug.DrawRay(startPosition, pDirection * 1000, Color.yellow);
-            Debug.Log("pew");
-            calculatedEndposition = hit.point;
+            Vector3 calculatedEndposition = hit.point;
+            _totalTrapDistance = (hit.point - _startPosition).magnitude;
 
-            //calculating center spawnpoint
-            spawnPosition2 = new Vector3((startPosition.x + calculatedEndposition.x) / 2, (startPosition.y + calculatedEndposition.y) / 2, (startPosition.z + calculatedEndposition.z) / 2);
-            spawnPosition1 = new Vector3((startPosition.x + spawnPosition2.x) / 2, (startPosition.y + spawnPosition2.y) / 2, (startPosition.z + spawnPosition2.z) / 2);
-            spawnPosition3 = new Vector3((spawnPosition2.x + calculatedEndposition.x) / 2, (spawnPosition2.y + calculatedEndposition.y) / 2, (spawnPosition2.z + calculatedEndposition.z) / 2);
+            trapPosition[1] = (_startPosition + calculatedEndposition) / 2; // Middle trap position
+            trapPosition[0] = (_startPosition + trapPosition[1]) / 2; // Left trap
+            trapPosition[2] = (trapPosition[1] + calculatedEndposition) / 2; // Right trap        
         }
 
         airTrapActive = true;
     }
 
-    public void createTrap(Vector3 pSpawnPoint)
+
+    public void Land()
+    {
+        airTrapActive = false;
+        _spawnedTraps = 0;
+    }
+
+
+    private void updateTrapSpawn()
+    {
+        float playerTraveledDistance = (_player.transform.position - _startPosition).magnitude;
+
+        switch (_spawnedTraps)
+        {
+            case 0:
+                if (playerTraveledDistance > _totalTrapDistance / 5 * 1 + _widthOffset)
+                    CreateTrap(trapPosition[0]);
+                break;
+            case 1:
+                if (playerTraveledDistance > _totalTrapDistance / 5 * 2 + _widthOffset)
+                    CreateTrap(trapPosition[1]);
+                break;
+            case 2:
+                if (playerTraveledDistance > _totalTrapDistance / 5 * 3 + _widthOffset)
+                    CreateTrap(trapPosition[2]);
+                break;
+        }
+    }
+
+
+    private void CreateTrap(Vector3 pSpawnPoint)
     {
         Instantiate(_airTrapPrefab, pSpawnPoint, Quaternion.identity);
-    }
-
-    public void checkPositionToBuild(Vector3 currentPosition, Vector3 targetPosition)
-    {
-        float distance = Vector3.Distance(currentPosition, targetPosition);
-
-            if (distance <= buildRange)
-            {
-                createTrap(targetPosition);
-            }
-    }
-
-    public void landing()
-    {
-        createTrap(spawnPosition1);
-        createTrap(spawnPosition2);
-        createTrap(spawnPosition3);
-        airTrapActive = false;
+        _spawnedTraps++;
     }
 }
