@@ -12,9 +12,13 @@ public class PlayerMovement : MonoBehaviour
     public event EventHandler<Vector3> startJump;
     public event EventHandler<Vector3> endJump;
 
+    //Added for air trap raycast
+    public Vector3 shootDirection;
+
+    //Made public for Bubblepack
     [Header("Shoot settings")]
-    [SerializeField] private float _shootStrength = 1;
-    [SerializeField] private float _maximumShootSpeed = 10;
+    [SerializeField] public float _shootStrength = 1;
+    [SerializeField] public float _maximumShootSpeed = 10;
 
     [Header("Drag / Trail settings")]
     [SerializeField] private float _minimumDragLength = 1;
@@ -133,6 +137,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 endPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
             Vector3 shootForce = _shootStrength * new Vector2(transform.position.x - endPosition.x, transform.position.y - endPosition.y);
+            shootDirection = shootForce;
 
             Vector3 mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             mouse.z = -1;
