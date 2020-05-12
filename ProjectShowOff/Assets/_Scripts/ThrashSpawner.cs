@@ -116,7 +116,7 @@ public class ThrashSpawner : MonoBehaviour
 
         Vector3 randomPosition = new Vector3(Random.Range(minMaxX.x, minMaxX.y), spawnHeight, 0);
         Debug.Log("<color=orange><b> Spawn: " + randomObject.name + "</b></color>");
-        Instantiate(randomObject, randomPosition, Quaternion.identity, transform);
+        Instantiate(randomObject, randomPosition, randomObject.transform.rotation, transform);
     }
 
 

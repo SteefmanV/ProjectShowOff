@@ -1937,7 +1937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6567d16f60f913f45a68e64b01a0f62f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _settings: {fileID: 0}
+  _settings: {fileID: 11400000, guid: ec97436669ececc4cbaa1eddf678f3f5, type: 2}
   _target: {fileID: 0}
 --- !u!4 &1058290263
 Transform:
@@ -2727,7 +2727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08c2f9ea4c66c7641897380c51019a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boidPrefab: {fileID: 9116029715418140668, guid: e0bde7e7f713c9f4db86372f50ef9eea,
+  _boidPrefab: {fileID: 8378526990337398016, guid: e0bde7e7f713c9f4db86372f50ef9eea,
     type: 3}
   _spawnRadius: 10
   _boidCount: 20
