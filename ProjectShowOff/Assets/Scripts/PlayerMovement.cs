@@ -12,11 +12,15 @@ public class PlayerMovement : MonoBehaviour
     public event EventHandler<Vector3> startJump;
     public event EventHandler<Vector3> endJump;
 
-    [Header("Shoot settings")]
-    [SerializeField] private float _shootStrength = 1;
-    [SerializeField] private float _maximumShootSpeed = 10;
+    //Added for air trap raycast
+    public Vector3 shootDirection { get; set; }
 
-    [Header("Drag / Trail settings")]
+    //Made public for Bubblepack
+    [Title("Shoot settings")]
+    public float shootStrength = 1;
+    public float maximumShootSpeed = 10;
+
+    [Title("Drag / Trail settings")]
     [SerializeField] private float _minimumDragLength = 1;
     [SerializeField] private float _dragTrailOffsetStrength = 0.1f;
     [SerializeField] private float _dragThresholdSpeed = 0.1f; // If the player moves slower than this speed, allow to shoot
@@ -132,7 +136,8 @@ public class PlayerMovement : MonoBehaviour
         if (!isMouseOverObject())
         {
             Vector3 endPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 shootForce = _shootStrength * new Vector2(transform.position.x - endPosition.x, transform.position.y - endPosition.y);
+            Vector3 shootForce = shootStrength * new Vector2(transform.position.x - endPosition.x, transform.position.y - endPosition.y);
+            shootDirection = shootForce;
 
             Vector3 mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             mouse.z = -1;
@@ -140,9 +145,9 @@ public class PlayerMovement : MonoBehaviour
 
             if (delta.magnitude > _minimumDragLength)
             {
-                if (shootForce.magnitude > _maximumShootSpeed)
+                if (shootForce.magnitude > maximumShootSpeed)
                 {
-                    shootForce = shootForce.normalized * _maximumShootSpeed; // Limit shoot speed
+                    shootForce = shootForce.normalized * maximumShootSpeed; // Limit shoot speed
                 }
 
                 startJump?.Invoke(this, transform.position);
@@ -179,7 +184,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (_rb.velocity.magnitude < 0.01f)
             {
-                _rb.AddForce(direction() * _shootStrength, ForceMode.Force);
+                _rb.AddForce(direction() * shootStrength, ForceMode.Force);
             }
         }
     }

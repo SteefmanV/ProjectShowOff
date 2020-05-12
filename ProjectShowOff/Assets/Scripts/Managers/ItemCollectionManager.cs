@@ -23,7 +23,6 @@ public class ItemCollectionManager : MonoBehaviour
         updateUI();
     }
 
-
     /// <summary>
     /// Registers a collected Item
     /// </summary>
@@ -55,13 +54,14 @@ public class ItemCollectionManager : MonoBehaviour
     private void checkForPowerUp()
     {
         if (netPowerUp()) return;
-        else if(bubblePackPowerUp()) return;
+        else if (bubblePackPowerUp()) return;
+        else if (airTrapPowerUp()) return;
     }
 
 
     private bool netPowerUp()
     {
-        if(getItemInListCount(Item.bottle) >= 3)
+        if(getItemInListCount(Item.rings) >= 3)
         {           
             _powerUp.ActivateNet();
             return true;
@@ -76,6 +76,17 @@ public class ItemCollectionManager : MonoBehaviour
         if (getItemInListCount(Item.bottle) >= 1 && getItemInListCount(Item.rings) >= 1)
         {
             _powerUp.ActivateBubblePack();
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool airTrapPowerUp()
+    {
+        if (getItemInListCount(Item.bottle) >= 3)
+        {
+            _powerUp.ActivateAirTrap();
             return true;
         }
 

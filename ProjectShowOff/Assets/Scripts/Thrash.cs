@@ -9,9 +9,9 @@ public class Thrash : MonoBehaviour
     [SerializeField] private ItemCollectionManager.Item thrashType;
     [SerializeField] private float _startFallSpeed = 1;
 
-    [SerializeField, Tooltip("This is minimum movespeed,  % of the _startFallSpeed ")] 
+    [SerializeField, Tooltip("This is minimum movespeed,  % of the _startFallSpeed ")]
     private float _minForcePercentage = 0.2f;
-    
+
     private Rigidbody _rb = null;
     private ItemCollectionManager _powerUpManager;
     private ScoreManager _scoreManager;
@@ -47,9 +47,12 @@ public class Thrash : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            _powerUpManager.CollectedItem(thrashType);
-            _scoreManager.ThrashDestroyed();
-            Destroy(gameObject);
+            if (enabled)
+            {
+                _powerUpManager.CollectedItem(thrashType);
+                _scoreManager.ThrashDestroyed();
+                Destroy(gameObject);
+            }
         }
     }
 }
