@@ -48,11 +48,11 @@ public class PowerUp : MonoBehaviour
 
     private void OnStartJump(object pSender, Vector3 pPosition)
     {
-        if (activateNetNextJump) _netPowerUp.startNet(pPosition);
+        if (activateNetNextJump) _netPowerUp.StartNet(pPosition);
         if (activateAirTrapNextJump) _airTrapPowerUp.SetUp(pPosition, _playerMovement.shootDirection);
         if (_bubblePackPowerUp.bbPackActive)
         {
-            _bubblePackPowerUp.landing();
+            _bubblePackPowerUp.Land();
         }
     }
 
@@ -61,7 +61,7 @@ public class PowerUp : MonoBehaviour
         Debug.Log("NET = " + _netPowerUp);
         if (_netPowerUp.netActive)
         {
-            _netPowerUp.stopNet(pPosition);
+            _netPowerUp.StopNet(pPosition);
             activateNetNextJump = false;
             _itemCollection.ResetCount();
         }
@@ -73,7 +73,7 @@ public class PowerUp : MonoBehaviour
         }
         if (activateBubblePackNextJump)
         {
-            _bubblePackPowerUp.setUp(_playerMovement);
+            _bubblePackPowerUp.SetUp(_playerMovement);
             activateBubblePackNextJump = false;
             _itemCollection.ResetCount();
         }

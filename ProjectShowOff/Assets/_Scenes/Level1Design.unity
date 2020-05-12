@@ -2577,10 +2577,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d36faf302c4a1849af1cb6f7e1f59ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 342653438}
   bbPackActive: 0
-  startShootStrength: 0
-  startMaximumShootSpeed: 0
+  _player: {fileID: 342653438}
+  _shootStrengthIncreasement: 20
+  _maximumShootSpeedIncreasement: 40
 --- !u!114 &1170127594
 MonoBehaviour:
   m_ObjectHideFlags: 0
