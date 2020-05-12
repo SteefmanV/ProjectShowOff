@@ -1,87 +1,94 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class BoidManager : MonoBehaviour
 {
-
-    const int threadGroupSize = 1024;
-
-    public BoidSettings settings;
-    //public ComputeShader compute;
-    private Boid[] boids;
-
+    [SerializeField, Required] private BoidSettings _settings;
     [SerializeField] private Transform _target;
+    private Boid[] _boids;
 
 
     void Start()
     {
-        boids = FindObjectsOfType<Boid>();
-
-        foreach (Boid boid in boids)
-        {
-            boid.Initialize(settings, _target);
-        }
+        _boids = getActiveBoids();
     }
 
 
     void Update()
     {
-        if (boids != null)
+        updateBoids();
+    }
+
+
+    /// <summary>
+    /// Update flocking behaviour
+    /// </summary>
+    private void updateBoids()
+    {
+        if (_boids != null)
         {
-            int boidCount = boids.Length;
-            var boidData = new BoidData[boidCount];
+            BoidData[] boidData = getBoidData();
 
-            for (int i = 0; i < boids.Length; i++)
+            // Whatch out with this, it's exponential. If necessary implement octrees later
+            for (int boidIndex = 0; boidIndex < boidData.Length; boidIndex++)
             {
-                boidData[i].position = boids[i].position;
-                boidData[i].direction = boids[i].forward;
-            }
-
-            for (int boidIndex = 0; boidIndex < boids.Length; boidIndex++)
-            {
-                for (int otherBoids = 0; otherBoids < boids.Length; otherBoids++)
+                BoidData boid = boidData[boidIndex];
+                for (int otherBoids = 0; otherBoids < boidData.Length; otherBoids++)
                 {
                     if (boidIndex != otherBoids)
                     {
                         BoidData otherBoid = boidData[otherBoids];
-                        Vector3 offset = otherBoid.position - boidData[boidIndex].position;
-                        float srqDst = offset.x * offset.x + offset.y * offset.y + offset.z * offset.z;
+                        Vector3 deltaPosition = otherBoid.position - boid.position;
 
-                        if(srqDst < settings.perceptionRadius * settings.perceptionRadius)
+                        if (deltaPosition.magnitude < _settings.visionRadius)
                         {
-                            boidData[boidIndex].numFlockmates += 1;
-                            boidData[boidIndex].flockHeading += otherBoid.direction;
-                            boidData[boidIndex].flockCentre += otherBoid.position;
+                            boid.flockSize += 1;
+                            boid.flockDirection += otherBoid.direction;
+                            boid.flockCentre += otherBoid.position;
 
-                            if (srqDst < settings.avoidanceRadius * settings.avoidanceRadius)
+                            if (deltaPosition.magnitude < _settings.avoidanceRadius)
                             {
-                                boidData[boidIndex].avoidanceHeading -= offset / srqDst;
+                                boid.avoidDirection -= deltaPosition / (deltaPosition.magnitude  * deltaPosition.magnitude);
                             }
                         }
                     }
                 }
 
-                boids[boidIndex].avgFlockHeading = boidData[boidIndex].flockHeading;
-                boids[boidIndex].centreOfFlockmates = boidData[boidIndex].flockCentre;
-                boids[boidIndex].avgAvoidanceHeading = boidData[boidIndex].avoidanceHeading;
-                boids[boidIndex].numPerceivedFlockmates = boidData[boidIndex].numFlockmates;
-
-                boids[boidIndex].UpdateBoid();
-
+                _boids[boidIndex].UpdateBoid(boid);
             }
-
-
-            //for (int i = 0; i < boids.Length; i++)
-            //{
-            //    boids[i].avgFlockHeading = boidData[i].flockHeading;
-            //    boids[i].centreOfFlockmates = boidData[i].flockCentre;
-            //    boids[i].avgAvoidanceHeading = boidData[i].avoidanceHeading;
-            //    boids[i].numPerceivedFlockmates = boidData[i].numFlockmates;
-
-            //    boids[i].UpdateBoid();
-            //}
         }
+    }
+
+
+    /// <summary>
+    /// Get all activate boids in scene
+    /// </summary>
+    private Boid[] getActiveBoids()
+    {
+        _boids = FindObjectsOfType<Boid>();
+
+        foreach (Boid boid in _boids)
+        {
+            boid.Initialize(_settings, _target);
+        }
+
+        return _boids;
+    }
+
+
+    /// <summary>
+    /// Transfer Boid[] to BoidData[]
+    /// </summary>
+    private BoidData[] getBoidData()
+    {
+        BoidData[] boidData = new BoidData[_boids.Length];
+
+        for (int i = 0; i < _boids.Length; i++)
+        {
+            boidData[i].Initialize(_boids[i].transform.position, _boids[i].transform.forward);
+        }
+
+        return boidData;
     }
 }
 

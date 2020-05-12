@@ -5,123 +5,91 @@ using UnityEngine;
 
 public class Boid : MonoBehaviour
 {
-
-    BoidSettings settings;
-
-    [Title("Boid")]
-    [ReadOnly] public Vector3 position;
-    [ReadOnly] public Vector3 forward;
-    [ReadOnly] private Vector3 _velocity;
-
-    [Title("Flock Information")]
-    [ShowInInspector, ReadOnly] public Vector3 avgFlockHeading { get; set; }
-    [ShowInInspector, ReadOnly] public Vector3 avgAvoidanceHeading { get; set; }
-    [ShowInInspector, ReadOnly] public Vector3 centreOfFlockmates { get; set; }
-    [ShowInInspector, ReadOnly] public int numPerceivedFlockmates { get; set; }
-
-    private Transform _cachedTransform;
+    private BoidSettings _settings;
     private Transform _target;
-
-
-    void Awake()
-    {
-        _cachedTransform = transform;
-    }
+    private Vector3 _velocity;
 
 
     /// <summary>
     /// Set settings and target
     /// </summary>
-    public void Initialize(BoidSettings settings, Transform target)
+    public void Initialize(BoidSettings pBoidSettings, Transform pTarget)
     {
-        this._target = target;
-        this.settings = settings;
-
-        position = _cachedTransform.position;
-        forward = _cachedTransform.forward;
-
-        float startSpeed = (settings.minSpeed + settings.maxSpeed) / 2;
-        _velocity = transform.forward * startSpeed;
+        _settings = pBoidSettings;
+        _target = pTarget;
+        _velocity = transform.forward * ((_settings.minSpeed + _settings.maxSpeed) / 2);
     }
 
 
     /// <summary>
     /// Perform boid algorithm 
     /// </summary>
-    public void UpdateBoid()
+    public void UpdateBoid(BoidData pBoidData)
     {
         Vector3 acceleration = Vector3.zero;
 
         if (_target != null)
         {
-            Vector3 offsetToTarget = (_target.position - position);
-            acceleration = SteerTowards(offsetToTarget) * settings.targetWeight;
+            acceleration = turnTowards(_target.position - transform.position) * _settings.targetStrength; // Turn towards target
         }
 
-        if (numPerceivedFlockmates != 0)
+        if (pBoidData.flockSize != 0)
         {
-            centreOfFlockmates /= numPerceivedFlockmates;
+            pBoidData.flockCentre /= pBoidData.flockSize;
 
-            Vector3 offsetToFlockmatesCentre = (centreOfFlockmates - position);
-
-            acceleration += SteerTowards(avgFlockHeading) * settings.alignWeight; // allignment
-            acceleration += SteerTowards(offsetToFlockmatesCentre) * settings.cohesionWeight; // Cohesion
-            acceleration += SteerTowards(avgAvoidanceHeading) * settings.seperateWeight; // seperation
+            acceleration += turnTowards(pBoidData.flockDirection) * _settings.alignStrength; // allignment
+            acceleration += turnTowards(pBoidData.flockCentre - transform.position) * _settings.cohesionStrength; // Cohesion
+            acceleration += turnTowards(pBoidData.avoidDirection) * _settings.seperationStrength; // seperation
         }
 
-        if (IsHeadingForCollision())
+        if (isCloseToCollision()) // First perform low cost check
         {
-            Vector3 collisionAvoidDir = ObstacleRays();
-            Vector3 collisionAvoidForce = SteerTowards(collisionAvoidDir) * settings.avoidCollisionWeight;
+            Vector3 collisionAvoidDir = getObstacleDirection(); // More expensive high precission check
+            Vector3 collisionAvoidForce = turnTowards(collisionAvoidDir) * _settings.avoidCollisionWeight;
             acceleration += collisionAvoidForce;
         }
-
+        
         _velocity += acceleration * Time.deltaTime;
-        float speed = _velocity.magnitude;
-        Vector3 dir = _velocity / speed;
-        speed = Mathf.Clamp(speed, settings.minSpeed, settings.maxSpeed);
-        _velocity = dir * speed;
+        _velocity = _velocity.normalized * Mathf.Clamp(_velocity.magnitude, _settings.minSpeed, _settings.maxSpeed); // move direction * clamped speed
+        transform.forward = _velocity.normalized;
 
-        _cachedTransform.position += _velocity * Time.deltaTime;
-        _cachedTransform.forward = dir;
-        position = _cachedTransform.position;
-        forward = dir;
+        transform.position += _velocity * Time.deltaTime;
     }
 
 
-    private bool IsHeadingForCollision()
+
+    private Vector3 turnTowards(Vector3 vector)
     {
-        RaycastHit hit;
-        if (Physics.SphereCast(position, settings.boundsRadius, forward, out hit, settings.collisionAvoidDst, settings.obstacleMask))
-        {
-            return true;
-        }
-        return false;
+        Vector3 turnedVector = vector.normalized * _settings.maxSpeed - _velocity;
+        return Vector3.ClampMagnitude(turnedVector, _settings.maxTurnForce);
     }
 
 
-    private Vector3 ObstacleRays()
+    private bool isCloseToCollision()
     {
-        Vector3[] rayDirections = BoidHelper.directions;
+        return (Physics.SphereCast(transform.position, _settings.boundsRadius, transform.forward, out RaycastHit hit, _settings.collisionThreshold, _settings.obstacleLayer));
+    }
+
+
+    /// <summary>
+    /// Return obstacle direction
+    /// </summary>
+    private Vector3 getObstacleDirection()
+    {
+        Vector3[] rayDirections = FibonacciSphere.pointsAroundSphere;
 
         for (int i = 0; i < rayDirections.Length; i++)
         {
-            Vector3 dir = _cachedTransform.TransformDirection(rayDirections[i]);
-            Ray ray = new Ray(position, dir);
-            if (!Physics.SphereCast(ray, settings.boundsRadius, settings.collisionAvoidDst, settings.obstacleMask))
+            Vector3 direction = transform.TransformDirection(rayDirections[i]);
+            //Debug.DrawRay(transform.position, direction, Color.green, _settings.boundsRadius);
+            Ray ray = new Ray(transform.position, direction);
+            if (!Physics.SphereCast(ray, _settings.boundsRadius, _settings.collisionThreshold, _settings.obstacleLayer)) // If ray hit obstacle
             {
-                return dir;
+                //Debug.DrawRay(transform.position, direction, Color.red, _settings.boundsRadius);
+                return direction;
             }
         }
 
-        return forward;
-    }
-
-
-    private Vector3 SteerTowards(Vector3 vector)
-    {
-        Vector3 vec = vector.normalized * settings.maxSpeed - _velocity;
-        Vector3 clamped = Vector3.ClampMagnitude(vec, settings.maxSteerForce);
-        return clamped;
+        return transform.forward;
     }
 }

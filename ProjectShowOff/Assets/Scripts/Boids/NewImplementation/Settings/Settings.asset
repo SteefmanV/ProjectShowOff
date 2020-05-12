@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSpeed: 5
   maxSpeed: 8
-  perceptionRadius: 2.5
+  visionRadius: 4
   avoidanceRadius: 1
-  maxSteerForce: 8
-  alignWeight: 1
-  cohesionWeight: 1
-  seperateWeight: 2.5
-  targetWeight: 1
-  obstacleMask:
+  maxTurnForce: 8
+  alignStrength: 2
+  cohesionStrength: 1
+  seperationStrength: 2.5
+  targetStrength: 2
+  obstacleLayer:
     serializedVersion: 2
     m_Bits: 8192
   boundsRadius: 0.27
   avoidCollisionWeight: 20
-  collisionAvoidDst: 5
+  collisionThreshold: 5
