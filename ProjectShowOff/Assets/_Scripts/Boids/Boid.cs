@@ -81,11 +81,11 @@ public class Boid : MonoBehaviour
         for (int i = 0; i < rayDirections.Length; i++)
         {
             Vector3 direction = transform.TransformDirection(rayDirections[i]);
-            Debug.DrawRay(transform.position, direction, Color.green, _settings.boundsRadius);
+            if (_settings._debugColission) Debug.DrawRay(transform.position, direction, Color.red, _settings.collisionThreshold);
             Ray ray = new Ray(transform.position, direction);
             if (!Physics.SphereCast(ray, _settings.boundsRadius, _settings.collisionThreshold, _settings.obstacleLayer)) // If ray hit obstacle
             {
-                Debug.DrawRay(transform.position, direction, Color.red, _settings.boundsRadius);
+                if(_settings._debugColission) Debug.DrawRay(transform.position, direction, Color.green, _settings.collisionThreshold);
                 return direction;
             }
         }

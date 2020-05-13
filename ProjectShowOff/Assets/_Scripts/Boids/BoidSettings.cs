@@ -22,4 +22,7 @@ public class BoidSettings : ScriptableObject {
     public float avoidCollisionStrength = 10;
     public float collisionThreshold = 5;
 
+    [Title("Debug")]
+    public bool _debugColission = false;
+
 }

@@ -1,20 +1,20 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class JellyFish : MonoBehaviour
+public class FishMovement : MonoBehaviour
 {
     private Vector3 _velocity;
     [SerializeField] private Transform moveTarget;
 
     [Title("Settings")]
+    [SerializeField] private bool _debugColission = false;
     [SerializeField] private float _collisionThreshold = 2;
     [SerializeField] private float _boundsRadius = 2;
-    [SerializeField] private LayerMask _obstacleLayer;
     [SerializeField] private float _avoidTurnStrength = 1;
     [SerializeField] private float _targetStrength = 1;
     [SerializeField] private float _maxSpeed = 2;
     [SerializeField] private float _stopDistance = 0.2f;
-    [SerializeField] private float _offSteerStrength = .1f;
+    [SerializeField] private LayerMask _obstacleLayer;
 
     private Rigidbody _rb;
 
@@ -24,7 +24,7 @@ public class JellyFish : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         Move();
@@ -50,14 +50,9 @@ public class JellyFish : MonoBehaviour
         _velocity += acceleration * Time.deltaTime; 
         _velocity = _velocity.normalized * Mathf.Clamp(_velocity.magnitude, 0.1f, _maxSpeed);
          transform.position += _velocity * Time.deltaTime;
-      //  _rb.velocity = _velocity;
 
         Vector3 forwardVec = _velocity.normalized;
-       // if (forwardVec.y < 0) forwardVec.y = 0;
         transform.forward = forwardVec;
-
-      //  Vector3 oldRotation = transform.rotation.eulerAngles;
-      //  transform.rotation = Quaternion.Euler(0, 0, oldRotation.z);
     }
 
 
@@ -91,12 +86,15 @@ public class JellyFish : MonoBehaviour
                     smallestVector = direction;
                 }
 
-               // Debug.DrawRay(transform.position, direction * _collisionThreshold, Color.green, 1);
+               if(_debugColission) Debug.DrawRay(transform.position, direction * _collisionThreshold, Color.green, 1);
+            }
+            else
+            {
+                if (_debugColission) Debug.DrawRay(transform.position, direction * _collisionThreshold, Color.red, 1);
             }
         }
 
         return smallestVector;
-        //return transform.forward;
     }
 
     private Vector3 turnTowards(Vector3 vector)
