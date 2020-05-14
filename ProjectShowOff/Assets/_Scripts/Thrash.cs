@@ -47,18 +47,25 @@ public class Thrash : MonoBehaviour
     }
 
 
+    public void GetCollected()
+    {
+        _powerUpManager.CollectedItem(trashType);
+        _scoreManager.ThrashDestroyed();
+        Destroy(gameObject);
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
             if (enabled)
             {
-                _powerUpManager.CollectedItem(trashType);
-                _scoreManager.ThrashDestroyed();
-                Destroy(gameObject);
+               GetCollected();
             }
         }
     }
+
 
     private Color GetHealthBarColor(float value)
     {
