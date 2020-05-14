@@ -12,8 +12,8 @@ public class Combination : ScriptableObject
 
     public bool hasCombination(int pBottles, int pStraws, int pRingss)
     {
-        Debug.Log("Straws: " + pStraws);
         int totalObjects = pBottles + pStraws + pRingss;
+
         if (bottle && pBottles < 1) return false;
         else if (straw && pStraws < 1) return false;
         else if (rings && pRingss < 1) return false;

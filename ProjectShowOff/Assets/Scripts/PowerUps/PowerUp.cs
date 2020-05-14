@@ -89,7 +89,7 @@ public class PowerUp : MonoBehaviour
         if (_bubblePackPowerUp.bbPackActive) _bubblePackPowerUp.Land();
         if (activateSmallBubbleGun) _smallBubbleGunPowerUp.SetUp();
         if (activateBigBubble) _bigBubblePowerUp.setUp();
-        if (activateBubbleBarrage) _bubbleBarragePowerUp.setUp();
+        if (activateBubbleBarrage) _bubbleBarragePowerUp.setUp(pPosition, _playerMovement.shootDirection);
     }
 
     private void OnEndJump(object pSender, Vector3 pPosition)
@@ -105,6 +105,12 @@ public class PowerUp : MonoBehaviour
         {
             _airTrapPowerUp.Land();
             activateAirTrapNextJump = false;
+            _itemCollection.ResetCount();
+        }
+        else if (_bubbleBarragePowerUp.bubbleBarrageActive)
+        {
+            _bubbleBarragePowerUp.Land();
+            activateBubbleBarrage = false;
             _itemCollection.ResetCount();
         }
         else if (_smallBubbleGunPowerUp.smallBubbleGunPowerUpActive)

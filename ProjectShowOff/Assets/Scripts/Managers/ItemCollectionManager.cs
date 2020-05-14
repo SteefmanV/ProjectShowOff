@@ -23,6 +23,7 @@ public class ItemCollectionManager : MonoBehaviour
     [SerializeField] private Combination _airTrapCombi = null;
     [SerializeField] private Combination _smallBubbleGunCombi = null;
     [SerializeField] private Combination _bigBubbleCombi = null;
+    [SerializeField] private Combination _bubbleBarrage = null;
 
 
     private void Start()
@@ -67,7 +68,8 @@ public class ItemCollectionManager : MonoBehaviour
 
     private Combination checkForPowerUp()
     {
-        if (checkCombinations(_netCombi)) return _netCombi;
+        if (checkCombinations(_bubbleBarrage)) return _bubbleBarrage;
+        else if (checkCombinations(_netCombi)) return _netCombi;
         else if (checkCombinations(_bubblePackCombi)) return _bubblePackCombi;
         else if (checkCombinations(_airTrapCombi)) return _airTrapCombi;
         else if (checkCombinations(_smallBubbleGunCombi)) return _smallBubbleGunCombi;
@@ -84,11 +86,12 @@ public class ItemCollectionManager : MonoBehaviour
 
     private void activatePowerUp(Combination pCombi)
     {
-        if(pCombi == _netCombi) _powerUp.ActivateNet();
-        else if(pCombi == _bubblePackCombi) _powerUp.ActivateBubblePack();
-        else if(pCombi == _airTrapCombi) _powerUp.ActivateAirTrap();
-        else if(pCombi == _smallBubbleGunCombi) _powerUp.ActivateSmallBubbleGun();
-        else if(pCombi == _bigBubbleCombi) _powerUp.ActivateBigBubble();
+        if (pCombi == _netCombi) _powerUp.ActivateNet();
+        else if (pCombi == _bubblePackCombi) _powerUp.ActivateBubblePack();
+        else if (pCombi == _airTrapCombi) _powerUp.ActivateAirTrap();
+        else if (pCombi == _smallBubbleGunCombi) _powerUp.ActivateSmallBubbleGun();
+        else if (pCombi == _bigBubbleCombi) _powerUp.ActivateBigBubble();
+        else if (pCombi == _bubbleBarrage) _powerUp.ActivateBubbleBarrage();
     }
 
 
@@ -142,7 +145,10 @@ public class ItemCollectionManager : MonoBehaviour
         {
             foreach(Transform trans in _uiHolders[i])
             {
-                Destroy(trans.gameObject); // Destroy all children in UI Holder
+                if (!trans.CompareTag("backgroundUi"))
+                {
+                    Destroy(trans.gameObject); // Destroy all children in UI Holder
+                }
             }
         }
     }
