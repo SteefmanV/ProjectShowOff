@@ -47,6 +47,22 @@ public class Fish : MonoBehaviour
     [SerializeField, BoxGroup("Chase trash"), ShowIf("currentState", Behaviour.chasingThrash)]
     private Thrash targetThrash = null;
 
+
+    [Title("Protection Bubble")]
+    private bool _isProtected = false;
+    public bool isProtected {
+        get { 
+            return _isProtected;
+        }
+        set
+        {
+            _isProtected = value;
+            _protectionBubble.SetActive(value);
+        }
+    }
+    [SerializeField] private GameObject _protectionBubble;
+
+
     private EnvironmentTargetGenerator _targetGenerator;
     private FishManager _fishManager;
 
@@ -81,6 +97,25 @@ public class Fish : MonoBehaviour
                 break;
         }
     }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("thrash"))
+        {
+            if (isProtected)
+            {
+                isProtected = false;
+                Destroy(collision.gameObject);
+            }
+            else
+            {
+                _fishManager.CheckFishCount();
+                Destroy(gameObject);
+            }
+        }
+    }
+
 
 
     private void idle()
@@ -198,10 +233,12 @@ public class Fish : MonoBehaviour
         return closestThrash;
     }
 
+
     private void checkHealth()
     {
         if (health <= 0) Die();
     }
+
 
     private Color GetHealthBarColor(float value)
     {

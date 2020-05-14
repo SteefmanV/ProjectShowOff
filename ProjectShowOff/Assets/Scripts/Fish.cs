@@ -2,55 +2,59 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fish : MonoBehaviour
+
+namespace old
 {
-    public bool isProtected = false;
-
-    private FishManager _fishManager;
-    [SerializeField] private GameObject _protectionBubble;
-
-
-    private void Start()
+    public class Fish : MonoBehaviour
     {
-        _protectionBubble = transform.Find("ProtectionBubble").gameObject;
-        _protectionBubble.SetActive(false);
+        public bool isProtected = false;
 
-    }
+        private FishManager _fishManager;
+        [SerializeField] private GameObject _protectionBubble;
 
 
-    private void Update()
-    {
-        if(isProtected && _protectionBubble.activeSelf == false)
+        private void Start()
         {
-            _protectionBubble.SetActive(true);
-        }   
-        else if(!isProtected && _protectionBubble.activeSelf == true)
-        {
+            _protectionBubble = transform.Find("ProtectionBubble").gameObject;
             _protectionBubble.SetActive(false);
+
         }
-    }
 
 
-    private void Awake()
-    {
-        _fishManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<FishManager>();
-    }
-
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("thrash"))
+        private void Update()
         {
-            if (isProtected)
+            if (isProtected && _protectionBubble.activeSelf == false)
             {
-                Destroy(collision.gameObject);
-                isProtected = false;
+                _protectionBubble.SetActive(true);
             }
-            else
+            else if (!isProtected && _protectionBubble.activeSelf == true)
             {
-                _fishManager.CheckFishCount();
-                Destroy(collision.gameObject);
-                Destroy(gameObject);
+                _protectionBubble.SetActive(false);
+            }
+        }
+
+
+        private void Awake()
+        {
+            _fishManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<FishManager>();
+        }
+
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("thrash"))
+            {
+                if (isProtected)
+                {
+                    Destroy(collision.gameObject);
+                    isProtected = false;
+                }
+                else
+                {
+                    _fishManager.CheckFishCount();
+                    Destroy(collision.gameObject);
+                    Destroy(gameObject);
+                }
             }
         }
     }

@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [Title("Shoot settings")]
     public float shootStrength = 1;
     public float maximumShootSpeed = 10;
+    [SerializeField] private LayerMask _playerLayer = 0;
 
     [Title("Drag / Trail settings")]
     [SerializeField] private float _minimumDragLength = 1;
@@ -166,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, _playerLayer))
         {
             if (hit.collider.gameObject == gameObject) return true;
         }

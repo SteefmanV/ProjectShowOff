@@ -908,6 +908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d2c1f65e2d90e2448cd766a02b832a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _log: 0
   _spawnWaves:
   - {fileID: 11400000, guid: 72b3a40aa8ffe284f9c51dd12abfa359, type: 2}
   - {fileID: 11400000, guid: 72b3a40aa8ffe284f9c51dd12abfa359, type: 2}
@@ -2687,6 +2688,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e4ebdc5d5db3c848850f2deb3511a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1225967334
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.1200733
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.43406346
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.10841488
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.70090926
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.71325046
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 89
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878798, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_Name
+      value: Jelly fish
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fb0d91edd3ffe4146b9c3efcbf40c622, type: 3}
 --- !u!1 &1256703374
 GameObject:
   m_ObjectHideFlags: 0
@@ -3022,6 +3092,75 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307808742}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1312744025
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.70090926
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.71325046
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 89
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878798, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_Name
+      value: Jelly fish (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fb0d91edd3ffe4146b9c3efcbf40c622, type: 3}
 --- !u!1 &1346652126
 GameObject:
   m_ObjectHideFlags: 0
@@ -4380,6 +4519,11 @@ PrefabInstance:
       propertyPath: shootStrength
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 20406606759111141, guid: 7b50e844984fa5f4c80253e501253e08,
+        type: 3}
+      propertyPath: _playerLayer.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
     - target: {fileID: 20406606759111148, guid: 7b50e844984fa5f4c80253e501253e08,
         type: 3}
       propertyPath: _netPowerUp
@@ -4630,6 +4774,75 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2043022827}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2106261283
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.70090926
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.71325046
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 89
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878786, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051980396140878798, guid: fb0d91edd3ffe4146b9c3efcbf40c622,
+        type: 3}
+      propertyPath: m_Name
+      value: Jelly fish (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fb0d91edd3ffe4146b9c3efcbf40c622, type: 3}
 --- !u!224 &552509238905685606
 RectTransform:
   m_ObjectHideFlags: 0
