@@ -1,27 +1,37 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-using TMPro;
-using UnityEngine.PlayerLoop;
 
 public class ItemCollectionManager : MonoBehaviour
 {
-    public enum Item { bottle, rings, straw }
+    public enum Item { empty, bottle, rings, straw }
     private Dictionary<Item, int> _itemsCollected = new Dictionary<Item, int>();
     private List<Item> _justCollected = new List<Item>();
-    private PowerUp _powerUp = null;
+    private PowerUp _powerUp;
 
-    [SerializeField] private GameObject bottle1;
-    [SerializeField] private GameObject bottle2;
-    [SerializeField] private GameObject bottle3;
+    [SerializeField] private Transform[] _uiHolders = new Transform[4];
+
+    [Title("UI Icon Prefabs")]
+    [SerializeField] private GameObject _bottleIcon = null;
+    [SerializeField] private GameObject _ringsIcon = null;
+    [SerializeField] private GameObject _strawIcon = null;
+
+    [Title("Power-up Combinations")]
+    [SerializeField] private Combination _netCombi = null;
+    [SerializeField] private Combination _bubblePackCombi = null;
+    [SerializeField] private Combination _airTrapCombi = null;
+    [SerializeField] private Combination _smallBubbleGunCombi = null;
+    [SerializeField] private Combination _bigBubbleCombi = null;
 
 
     private void Start()
     {
         _powerUp = FindObjectOfType<PowerUp>();
         setupItems();
-        updateUI();
+        updateUI(null);
     }
+
 
     /// <summary>
     /// Registers a collected Item
@@ -32,15 +42,17 @@ public class ItemCollectionManager : MonoBehaviour
         _justCollected.Add(pItem);
 
 
-        checkForPowerUp();
-        updateUI();
+        Combination powerUp = checkForPowerUp();
+        if (powerUp != null) activatePowerUp(powerUp);
+
+        updateUI(powerUp);
     }
 
 
     public void ResetCount()
     {
         _justCollected.Clear();
-        updateUI();
+        updateUI(null);
     }
 
 
@@ -49,108 +61,89 @@ public class ItemCollectionManager : MonoBehaviour
         _itemsCollected.Add(Item.bottle, 0);
         _itemsCollected.Add(Item.rings, 0);
         _itemsCollected.Add(Item.straw, 0);
+        _itemsCollected.Add(Item.empty, 0);
     }
 
 
-    private void checkForPowerUp()
+    private Combination checkForPowerUp()
     {
-        if (netPowerUp()) return;
-        else if (bubblePackPowerUp()) return;
-        else if (airTrapPowerUp()) return;
-        else if (smallBubbleGunPowerUp()) return;
-        else if (bigBubblePowerUp()) return;
-        else if (bubbleBarragePowerUp()) return;
+        if (checkCombinations(_netCombi)) return _netCombi;
+        else if (checkCombinations(_bubblePackCombi)) return _bubblePackCombi;
+        else if (checkCombinations(_airTrapCombi)) return _airTrapCombi;
+        else if (checkCombinations(_smallBubbleGunCombi)) return _smallBubbleGunCombi;
+        else if (checkCombinations(_bigBubbleCombi)) return _bigBubbleCombi;
+        else return null;
     }
 
 
-    private bool netPowerUp()
+    private bool checkCombinations(Combination pCombi)
     {
-        if(getItemInListCount(Item.rings) >= 3)
-        {           
-            _powerUp.ActivateNet();
-            return true;
-        }
-
-        return false;
+        return pCombi.hasCombination(getItemInListCount(Item.bottle), getItemInListCount(Item.straw), getItemInListCount(Item.rings));
     }
 
 
-    private bool bubblePackPowerUp()
+    private void activatePowerUp(Combination pCombi)
     {
-        if (getItemInListCount(Item.bottle) >= 1 && getItemInListCount(Item.rings) >= 1)
-        {
-            _powerUp.ActivateBubblePack();
-            return true;
-        }
-
-        return false;
-    }
-
-    private bool airTrapPowerUp()
-    {
-        if (getItemInListCount(Item.bottle) >= 3)
-        {
-            _powerUp.ActivateAirTrap();
-            return true;
-        }
-
-        return false;
-    }
-
-
-    private bool smallBubbleGunPowerUp()
-    {
-        if(getItemInListCount(Item.bottle) >= 1 && getItemInListCount(Item.straw) >= 1)
-        {
-            _powerUp.ActivateSmallBubbleGun();
-            return true;
-        }
-
-        return false;
-    }
-
-    private bool bigBubblePowerUp()
-    {
-        if (getItemInListCount(Item.straw) >= 3)
-        {
-            _powerUp.ActivateBigBubble();
-            return true;
-        }
-        return false;
-    }
-
-    private bool bubbleBarragePowerUp()
-    {
-        if (getItemInListCount(Item.straw) >= 1 && getItemInListCount(Item.bottle) >=1 && getItemInListCount(Item.rings) >= 1)
-        {
-            _powerUp.ActivateBigBubble();
-            return true;
-        }
-        return false;
+        if(pCombi == _netCombi) _powerUp.ActivateNet();
+        else if(pCombi == _bubblePackCombi) _powerUp.ActivateBubblePack();
+        else if(pCombi == _airTrapCombi) _powerUp.ActivateAirTrap();
+        else if(pCombi == _smallBubbleGunCombi) _powerUp.ActivateSmallBubbleGun();
+        else if(pCombi == _bigBubbleCombi) _powerUp.ActivateBigBubble();
     }
 
 
     private int getItemInListCount(Item pItem)
     {
         int itemCount = 0;
-        foreach(Item item in _justCollected)
+        foreach (Item item in _justCollected)
         {
-            if (item == pItem) itemCount++;            
+            if (item == pItem) itemCount++;
         }
 
         return itemCount;
     }
 
 
-    private void updateUI()
+    private void updateUI(Combination pPowerUp)
     {
-        bottle1.SetActive(false);
-        bottle2.SetActive(false);
-        bottle3.SetActive(false);
+        cleanUI();
 
-        int count = getItemInListCount(Item.bottle);
-        if (count >= 1) bottle1.SetActive(true);
-        if (count >= 2) bottle2.SetActive(true);
-        if (count >= 3) bottle3.SetActive(true);
+        for (int i = 0; i < 3; i++) // Put Item icon in each UI slot
+        {
+            Item item = (_justCollected.Count - 1 >= i)? _justCollected[i] : Item.empty;
+            GameObject iconObject = null;
+
+            switch (item)
+            {
+                case Item.bottle:
+                    iconObject = _bottleIcon;
+                    break;
+                case Item.rings:
+                    iconObject = _ringsIcon;
+                    break;
+                case Item.straw:
+                    iconObject = _strawIcon;
+                    break;
+                case Item.empty:
+                    // do nothing
+                    break;
+            }
+
+            if(iconObject != null) Instantiate(iconObject, _uiHolders[i]);
+        }
+
+        if(pPowerUp != null) Instantiate(pPowerUp.powerUpIcon, _uiHolders[3]); // Put powerup in UI slot
+    }
+
+
+    private void cleanUI()
+    {
+        for (int i = 0; i < _uiHolders.Length; i++)
+        {
+            foreach(Transform trans in _uiHolders[i])
+            {
+                Destroy(trans.gameObject); // Destroy all children in UI Holder
+            }
+        }
     }
 }

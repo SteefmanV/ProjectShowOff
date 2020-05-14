@@ -5,16 +5,20 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    [Required, SceneObjectsOnly]
-    [SerializeField] private NetPowerUp _netPowerUp = null;
-    [SerializeField] private airTrapPowerUp _airTrapPowerUp = null;
-    [SerializeField] private BubblePackPowerUp _bubblePackPowerUp = null;
-    [SerializeField] private SmallBubbleGunPowerUp _smallBubbleGunPowerUp = null;
-    [SerializeField] private BigBubblePowerUp _bigBubblePowerUp = null;
-    [SerializeField] private BubbleBarragePowerUp _bubbleBarragePowerUp = null;
+    [SerializeField, Required, SceneObjectsOnly] private GameObject powerUpManager;
+
+    // powerup references
+    private NetPowerUp _netPowerUp = null;
+    private airTrapPowerUp _airTrapPowerUp = null;
+    private BubblePackPowerUp _bubblePackPowerUp = null;
+    private SmallBubbleGunPowerUp _smallBubbleGunPowerUp = null;
+    private BigBubblePowerUp _bigBubblePowerUp = null;
+    private BubbleBarragePowerUp _bubbleBarragePowerUp = null;
 
     private PlayerMovement _playerMovement = null;
     private ItemCollectionManager _itemCollection = null;
+
+    // powerup mess that needs to be changed
     private bool activateNetNextJump = false;
     private bool activateBubblePackNextJump = false;
     private bool activateAirTrapNextJump = false;
@@ -31,6 +35,13 @@ public class PowerUp : MonoBehaviour
         _playerMovement = FindObjectOfType<PlayerMovement>();
         _playerMovement.startJump += OnStartJump;
         _playerMovement.endJump += OnEndJump;
+
+        _netPowerUp = powerUpManager.GetComponent<NetPowerUp>();
+        _airTrapPowerUp = powerUpManager.GetComponent<airTrapPowerUp>();
+        _bubblePackPowerUp = powerUpManager.GetComponent<BubblePackPowerUp>();
+        _smallBubbleGunPowerUp = powerUpManager.GetComponent<SmallBubbleGunPowerUp>();
+        _bigBubblePowerUp = powerUpManager.GetComponent<BigBubblePowerUp>();
+        _bubbleBarragePowerUp = powerUpManager.GetComponent<BubbleBarragePowerUp>();
     }
 
     public void ActivateNet()
