@@ -4,7 +4,32 @@ using UnityEngine;
 
 public class Fish : MonoBehaviour
 {
+    public bool isProtected = false;
+
     private FishManager _fishManager;
+    [SerializeField] private GameObject _protectionBubble;
+
+
+    private void Start()
+    {
+        _protectionBubble = transform.Find("ProtectionBubble").gameObject;
+        _protectionBubble.SetActive(false);
+
+    }
+
+
+    private void Update()
+    {
+        if(isProtected && _protectionBubble.activeSelf == false)
+        {
+            _protectionBubble.SetActive(true);
+        }   
+        else if(!isProtected && _protectionBubble.activeSelf == true)
+        {
+            _protectionBubble.SetActive(false);
+        }
+    }
+
 
     private void Awake()
     {
@@ -16,9 +41,17 @@ public class Fish : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("thrash"))
         {
-            _fishManager.CheckFishCount();
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
+            if (isProtected)
+            {
+                Destroy(collision.gameObject);
+                isProtected = false;
+            }
+            else
+            {
+                _fishManager.CheckFishCount();
+                Destroy(collision.gameObject);
+                Destroy(gameObject);
+            }
         }
     }
 }

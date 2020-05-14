@@ -9,12 +9,19 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private NetPowerUp _netPowerUp = null;
     [SerializeField] private airTrapPowerUp _airTrapPowerUp = null;
     [SerializeField] private BubblePackPowerUp _bubblePackPowerUp = null;
+    [SerializeField] private SmallBubbleGunPowerUp _smallBubbleGunPowerUp = null;
+    [SerializeField] private BigBubblePowerUp _bigBubblePowerUp = null;
+    [SerializeField] private BubbleBarragePowerUp _bubbleBarragePowerUp = null;
 
     private PlayerMovement _playerMovement = null;
     private ItemCollectionManager _itemCollection = null;
     private bool activateNetNextJump = false;
     private bool activateBubblePackNextJump = false;
     private bool activateAirTrapNextJump = false;
+    private bool activateSmallBubbleGun = false;
+    private bool activateBigBubble = false;
+    private bool activateFrontNet = false;
+    private bool activateBubbleBarrage = false;
 
 
     private void Awake()
@@ -45,15 +52,33 @@ public class PowerUp : MonoBehaviour
         Debug.Log("air traps activated");
     }
 
+    public void ActivateSmallBubbleGun()
+    {
+        activateSmallBubbleGun = true;
+        Debug.Log("small bubble gun activated");
+    }
+
+    public void ActivateBigBubble()
+    {
+        activateBigBubble = true;
+        Debug.Log("Big bubble activated");
+    }
+
+    public void ActivateBubbleBarrage()
+    {
+        activateBubbleBarrage = true;
+        Debug.Log("BUBBLE BARRAGE!");
+    }
+
 
     private void OnStartJump(object pSender, Vector3 pPosition)
     {
         if (activateNetNextJump) _netPowerUp.StartNet(pPosition);
         if (activateAirTrapNextJump) _airTrapPowerUp.SetUp(pPosition, _playerMovement.shootDirection);
-        if (_bubblePackPowerUp.bbPackActive)
-        {
-            _bubblePackPowerUp.Land();
-        }
+        if (_bubblePackPowerUp.bbPackActive) _bubblePackPowerUp.Land();
+        if (activateSmallBubbleGun) _smallBubbleGunPowerUp.SetUp();
+        if (activateBigBubble) _bigBubblePowerUp.setUp();
+        if (activateBubbleBarrage) _bubbleBarragePowerUp.setUp();
     }
 
     private void OnEndJump(object pSender, Vector3 pPosition)
@@ -71,11 +96,25 @@ public class PowerUp : MonoBehaviour
             activateAirTrapNextJump = false;
             _itemCollection.ResetCount();
         }
+        else if (_smallBubbleGunPowerUp.smallBubbleGunPowerUpActive)
+        {
+            _smallBubbleGunPowerUp.Land();
+            activateSmallBubbleGun = false;
+            _itemCollection.ResetCount();
+        }
+        else if (_bigBubblePowerUp.bigBubbleActive)
+        {
+            _bigBubblePowerUp.Land();
+            activateBigBubble = false;
+            _itemCollection.ResetCount();
+        }
+
         if (activateBubblePackNextJump)
         {
             _bubblePackPowerUp.SetUp(_playerMovement);
             activateBubblePackNextJump = false;
             _itemCollection.ResetCount();
         }
+        
     }
 }

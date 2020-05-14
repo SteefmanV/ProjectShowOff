@@ -31,6 +31,7 @@ public class ItemCollectionManager : MonoBehaviour
         _itemsCollected[pItem]++;
         _justCollected.Add(pItem);
 
+
         checkForPowerUp();
         updateUI();
     }
@@ -56,6 +57,9 @@ public class ItemCollectionManager : MonoBehaviour
         if (netPowerUp()) return;
         else if (bubblePackPowerUp()) return;
         else if (airTrapPowerUp()) return;
+        else if (smallBubbleGunPowerUp()) return;
+        else if (bigBubblePowerUp()) return;
+        else if (bubbleBarragePowerUp()) return;
     }
 
 
@@ -90,6 +94,38 @@ public class ItemCollectionManager : MonoBehaviour
             return true;
         }
 
+        return false;
+    }
+
+
+    private bool smallBubbleGunPowerUp()
+    {
+        if(getItemInListCount(Item.bottle) >= 1 && getItemInListCount(Item.straw) >= 1)
+        {
+            _powerUp.ActivateSmallBubbleGun();
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool bigBubblePowerUp()
+    {
+        if (getItemInListCount(Item.straw) >= 3)
+        {
+            _powerUp.ActivateBigBubble();
+            return true;
+        }
+        return false;
+    }
+
+    private bool bubbleBarragePowerUp()
+    {
+        if (getItemInListCount(Item.straw) >= 1 && getItemInListCount(Item.bottle) >=1 && getItemInListCount(Item.rings) >= 1)
+        {
+            _powerUp.ActivateBigBubble();
+            return true;
+        }
         return false;
     }
 

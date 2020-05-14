@@ -49,10 +49,15 @@ public class Thrash : MonoBehaviour
         {
             if (enabled)
             {
-                _powerUpManager.CollectedItem(thrashType);
-                _scoreManager.ThrashDestroyed();
-                Destroy(gameObject);
+                getCollected();
             }
         }
+    }
+
+    public void getCollected()
+    {
+        _powerUpManager.CollectedItem(thrashType);
+        _scoreManager.ThrashDestroyed();
+        Destroy(gameObject);
     }
 }
