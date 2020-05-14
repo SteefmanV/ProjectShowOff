@@ -6,7 +6,7 @@ namespace clickProto
 {
     public class ThrashSpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject[] _thrashPrefabs = new GameObject[0];
+        [SerializeField] private GameObject[] _trashPrefabs = new GameObject[0];
         [SerializeField] private Vector2 _spawnRange = new Vector2(0, 0);
 
         [SerializeField] private float _spawnTime = 2;
@@ -29,8 +29,8 @@ namespace clickProto
 
         private void spawnRandomThrash()
         {
-            GameObject thrash = Instantiate(
-                _thrashPrefabs[Random.Range(0, _thrashPrefabs.Length)],
+            GameObject trash = Instantiate(
+                _trashPrefabs[Random.Range(0, _trashPrefabs.Length)],
                 new Vector3(Random.Range(_spawnRange.x, _spawnRange.y), 0, 0),
                 Quaternion.identity,
                 this.transform

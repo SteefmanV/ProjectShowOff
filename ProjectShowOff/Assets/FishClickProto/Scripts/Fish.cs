@@ -21,7 +21,7 @@ namespace clickProto
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.CompareTag("thrash")) Destroy(transform.parent.gameObject);
+            if (collision.gameObject.CompareTag("trash")) Destroy(transform.parent.gameObject);
         }
     }
 }

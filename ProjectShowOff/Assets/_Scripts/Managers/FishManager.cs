@@ -8,6 +8,8 @@ public class FishManager : MonoBehaviour
     [SerializeField, Required, SceneObjectsOnlyAttribute]
     private Transform fishHolder = null;
 
+    [SerializeField] private int _damagePerThrash;
+
     private GameManager _gameManager;
 
     private void Awake()

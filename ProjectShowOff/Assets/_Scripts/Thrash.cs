@@ -1,12 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Thrash : MonoBehaviour
 {
+    [ProgressBar(0, 100, ColorMember = "GetHealthBarColor")]
+    public float health = 100;
+
     [Header("Thrash Settings")]
-    [SerializeField] private ItemCollectionManager.Item thrashType = ItemCollectionManager.Item.bottle;
+    [SerializeField] private ItemCollectionManager.Item trashType = ItemCollectionManager.Item.bottle;
     [SerializeField] private float _startFallSpeed = 1;
 
     [SerializeField, Tooltip("This is minimum movespeed,  % of the _startFallSpeed ")]
@@ -40,6 +42,8 @@ public class Thrash : MonoBehaviour
         {
             _rb.velocity = minimumForce;
         }
+
+        if(health <= 0) Destroy(gameObject);
     }
 
 
@@ -49,10 +53,15 @@ public class Thrash : MonoBehaviour
         {
             if (enabled)
             {
-                _powerUpManager.CollectedItem(thrashType);
+                _powerUpManager.CollectedItem(trashType);
                 _scoreManager.ThrashDestroyed();
                 Destroy(gameObject);
             }
         }
+    }
+
+    private Color GetHealthBarColor(float value)
+    {
+        return Color.Lerp(Color.red, Color.green, Mathf.Pow(value / 100f, 2));
     }
 }
