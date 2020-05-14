@@ -111,7 +111,7 @@ public class Fish : MonoBehaviour
             else
             {
                 _fishManager.CheckFishCount();
-                Destroy(gameObject);
+                //Destroy(gameObject);
             }
         }
     }

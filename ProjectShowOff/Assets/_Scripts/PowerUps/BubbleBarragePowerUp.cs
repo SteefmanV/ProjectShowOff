@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -76,7 +77,14 @@ public class BubbleBarragePowerUp : MonoBehaviour
 
     private void CreateTrap(Vector3 pSpawnPoint)
     {
-        Instantiate(_bubbleShooterPrefab, pSpawnPoint, Quaternion.Euler(_shootDirection));
+        GameObject barrage = Instantiate(_bubbleShooterPrefab, pSpawnPoint, Quaternion.Euler(_shootDirection));
+        StartCoroutine(delayedDelete(barrage));
         _spawnedBubbleShooter++;
+    }
+
+    private IEnumerator delayedDelete(GameObject pDelete)
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(pDelete);
     }
 }

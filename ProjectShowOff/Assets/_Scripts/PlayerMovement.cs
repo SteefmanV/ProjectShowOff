@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         dragAndShoot();
+        Debug.Log("Mouse over player: " + isMouseOverObject());
     }
 
 
