@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BoidSpawner : MonoBehaviour {
 
-    [SerializeField] private GameObject _boidPrefab;
+    [SerializeField] private GameObject _boidPrefab = null;
     [SerializeField] private float _spawnRadius = 10;
     [SerializeField] private int _boidCount = 10;
 

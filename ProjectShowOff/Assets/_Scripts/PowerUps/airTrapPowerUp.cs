@@ -8,7 +8,7 @@ public class airTrapPowerUp : MonoBehaviour
 
     [SerializeField] private GameObject _airTrapPrefab = null;
     [SerializeField] private GameObject _player = null;
-    [SerializeField] private LayerMask _rayCastMask;
+    [SerializeField] private LayerMask _rayCastMask = 0;
 
     private Vector3[] trapPosition = new Vector3[3];
     private Vector3 _startPosition;

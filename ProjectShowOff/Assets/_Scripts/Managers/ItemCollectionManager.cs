@@ -11,9 +11,9 @@ public class ItemCollectionManager : MonoBehaviour
     private List<Item> _justCollected = new List<Item>();
     private PowerUp _powerUp = null;
 
-    [SerializeField] private GameObject bottle1;
-    [SerializeField] private GameObject bottle2;
-    [SerializeField] private GameObject bottle3;
+    [SerializeField] private GameObject bottle1 = null;
+    [SerializeField] private GameObject bottle2 = null;
+    [SerializeField] private GameObject bottle3 = null;
 
 
     private void Start()

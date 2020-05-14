@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class BoidManager : MonoBehaviour
 {
-    [SerializeField, Required] private BoidSettings _settings;
-    [SerializeField] private Transform _target;
+    [SerializeField, Required] private BoidSettings _settings = null;
+    [SerializeField] private Transform _target = null;
     private Boid[] _boids;
 
 

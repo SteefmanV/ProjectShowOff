@@ -6,7 +6,7 @@ using UnityEngine;
 public class Thrash : MonoBehaviour
 {
     [Header("Thrash Settings")]
-    [SerializeField] private ItemCollectionManager.Item thrashType;
+    [SerializeField] private ItemCollectionManager.Item thrashType = ItemCollectionManager.Item.bottle;
     [SerializeField] private float _startFallSpeed = 1;
 
     [SerializeField, Tooltip("This is minimum movespeed,  % of the _startFallSpeed ")]

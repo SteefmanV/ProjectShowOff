@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using JetBrains.Annotations;
+using Sirenix.OdinInspector;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -7,28 +8,29 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class EnvironmentTargetGenerator : MonoBehaviour
 {
-
     [Title("AI Settings")]
     [SerializeField] private float _minRadiusFromEnvironment = .5f;
-    [SerializeField] private LayerMask _environmentLayers;
 
     [Title("Position Settings")]
-    [SerializeField] private Vector2 _minMaxX;
-    [SerializeField] private Vector2 _minMaxY;
-    [SerializeField] private Vector2 _minMaxZ;
+    [SerializeField] private Vector2 _minMaxX = new Vector2();
+    [SerializeField] private Vector2 _minMaxY = new Vector2();
+    [SerializeField] private Vector2 _minMaxZ = new Vector2();
 
     [Title("Test to check the _minRadius")]
     [SerializeField] private GameObject testPrefab = null;
+    [SerializeField] private LayerMask testEnvironmentLayers = 0;
+
     private const int MAX_TRIES = 100;
+
     private bool generateSpheres = false;
 
 
-    public Vector3 GetValidPosition()
+    public Vector3 GetValidPosition(LayerMask pEnvironmentLayers)
     {
         Vector3 randomPos = getRandomPosition();
 
         int tries = 0;
-        while (!isPositionValid(randomPos))
+        while (!isPositionValid(randomPos, pEnvironmentLayers))
         {
             randomPos = getRandomPosition();
             if (tries > MAX_TRIES) break;
@@ -38,9 +40,9 @@ public class EnvironmentTargetGenerator : MonoBehaviour
     }
 
 
-    private bool isPositionValid(Vector3 pPosition)
+    private bool isPositionValid(Vector3 pPosition, LayerMask pEnvironmentLayers)
     {
-        return (Physics.OverlapSphere(pPosition, _minRadiusFromEnvironment, _environmentLayers).Length <= 0);
+        return (Physics.OverlapSphere(pPosition, _minRadiusFromEnvironment, pEnvironmentLayers).Length <= 0);
     }
 
 
@@ -59,7 +61,7 @@ public class EnvironmentTargetGenerator : MonoBehaviour
     {
         for (int i = 0; i < 100; i++)
         {
-            Instantiate(testPrefab, GetValidPosition(), Quaternion.identity, transform);
+            Instantiate(testPrefab, GetValidPosition(testEnvironmentLayers), Quaternion.identity, transform);
         }
 
         generateSpheres = true;
