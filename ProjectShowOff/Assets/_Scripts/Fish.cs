@@ -47,7 +47,7 @@ public class Fish : MonoBehaviour
     [SerializeField, BoxGroup("Chase trash"), ShowIf("currentState", Behaviour.chasingThrash)]
     private Thrash targetThrash = null;
 
-
+    //================= Power Ups =================
     [Title("Protection Bubble")]
     private bool _isProtected = false;
     public bool isProtected {
@@ -60,9 +60,11 @@ public class Fish : MonoBehaviour
             _protectionBubble.SetActive(value);
         }
     }
+
     [SerializeField] private GameObject _protectionBubble;
 
 
+    //================= Misc =================
     private EnvironmentTargetGenerator _targetGenerator;
     private FishManager _fishManager;
 
@@ -172,7 +174,7 @@ public class Fish : MonoBehaviour
         }
 
         _agent.moving = true;
-        _agent.collisionThreshold = 0.3f;
+        _agent.collisionThreshold = 0.2f;
         _agent.SetTarget(targetThrash.transform.position);
 
         if((transform.position - targetThrash.transform.position).magnitude < _trashEatRadius * 0.8f)
