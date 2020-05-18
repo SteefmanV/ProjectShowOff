@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f1ed214a45d544f8b446c1026f0802, type: 3}
   m_Name: BubblePack
   m_EditorClassIdentifier: 
+  type: 2
   powerUpIcon: {fileID: 2820091020210580672, guid: 6a54b5a53f1f28042b0926cec72c8cce,
     type: 3}
   bottle: 1
   straw: 0
   rings: 1
-  usesTwoComponents: 1
-  usesThreeComponents: 0

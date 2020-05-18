@@ -18,12 +18,7 @@ public class ItemCollectionManager : MonoBehaviour
     [SerializeField] private GameObject _strawIcon = null;
 
     [Title("Power-up Combinations")]
-    [SerializeField] private Combination _netCombi = null;
-    [SerializeField] private Combination _bubblePackCombi = null;
-    [SerializeField] private Combination _airTrapCombi = null;
-    [SerializeField] private Combination _smallBubbleGunCombi = null;
-    [SerializeField] private Combination _bigBubbleCombi = null;
-    [SerializeField] private Combination _bubbleBarrage = null;
+    [SerializeField] private List<Combination> powerUps = new List<Combination>();
 
 
     private void Start()
@@ -42,11 +37,7 @@ public class ItemCollectionManager : MonoBehaviour
         _itemsCollected[pItem]++;
         _justCollected.Add(pItem);
 
-
-        Combination powerUp = checkForPowerUp();
-        if (powerUp != null) activatePowerUp(powerUp);
-
-        updateUI(powerUp);
+        checkForPowerUp();
     }
 
 
@@ -66,32 +57,26 @@ public class ItemCollectionManager : MonoBehaviour
     }
 
 
-    private Combination checkForPowerUp()
+    private void checkForPowerUp()
     {
-        if (checkCombinations(_bubbleBarrage)) return _bubbleBarrage;
-        else if (checkCombinations(_netCombi)) return _netCombi;
-        else if (checkCombinations(_bubblePackCombi)) return _bubblePackCombi;
-        else if (checkCombinations(_airTrapCombi)) return _airTrapCombi;
-        else if (checkCombinations(_smallBubbleGunCombi)) return _smallBubbleGunCombi;
-        else if (checkCombinations(_bigBubbleCombi)) return _bigBubbleCombi;
-        else return null;
+        Combination combination = null;
+        foreach(Combination combi in powerUps)
+        {
+            if (checkCombinations(combi))
+            {
+                _powerUp.ActivatePowerup(combi.type);
+                combination = combi;
+                break;
+            }
+        }
+
+        updateUI(combination);
     }
 
 
     private bool checkCombinations(Combination pCombi)
     {
         return pCombi.hasCombination(getItemInListCount(Item.bottle), getItemInListCount(Item.straw), getItemInListCount(Item.rings));
-    }
-
-
-    private void activatePowerUp(Combination pCombi)
-    {
-        if (pCombi == _netCombi) _powerUp.ActivateNet();
-        else if (pCombi == _bubblePackCombi) _powerUp.ActivateBubblePack();
-        else if (pCombi == _airTrapCombi) _powerUp.ActivateAirTrap();
-        else if (pCombi == _smallBubbleGunCombi) _powerUp.ActivateSmallBubbleGun();
-        else if (pCombi == _bigBubbleCombi) _powerUp.ActivateBigBubble();
-        else if (pCombi == _bubbleBarrage) _powerUp.ActivateBubbleBarrage();
     }
 
 

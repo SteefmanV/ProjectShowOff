@@ -48,7 +48,7 @@ public class airTrapPowerUp : MonoBehaviour
     }
 
 
-    public void Land()
+    public void Stop()
     {
         airTrapActive = false;
         _spawnedTraps = 0;

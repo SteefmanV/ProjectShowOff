@@ -32,7 +32,7 @@ public class BubblePackPowerUp : MonoBehaviour
     }
 
 
-    public void Land()
+    public void Stop()
     {
         if (bbPackActive)
         {

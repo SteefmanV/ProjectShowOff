@@ -1966,7 +1966,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _spawnWaves.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 89d812315640ad5419e7dea980172ea9,
+      objectReference: {fileID: 11400000, guid: 72b3a40aa8ffe284f9c51dd12abfa359,
         type: 2}
     - target: {fileID: 6594026051280815681, guid: 0b4b260f617354c448fef7150d12ec24,
         type: 3}
@@ -1984,6 +1984,12 @@ PrefabInstance:
       propertyPath: spawnHeight
       value: 5.9
       objectReference: {fileID: 0}
+    - target: {fileID: 6594026051280815681, guid: 0b4b260f617354c448fef7150d12ec24,
+        type: 3}
+      propertyPath: _spawnWaves.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 89d812315640ad5419e7dea980172ea9,
+        type: 2}
     - target: {fileID: 6594026051280815682, guid: 0b4b260f617354c448fef7150d12ec24,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3135,6 +3141,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5889687336172131051, guid: b345794402eeb054faf330036e61e134,
         type: 3}
+      propertyPath: powerUps.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5889687336172131051, guid: b345794402eeb054faf330036e61e134,
+        type: 3}
       propertyPath: _uiHolders.Array.data[0]
       value: 
       objectReference: {fileID: 1961508173}
@@ -3153,6 +3164,24 @@ PrefabInstance:
       propertyPath: _uiHolders.Array.data[3]
       value: 
       objectReference: {fileID: 942175236}
+    - target: {fileID: 5889687336172131051, guid: b345794402eeb054faf330036e61e134,
+        type: 3}
+      propertyPath: powerUps.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: b8979fc43bd5709408b82304b8728731,
+        type: 2}
+    - target: {fileID: 5889687336172131051, guid: b345794402eeb054faf330036e61e134,
+        type: 3}
+      propertyPath: powerUps.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3ed91d1bd70bc8c4ea134ccb608e0143,
+        type: 2}
+    - target: {fileID: 5889687336172131051, guid: b345794402eeb054faf330036e61e134,
+        type: 3}
+      propertyPath: powerUps.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: d4867168668bd304687c951c7abd86d0,
+        type: 2}
     - target: {fileID: 6660734762075585430, guid: b345794402eeb054faf330036e61e134,
         type: 3}
       propertyPath: _gameOverPanel
@@ -5182,6 +5211,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fish Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 953458262806724221, guid: 679109d4bf87cb541a421443593d739c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 679109d4bf87cb541a421443593d739c, type: 3}

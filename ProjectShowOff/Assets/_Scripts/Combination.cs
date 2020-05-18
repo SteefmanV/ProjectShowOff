@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Powerup-Combination", order = 1)]
 public class Combination : ScriptableObject
 {
+    public PowerUp.PowerUps type;
     public GameObject powerUpIcon;
     public bool bottle;
     public bool straw;
