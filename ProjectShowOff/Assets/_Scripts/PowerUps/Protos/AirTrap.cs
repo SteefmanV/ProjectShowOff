@@ -34,7 +34,7 @@ public class AirTrap : MonoBehaviour
     {
         if (!_hasTrash)
         {
-            if (collision.gameObject.CompareTag("trash"))
+            if (collision.gameObject.CompareTag("thrash"))
             {
                 _hasTrash = true;
 

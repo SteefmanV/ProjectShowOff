@@ -6,8 +6,8 @@ public class PowerUp : MonoBehaviour
     [SerializeField, Required, SceneObjectsOnly] private GameObject powerUpManager;
 
     public enum PowerUps { none, net, bubblePack, airTrap }
-    public PowerUps currentlyActive = PowerUps.none;
-    public PowerUps nextPowerUp = PowerUps.none;
+    [ReadOnly, SerializeField] private PowerUps currentlyActive = PowerUps.none;
+    [ReadOnly, SerializeField] private PowerUps nextPowerUp = PowerUps.none;
 
     // powerup references
     private NetPowerUp _netPowerUp = null;
@@ -31,10 +31,17 @@ public class PowerUp : MonoBehaviour
         _bubblePackPowerUp = powerUpManager.GetComponent<BubblePackPowerUp>();
     }
 
-    public void ActivatePowerup(PowerUps pPowerup) 
+
+    /// <summary>
+    /// Activate a powerup
+    /// </summary>
+    public void ActivatePowerup(PowerUps pPowerup)
     {
-        nextPowerUp = pPowerup;
-        Debug.Log("<color=purple><b> Activated: " + pPowerup + "</b></color>");
+        if (currentlyActive == PowerUps.none && nextPowerUp == PowerUps.none)
+        {
+            nextPowerUp = pPowerup;
+            Debug.Log("<color=green><b> Activated: " + pPowerup + "</b></color>");
+        }
     }
 
 
@@ -46,23 +53,24 @@ public class PowerUp : MonoBehaviour
             nextPowerUp = PowerUps.none;
         }
 
-        switch(currentlyActive)
+        switch (currentlyActive)
         {
             case PowerUps.net:
                 _netPowerUp.StartNet(pPosition);
                 break;
             case PowerUps.bubblePack:
-                _bubblePackPowerUp.Stop();
+                _bubblePackPowerUp.Setup();
                 break;
             case PowerUps.airTrap:
-                _airTrapPowerUp.SetUp(pPosition, _playerMovement.shootDirection);
+                _airTrapPowerUp.Setup(pPosition, _playerMovement.shootDirection);
                 break;
         }
     }
 
+
     private void OnEndJump(object pSender, Vector3 pPosition)
     {
-        switch(currentlyActive)
+        switch (currentlyActive)
         {
             case PowerUps.net:
                 _netPowerUp.StopNet(pPosition);
@@ -75,10 +83,10 @@ public class PowerUp : MonoBehaviour
                 break;
         }
 
-        if(currentlyActive != PowerUps.none)
+        if (currentlyActive != PowerUps.none)
         {
             _itemCollection.ResetCount();
             currentlyActive = PowerUps.none;
-        }    
+        }
     }
 }

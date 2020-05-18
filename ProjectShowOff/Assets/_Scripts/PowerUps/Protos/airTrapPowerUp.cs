@@ -30,7 +30,7 @@ public class airTrapPowerUp : MonoBehaviour
     }
 
 
-    public void SetUp(Vector3 pPosition, Vector3 pDirection)
+    public void Setup(Vector3 pPosition, Vector3 pDirection)
     {
         _startPosition = pPosition;
 

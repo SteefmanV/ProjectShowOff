@@ -20,7 +20,7 @@ public class Net : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("trash"))
+        if(collision.gameObject.CompareTag("thrash"))
         {
             Destroy(collision.gameObject);
         }

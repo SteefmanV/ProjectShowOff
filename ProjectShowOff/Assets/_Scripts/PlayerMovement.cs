@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public event EventHandler<Vector3> endJump;
 
     //Added for air trap raycast
-    public Vector3 shootDirection { get; set; }
+    public Vector2 shootDirection { get; set; }
 
     //Made public for Bubblepack
     [Title("Shoot settings")]
@@ -136,22 +136,26 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMouseOverObject())
         {
-            Vector3 endPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 shootForce = shootStrength * new Vector2(transform.position.x - endPosition.x, transform.position.y - endPosition.y);
-            shootDirection = shootForce;
-
             Vector3 mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
             mouse.z = -1;
             Vector3 delta = mouse - transform.position;
 
             if (delta.magnitude > _minimumDragLength)
             {
+                Vector3 endPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+                shootDirection = transform.position - endPosition;
+
+                startJump?.Invoke(this, transform.position);
+
+                Vector3 shootForce = shootStrength * shootDirection;
+
                 if (shootForce.magnitude > maximumShootSpeed)
                 {
                     shootForce = shootForce.normalized * maximumShootSpeed; // Limit shoot speed
                 }
 
-                startJump?.Invoke(this, transform.position);
+                Debug.Log("shoot speed = " + shootForce.magnitude);
+
                 _rb.AddForce(shootForce, ForceMode.Impulse);               
             }
         }
