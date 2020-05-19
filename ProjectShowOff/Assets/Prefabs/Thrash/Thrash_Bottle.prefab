@@ -12,12 +12,10 @@ GameObject:
   - component: {fileID: 6555831740694560881}
   - component: {fileID: 704381579687853192}
   - component: {fileID: 7123371118420762280}
-  - component: {fileID: 7123371118420762276}
-  - component: {fileID: 7123371118420762281}
-  - component: {fileID: 2242831400442971261}
+  - component: {fileID: 2437195070307596176}
   m_Layer: 9
   m_Name: Thrash_Bottle
-  m_TagString: thrash
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +30,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.68, y: 6.32, z: 0}
   m_LocalScale: {x: 0.005, y: 0.006, z: 0.006}
-  m_Children: []
+  m_Children:
+  - {fileID: 8919122531198564327}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -97,10 +96,10 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 8
   m_CollisionDetection: 0
---- !u!65 &7123371118420762276
-BoxCollider:
+--- !u!64 &2437195070307596176
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -109,34 +108,87 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1855923187887352656, guid: 7c9f71d4099fe8a4da7fd4e06c1d94b0, type: 3}
+--- !u!1 &2934614570768477552
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8919122531198564327}
+  - component: {fileID: 4375232403348099367}
+  - component: {fileID: 6707973245231792633}
+  - component: {fileID: 4509870732279604151}
+  m_Layer: 0
+  m_Name: Controller
+  m_TagString: thrash
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8919122531198564327
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2934614570768477552}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2855836887931402823}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &4375232403348099367
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2934614570768477552}
   serializedVersion: 2
-  m_Size: {x: 37.81831, y: 126.46294, z: 36.997406}
-  m_Center: {x: -0.022584915, y: 16.074532, z: -0.07262516}
---- !u!114 &7123371118420762281
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &6707973245231792633
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1295525259969906772}
+  m_GameObject: {fileID: 2934614570768477552}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 357a9b6e5ee99a44b8a9dde6db210fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrashType: 1
+  health: 100
+  trashType: 1
   _startFallSpeed: -4
   _minForcePercentage: 0.2
---- !u!65 &2242831400442971261
+  _mainObject: {fileID: 1295525259969906772}
+  _rb: {fileID: 0}
+--- !u!65 &4509870732279604151
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1295525259969906772}
+  m_GameObject: {fileID: 2934614570768477552}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 97.50688, y: 161.18582, z: 50.000004}
-  m_Center: {x: 0, y: 17.575146, z: -0.07262578}
+  m_Size: {x: 37.982685, y: 126.383545, z: 35.73976}
+  m_Center: {x: 0.024476647, y: 16.048641, z: -0.34138995}

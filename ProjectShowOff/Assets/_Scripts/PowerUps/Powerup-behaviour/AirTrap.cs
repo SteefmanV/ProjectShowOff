@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AirTrap : MonoBehaviour
 {
-    public GameObject trashObject = null;
+    private GameObject _trashObject = null;
 
     [SerializeField] private float _trapDurationSec = 5f;
     [SerializeField, Required] private GameObject _holdPosition = null;
@@ -30,22 +30,22 @@ public class AirTrap : MonoBehaviour
 
 
     // Update is called once per frame
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider pOther)
     {
         if (!_hasTrash)
         {
-            if (collision.gameObject.CompareTag("thrash"))
+            if (pOther.gameObject.CompareTag("thrash"))
             {
                 _hasTrash = true;
 
-                trashObject = collision.gameObject;
-                trashObject.transform.parent = _holdPosition.transform;
+                _trashObject = pOther.transform.parent.gameObject;
+                _trashObject.transform.parent = _holdPosition.transform;
 
-                trashObject.GetComponent<BoxCollider>().enabled = false;
-                trashObject.GetComponent<Rigidbody>().isKinematic = true;
+                //trashObject.GetComponent<BoxCollider>().enabled = false;
+                //trashObject.GetComponent<Rigidbody>().isKinematic = true;
 
-                trashObject.transform.position = _holdPosition.transform.position;
-                trashObject.GetComponent<Thrash>().enabled = false;
+                _trashObject.transform.position = _holdPosition.transform.position;
+                pOther.gameObject.GetComponent<Thrash>().SetDisabled(true);
 
                 GetComponent<BoxCollider>().enabled = false;
             }
@@ -57,10 +57,11 @@ public class AirTrap : MonoBehaviour
     {
         if (_hasTrash)
         {
-            trashObject.transform.parent = null;
-            trashObject.GetComponent<Thrash>().enabled = true;
-            trashObject.GetComponent<BoxCollider>().enabled = true;
-            trashObject.GetComponent<Rigidbody>().isKinematic = false;
+            _trashObject.transform.parent = null;
+      //      trashObject.GetComponentInChildren<Thrash>().disabled = false;
+            _trashObject.GetComponentInChildren<Thrash>().SetDisabled(false);
+            // trashObject.GetComponent<BoxCollider>().enabled = true;
+            // trashObject.GetComponent<Rigidbody>().isKinematic = false;
         }
 
         Destroy(gameObject);

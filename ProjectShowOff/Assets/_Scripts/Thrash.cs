@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Thrash : MonoBehaviour
 {
+    public bool disabled { get; set; } = false;
+
     [ProgressBar(0, 100, ColorMember = "GetHealthBarColor")]
     public float health = 100;
 
@@ -14,14 +16,16 @@ public class Thrash : MonoBehaviour
     [SerializeField, Tooltip("This is minimum movespeed,  % of the _startFallSpeed ")]
     private float _minForcePercentage = 0.2f;
 
-    private Rigidbody _rb = null;
+    [SerializeField] private GameObject _mainObject = null;
+
+    [SerializeField] private Rigidbody _rb = null;
     private ItemCollectionManager _powerUpManager;
     private ScoreManager _scoreManager;
 
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody>();
+        _rb = _mainObject.GetComponent<Rigidbody>();
         GameObject gameManager = GameObject.FindGameObjectWithTag("GameManager");
         _powerUpManager = gameManager.GetComponent<ItemCollectionManager>();
         _scoreManager = gameManager.GetComponent<ScoreManager>();
@@ -36,6 +40,8 @@ public class Thrash : MonoBehaviour
 
     private void Update()
     {
+        if (disabled) { return; }
+
         Vector3 minimumForce = new Vector3(0, _startFallSpeed * _minForcePercentage, 0);
 
         if (_rb.velocity.magnitude < minimumForce.magnitude)
@@ -43,7 +49,7 @@ public class Thrash : MonoBehaviour
             _rb.velocity = minimumForce;
         }
 
-        if(health <= 0) Destroy(gameObject);
+        if (health <= 0) Destroy(_mainObject);
     }
 
 
@@ -51,17 +57,38 @@ public class Thrash : MonoBehaviour
     {
         _powerUpManager.CollectedItem(trashType);
         _scoreManager.ThrashDestroyed();
-        Destroy(gameObject);
+        Destroy(_mainObject);
+    }
+
+    
+    public void SetDisabled(bool pActive)
+    {
+        disabled = pActive;
+
+        if(disabled)
+        {
+            GetComponentInParent<BoxCollider>().enabled = false;
+            _rb.isKinematic = true;
+            _rb.velocity = Vector3.zero;
+        }
+        else
+        {
+            GetComponentInParent<BoxCollider>().enabled = true;
+            _rb.isKinematic = false;
+            _rb.AddForce(new Vector3(0, _startFallSpeed, 0), ForceMode.Force);
+        }
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
+        if (disabled) return;
+
         if (other.gameObject.tag == "Player")
         {
             if (enabled)
             {
-               GetCollected();
+                GetCollected();
             }
         }
     }

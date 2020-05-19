@@ -13,7 +13,9 @@ public class PlayerMovement : MonoBehaviour
     public event EventHandler<Vector3> endJump;
 
     //Added for air trap raycast
-    public Vector2 shootDirection { get; set; }
+    public Vector2 shootDirection { get; private set; }
+    public Vector3 mouseDrag { get; private set; }
+    public float shootForce { get; private set; }
 
     //Made public for Bubblepack
     [Title("Shoot settings")]
@@ -22,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask _playerLayer = 0;
 
     [Title("Drag / Trail settings")]
-    [SerializeField] private float _minimumDragLength = 1;
+    [SerializeField] public float minimumDragLength = 1;
     [SerializeField] private float _dragTrailOffsetStrength = 0.1f;
     [SerializeField] private float _dragThresholdSpeed = 0.1f; // If the player moves slower than this speed, allow to shoot
 
@@ -33,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _rb = null;
     private LineRenderer _lineRender;
     private Camera _camera;
+
+    private float _timer = 0;
 
 
     void Awake()
@@ -46,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         dragAndShoot();
+
+        _timer += Time.deltaTime;
     }
 
 
@@ -56,8 +62,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("sticky"))
         {
+            if (_timer < 0.1f) return;
+
             _rb.velocity = Vector3.zero;
             endJump?.Invoke(this, transform.position);
+
+            Vector3 n = collision.GetContact(0).normal;
+            Vector3 target = transform.position + n * 10;
+            transform.LookAt(target, Vector3.up);
         }
     }
 
@@ -117,12 +129,14 @@ public class PlayerMovement : MonoBehaviour
         startPos.z = -1;
         mouse.z = -1;
 
-        Vector3 delta = mouse - startPos;
+        mouseDrag = mouse - startPos;
+        shootForce = shootStrength * mouseDrag.magnitude;
+        if (shootForce > maximumShootSpeed) shootForce = maximumShootSpeed;
 
-        if (delta.magnitude > _minimumDragLength)
+        if (mouseDrag.magnitude > minimumDragLength)
         {
             _lineRender.positionCount = 2;
-            _lineRender.SetPosition(0, startPos + delta.normalized * _dragTrailOffsetStrength);
+            _lineRender.SetPosition(0, startPos + mouseDrag.normalized * _dragTrailOffsetStrength);
             _lineRender.SetPosition(1, mouse);
         }
         else _lineRender.positionCount = 0;
@@ -140,27 +154,29 @@ public class PlayerMovement : MonoBehaviour
             mouse.z = -1;
             Vector3 delta = mouse - transform.position;
 
-            if (delta.magnitude > _minimumDragLength)
+            if (delta.magnitude > minimumDragLength)
             {
                 Vector3 endPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
                 shootDirection = transform.position - endPosition;
 
                 startJump?.Invoke(this, transform.position);
 
-                Vector3 shootForce = shootStrength * shootDirection;
+                Vector3 force = shootStrength * shootDirection;
 
-                if (shootForce.magnitude > maximumShootSpeed)
+                if (force.magnitude > maximumShootSpeed)
                 {
-                    shootForce = shootForce.normalized * maximumShootSpeed; // Limit shoot speed
+                    force = force.normalized * maximumShootSpeed; // Limit shoot speed
                 }
 
-                Debug.Log("shoot speed = " + shootForce.magnitude);
+                Debug.Log("shoot speed = " + force.magnitude);
 
-                _rb.AddForce(shootForce, ForceMode.Impulse);               
+                _rb.AddForce(force, ForceMode.Impulse);
+                _timer = 0;
             }
         }
 
         _lineRender.positionCount = 0;
+        mouseDrag = Vector3.zero;
     }
 
 
