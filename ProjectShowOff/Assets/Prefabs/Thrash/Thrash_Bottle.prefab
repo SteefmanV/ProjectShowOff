@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6555831740694560881}
   - component: {fileID: 704381579687853192}
   - component: {fileID: 7123371118420762280}
-  - component: {fileID: 2437195070307596176}
+  - component: {fileID: -1716802359547818502}
   m_Layer: 9
   m_Name: Thrash_Bottle
   m_TagString: Untagged
@@ -98,8 +98,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 0
---- !u!64 &2437195070307596176
-MeshCollider:
+--- !u!65 &-1716802359547818502
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -108,10 +108,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1855923187887352656, guid: 7c9f71d4099fe8a4da7fd4e06c1d94b0, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 37.81831, y: 126.46294, z: 36.997406}
+  m_Center: {x: -0.022584915, y: 16.074532, z: -0.07262516}
 --- !u!1 &2934614570768477552
 GameObject:
   m_ObjectHideFlags: 0

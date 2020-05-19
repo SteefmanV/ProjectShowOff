@@ -102,8 +102,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8051980396140878786}
-  - component: {fileID: 8051980396140878787}
   - component: {fileID: 8051980396140878784}
+  - component: {fileID: 8051980396140878787}
   - component: {fileID: 8051980396140878799}
   m_Layer: 12
   m_Name: Alarm-jellyfish
@@ -128,34 +128,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 89, z: 0}
---- !u!114 &8051980396140878787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8051980396140878798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47f9fa483f454f641bc7216b9f689755, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _agent: {fileID: 8051980396140878784}
-  health: 100
-  decreaseHpPerSecEating: 50
-  _trashDetectionRadius: 2
-  _trashLayer:
-    serializedVersion: 2
-    m_Bits: 8192
-  _trashEatRadius: 2
-  minMaxTimeIdle: {x: 1, y: 5}
-  perctangeToGoIdleAfterPatrol: 20
-  currentState: 1
-  _targetPosition: {x: 0, y: 0, z: 0}
-  targetDistance: 0
-  _timer: 0
-  targetThrash: {fileID: 0}
-  _protectionBubble: {fileID: 0}
 --- !u!114 &8051980396140878784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,14 +142,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 8448
-  collisionThreshold: 2
-  _boundsRadius: 2
+    m_Bits: 12544
+  collisionThreshold: 1
+  _boundsRadius: 0.5
   _maxSpeed: 2
   _avoidTurnStrength: 10
   _targetStrength: 1
-  stopDistance: 0.5
+  stopDistance: 0.2
   _debugColission: 0
+--- !u!114 &8051980396140878787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8051980396140878798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47f9fa483f454f641bc7216b9f689755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _agent: {fileID: 8051980396140878784}
+  health: 100
+  decreaseHpPerSecEating: 150
+  _trashDetectionRadius: 10
+  _trashLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  _trashEatRadius: 1.5
+  minMaxTimeIdle: {x: 1, y: 10}
+  perctangeToGoIdleAfterPatrol: 20
+  currentState: 1
+  _targetPosition: {x: 0, y: 0, z: 0}
+  targetDistance: 0
+  _timer: 0
+  targetThrash: {fileID: 0}
+  _protectionBubble: {fileID: 416881172}
 --- !u!65 &8051980396140878799
 BoxCollider:
   m_ObjectHideFlags: 0

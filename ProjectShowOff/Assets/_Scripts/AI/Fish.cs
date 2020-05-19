@@ -139,6 +139,7 @@ public class Fish : MonoBehaviour
     {
         _agent.moving = true;
         _agent.collisionThreshold = _oldCollisionThreshhold;
+
         // Target reached,  TODO: implement deacceleration instead of instant stop
         targetDistance = (_agent.targetPosition - _agent.transform.position).magnitude;
         if (targetDistance < _agent.stopDistance)
@@ -208,7 +209,7 @@ public class Fish : MonoBehaviour
         Transform trash = nearbytrash();
         if(trash != null)
         {
-            targetThrash = trash.GetComponent<Thrash>();
+            targetThrash = trash.GetComponentInChildren<Thrash>();
             currentState = Behaviour.chasingThrash;
         }
     }
