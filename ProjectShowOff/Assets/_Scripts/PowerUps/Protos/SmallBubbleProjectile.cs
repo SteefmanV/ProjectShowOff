@@ -20,9 +20,9 @@ public class SmallBubbleProjectile : MonoBehaviour
     {
         if (other.gameObject.CompareTag("fish"))
         {
-            if (other.gameObject.GetComponent<Fish>().isProtected == false)
+            if (other.gameObject.GetComponent<SingleFishBehaviour>().isProtected == false)
             {
-                other.gameObject.GetComponent<Fish>().isProtected = true;
+                other.gameObject.GetComponent<SingleFishBehaviour>().isProtected = true;
             }
 
             Destroy(gameObject);

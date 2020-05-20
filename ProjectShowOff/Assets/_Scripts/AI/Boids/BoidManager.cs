@@ -1,21 +1,24 @@
-﻿using Sirenix.OdinInspector;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class BoidManager : MonoBehaviour
 {
     [SerializeField, Required] private BoidSettings _settings = null;
     [SerializeField] private Transform _target = null;
-    private Boid[] _boids;
+    private List<Boid> _boids = new List<Boid>();
 
 
-    void Start()
-    {
-        _boids = getActiveBoids();
-    }
+    //void Start()
+    //{
+    //    _boids = getActiveBoids();
+    //}
 
 
     void Update()
     {
+        _boids = getActiveBoids();
         updateBoids();
     }
 
@@ -63,9 +66,9 @@ public class BoidManager : MonoBehaviour
     /// <summary>
     /// Get all activate boids in scene
     /// </summary>
-    private Boid[] getActiveBoids()
+    private List<Boid> getActiveBoids()
     {
-        _boids = FindObjectsOfType<Boid>();
+        _boids = FindObjectsOfType<Boid>().ToList();
 
         foreach (Boid boid in _boids)
         {
@@ -81,66 +84,18 @@ public class BoidManager : MonoBehaviour
     /// </summary>
     private BoidData[] getBoidData()
     {
-        BoidData[] boidData = new BoidData[_boids.Length];
+        BoidData[] boidData = new BoidData[_boids.Count];
 
-        for (int i = 0; i < _boids.Length; i++)
+        for (int i = 0; i < _boids.Count; i++)
         {
+            if (_boids[i] == null)
+            {
+                _boids.Remove(_boids[i]);
+                continue;
+            }
             boidData[i].Initialize(_boids[i].transform.position, _boids[i].transform.forward);
         }
 
         return boidData;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//var boidBuffer = new ComputeBuffer(boidCount, BoidData.Size);
-//boidBuffer.SetData(boidData);
-
-//compute.SetBuffer(0, "boids", boidBuffer);
-//compute.SetInt("numBoids", boids.Length);
-//compute.SetFloat("viewRadius", settings.perceptionRadius);
-//compute.SetFloat("avoidRadius", settings.avoidanceRadius);
-
-//int threadGroups = Mathf.CeilToInt(boidCount / (float)threadGroupSize);
-//compute.Dispatch(0, threadGroups, 1, 1);
-
-//boidBuffer.GetData(boidData);
-//...
-//...
-//...
-// boidBuffer.Release();

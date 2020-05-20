@@ -7,7 +7,7 @@ public class BigBubble : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         GameObject otherObject = other.gameObject;
-        if (otherObject.CompareTag("fish")) otherObject.GetComponent<Fish>().isProtected = true;
+        if (otherObject.CompareTag("fish")) otherObject.GetComponent<SingleFishBehaviour>().isProtected = true;
         if (otherObject.CompareTag("thrash")) otherObject.GetComponent<Thrash>().GetCollected();
     }
 }

@@ -15,16 +15,16 @@ MonoBehaviour:
   minSpeed: 1
   maxSpeed: 2
   visionRadius: 2
-  avoidanceRadius: 1.5
+  avoidanceRadius: 1
   maxTurnForce: 4
   alignStrength: 2
   cohesionStrength: 1
   seperationStrength: 2.5
-  targetStrength: 2
+  targetStrength: 1
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 10496
+    m_Bits: 14592
   boundsRadius: 0.27
   avoidCollisionStrength: 10
-  collisionThreshold: 2
+  collisionThreshold: 1.3
   _debugColission: 0

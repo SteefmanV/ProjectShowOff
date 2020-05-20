@@ -3,11 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boid : MonoBehaviour
+public class Boid : Fish
 {
     private BoidSettings _settings;
-    private Transform _target;
+    [SerializeField] private Transform _target;
     private Vector3 _velocity;
+    private Animator _anim;
+
+    private void Start()
+    {
+        _anim = GetComponent<Animator>();
+    }
 
 
     /// <summary>
@@ -28,10 +34,19 @@ public class Boid : MonoBehaviour
     {
         Vector3 acceleration = Vector3.zero;
 
-        if (_target != null)
+        Thrash targetThrash = checkFortrash();
+        if(targetThrash != null)
         {
+            _target = targetThrash.transform;
             acceleration = turnTowards(_target.position - transform.position) * _settings.targetStrength; // Turn towards target
+
+            if ((transform.position - _target.position).magnitude < _trashEatRadius * 0.8f)
+            {
+                eat();   
+            }
+            else _anim.SetBool("hurt", false);
         }
+        else _anim.SetBool("hurt", false);
 
         if (pBoidData.flockSize != 0)
         {
@@ -91,5 +106,20 @@ public class Boid : MonoBehaviour
         }
 
         return transform.forward;
+    }
+
+    private void eat()
+    {
+        if (targetThrash == null) return;
+        Debug.Log("EAT");
+        health -= (Time.deltaTime * decreaseHpPerSecEating);
+        targetThrash.health -= (Time.deltaTime * decreaseHpPerSecEating);
+        if(health <= 0 && !dead)
+        {
+            _anim.SetTrigger("die");
+        }
+        else _anim.SetBool("hurt", true);
+
+        checkHealth();
     }
 }
