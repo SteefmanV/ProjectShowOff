@@ -1539,6 +1539,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2629644855590804031, guid: b8e2f6487995f2d4b8c0e001bd7b582a,
+        type: 3}
+      propertyPath: shootStrength
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2629644855590804031, guid: b8e2f6487995f2d4b8c0e001bd7b582a,
+        type: 3}
+      propertyPath: maximumShootSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2843442861709255906, guid: b8e2f6487995f2d4b8c0e001bd7b582a,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -10,9 +10,21 @@ public class AirTrap : MonoBehaviour
     [SerializeField] private float _trapDurationSec = 5f;
     [SerializeField, Required] private GameObject _holdPosition = null;
 
+    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _instantiated = null;
+    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _trapped = null;
+    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _trapDeactivated = null;
+    private AudioSource _audio;
+
     private float _timer = 0f;
     private bool _hasTrash = false;
     private float _maxHeight = 6.5f;
+
+
+    private void Start()
+    {
+        _audio = GetComponent<AudioSource>();
+        _audio.PlayOneShot(_instantiated);
+    }
 
 
     private void Update()
@@ -41,13 +53,11 @@ public class AirTrap : MonoBehaviour
                 _trashObject = pOther.transform.parent.gameObject;
                 _trashObject.transform.parent = _holdPosition.transform;
 
-                //trashObject.GetComponent<BoxCollider>().enabled = false;
-                //trashObject.GetComponent<Rigidbody>().isKinematic = true;
-
                 _trashObject.transform.position = _holdPosition.transform.position;
                 pOther.gameObject.GetComponent<Thrash>().SetDisabled(true);
 
                 GetComponent<BoxCollider>().enabled = false;
+                _audio.PlayOneShot(_trapped);
             }
         }
     }
@@ -58,12 +68,10 @@ public class AirTrap : MonoBehaviour
         if (_hasTrash)
         {
             _trashObject.transform.parent = null;
-      //      trashObject.GetComponentInChildren<Thrash>().disabled = false;
             _trashObject.GetComponentInChildren<Thrash>().SetDisabled(false);
-            // trashObject.GetComponent<BoxCollider>().enabled = true;
-            // trashObject.GetComponent<Rigidbody>().isKinematic = false;
         }
 
+        _audio.PlayOneShot(_trapDeactivated);
         Destroy(gameObject);
     }
 }

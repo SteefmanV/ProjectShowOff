@@ -17,6 +17,11 @@ public class Fish : MonoBehaviour
     [SerializeField] protected float _trashEatRadius = 0;
     [SerializeField] protected Thrash targetThrash = null;
 
+    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _die;
+    [FoldoutGroup("Sounds"), SerializeField] protected AudioClip _thrashDetected;
+    [FoldoutGroup("Sounds"), SerializeField] protected AudioClip _eating;
+    protected AudioSource _audio;
+
 
     //================= Power Ups =================
     [Title("Protection Bubble")]
@@ -46,6 +51,7 @@ public class Fish : MonoBehaviour
     void Awake()
     {
         fishManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<FishManager>();
+        _audio = GetComponent<AudioSource>();
     }
 
 
@@ -55,6 +61,7 @@ public class Fish : MonoBehaviour
         {         
             dead = true;
             fishManager.CheckFishCount();
+            _audio.PlayOneShot(_die);
             StartCoroutine(delayedDestroy());
         }
     }

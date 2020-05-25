@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 331830465275925295}
   m_Layer: 9
   m_Name: rings
-  m_TagString: Untagged
+  m_TagString: thrash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 4690062002280069549}
   - component: {fileID: 6699117559429648741}
   - component: {fileID: 7403413031533846026}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Controller
   m_TagString: thrash
   m_Icon: {fileID: 0}
@@ -203,6 +203,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BubblePack
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342236770471742806, guid: a42e14c9443d96f47b719156592a3d7c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5917630977478080906, guid: a42e14c9443d96f47b719156592a3d7c,
         type: 3}

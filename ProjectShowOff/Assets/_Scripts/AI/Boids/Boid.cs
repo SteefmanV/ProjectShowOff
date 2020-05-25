@@ -121,5 +121,12 @@ public class Boid : Fish
         else _anim.SetBool("hurt", true);
 
         checkHealth();
+
+        if(_audio.clip != _eating)
+        {
+            _audio.clip = _eating;
+            _audio.loop = true;
+            _audio.Play();
+        }
     }
 }

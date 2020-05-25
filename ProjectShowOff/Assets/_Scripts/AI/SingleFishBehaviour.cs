@@ -140,7 +140,7 @@ public class SingleFishBehaviour : Fish
         if (checkFortrash() != null)
         {
             currentState = Behaviour.chasingThrash;
-        }
+        };
     }
 
 
@@ -149,6 +149,7 @@ public class SingleFishBehaviour : Fish
         if (targetThrash == null)
         {
             currentState = Behaviour.patrolling;
+            if (_audio.clip == _eating) _audio.Stop();
             return;
         }
 
@@ -172,5 +173,12 @@ public class SingleFishBehaviour : Fish
         targetThrash.health -= (Time.deltaTime * decreaseHpPerSecEating);
         currentState = Behaviour.patrolling;
         checkHealth();
+
+        if (_audio.clip != _eating)
+        {
+            _audio.clip = _eating;
+            _audio.loop = true;
+            _audio.Play();
+        }
     }
 }

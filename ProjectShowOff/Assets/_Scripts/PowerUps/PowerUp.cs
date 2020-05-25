@@ -9,6 +9,10 @@ public class PowerUp : MonoBehaviour
     [ReadOnly, SerializeField] private PowerUps currentlyActive = PowerUps.none;
     [ReadOnly, SerializeField] private PowerUps nextPowerUp = PowerUps.none;
 
+    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _powerUpCharge = null; 
+    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _powerUpOver = null;
+    private AudioSource _audio;
+
     // powerup references
     private NetPowerUp _netPowerUp = null;
     private airTrapPowerUp _airTrapPowerUp = null;
@@ -20,6 +24,7 @@ public class PowerUp : MonoBehaviour
 
     private void Awake()
     {
+        _audio = GetComponent<AudioSource>();
         _itemCollection = FindObjectOfType<ItemCollectionManager>();
 
         _playerMovement = FindObjectOfType<PlayerMovement>();
@@ -51,6 +56,10 @@ public class PowerUp : MonoBehaviour
         {
             currentlyActive = nextPowerUp;
             nextPowerUp = PowerUps.none;
+
+            _audio.clip = _powerUpCharge;
+            _audio.loop = true;
+            _audio.Play();
         }
 
         switch (currentlyActive)
@@ -70,6 +79,8 @@ public class PowerUp : MonoBehaviour
 
     private void OnEndJump(object pSender, Vector3 pPosition)
     {
+        _audio.Stop();
+
         switch (currentlyActive)
         {
             case PowerUps.net:
@@ -87,6 +98,7 @@ public class PowerUp : MonoBehaviour
         {
             _itemCollection.ResetCount();
             currentlyActive = PowerUps.none;
+            _audio.PlayOneShot(_powerUpOver);
         }
     }
 }

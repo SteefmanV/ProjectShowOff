@@ -7,6 +7,9 @@ public class BubblePackPowerUp : MonoBehaviour
     [InfoBox("% on top of normal speed. So 10% is: speed x 1.1")]
     [SerializeField] private float _percentageIncreament = 100;
 
+    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _activated = null;
+    private AudioSource _audio;
+
     private PlayerMovement _playerMovement;
     private Player _player;
 
@@ -23,6 +26,9 @@ public class BubblePackPowerUp : MonoBehaviour
 
         _defaultStrength = _playerMovement.shootStrength;
         _defaultMaxSpeed = _playerMovement.maximumShootSpeed;
+
+        _audio = GetComponent<AudioSource>();
+        _audio.PlayOneShot(_activated);
     }
 
 

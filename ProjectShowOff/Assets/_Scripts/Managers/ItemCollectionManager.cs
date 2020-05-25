@@ -21,8 +21,14 @@ public class ItemCollectionManager : MonoBehaviour
     [SerializeField] private List<Combination> powerUps = new List<Combination>();
 
 
+    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _thrashCollected = null;
+    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _thrashAdded = null;
+    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _powerUpCreated = null;
+    private AudioSource _audio;
+
     private void Start()
     {
+        _audio = GetComponent<AudioSource>();
         _powerUp = FindObjectOfType<PowerUp>();
         setupItems();
         updateUI(null);
@@ -36,6 +42,11 @@ public class ItemCollectionManager : MonoBehaviour
     {
         _itemsCollected[pItem]++;
         _justCollected.Add(pItem);
+        _audio.PlayOneShot(_thrashCollected);
+
+        if (_justCollected.Count == 3) _audio.PlayOneShot(_powerUpCreated);
+        if (_justCollected.Count < 4) _audio.PlayOneShot(_thrashAdded);
+
 
         checkForPowerUp();
     }

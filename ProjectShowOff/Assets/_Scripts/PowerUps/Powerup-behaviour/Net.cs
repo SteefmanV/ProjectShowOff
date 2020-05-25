@@ -1,11 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class Net : MonoBehaviour
 {
     [SerializeField] private float _netDuration = 5;
     private float _timer = 0;
+
+    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _netSpawned = null;
+    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _thrashDestroyed = null;
+    private AudioSource _audio;
+
+    private void Start()
+    {
+        _audio = GetComponent<AudioSource>();
+        _audio.PlayOneShot(_netSpawned);
+    }
 
     private void Update()
     {
@@ -22,6 +31,7 @@ public class Net : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("thrash"))
         {
+            _audio.PlayOneShot(_thrashDestroyed);
             Destroy(collision.gameObject);
         }
     }

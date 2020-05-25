@@ -3,10 +3,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(LineRenderer))]
+[RequireComponent(typeof(AudioSource))]
 public class PlayerMovement : MonoBehaviour
 {
     public event EventHandler<Vector3> startJump;
@@ -30,8 +32,14 @@ public class PlayerMovement : MonoBehaviour
 
     [TitleGroup("Movement Information")]
     [SerializeField, ReadOnly] private float _movingSpeed = 0;
-
     [SerializeField, ReadOnly] private bool _isDragging = false;
+
+    [SerializeField, FoldoutGroup("Sounds")] private AudioClip _select = null;
+    [SerializeField, FoldoutGroup("Sounds")] private AudioClip _charge = null;
+    [SerializeField, FoldoutGroup("Sounds")] private AudioClip _jump = null;
+    [SerializeField, FoldoutGroup("Sounds")] private AudioClip _land = null;
+    private AudioSource _audio;
+
     private Rigidbody _rb = null;
     private LineRenderer _lineRender;
     private Camera _camera;
@@ -41,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Awake()
     {
+        _audio = GetComponent<AudioSource>();
         _rb = GetComponent<Rigidbody>();
         _lineRender = GetComponent<LineRenderer>();
         _camera = Camera.main;
@@ -66,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
             _rb.velocity = Vector3.zero;
             endJump?.Invoke(this, transform.position);
+            _audio.PlayOneShot(_land);
 
             Vector3 n = collision.GetContact(0).normal;
             Vector3 target = transform.position + n * 10;
@@ -116,6 +126,12 @@ public class PlayerMovement : MonoBehaviour
 
         _lineRender.positionCount = 2;
         _lineRender.SetPosition(0, startPos);
+        _audio.PlayOneShot(_select);
+
+        // Start charge loop
+        _audio.clip = _charge;
+        _audio.loop = true;
+        _audio.Play();
     }
 
 
@@ -159,7 +175,9 @@ public class PlayerMovement : MonoBehaviour
                 Vector3 endPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
                 shootDirection = transform.position - endPosition;
 
+                _audio.Stop(); // stop charge loop
                 startJump?.Invoke(this, transform.position);
+                _audio.PlayOneShot(_jump);
 
                 Vector3 force = shootStrength * shootDirection;
 
