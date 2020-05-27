@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4951816536859617149}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: trashHoldPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 8838638268291901703}
   - component: {fileID: 8838638268291901700}
   - component: {fileID: 708663178}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: AirTrap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,6 +140,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _trapDurationSec: 5
   _holdPosition: {fileID: 884891217855404757}
+  _instantiated: {fileID: 0}
+  _trapped: {fileID: 0}
+  _trapDeactivated: {fileID: 0}
 --- !u!1001 &5467371390879369284
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -150,7 +153,7 @@ PrefabInstance:
     - target: {fileID: 869568608840403778, guid: 6b17fa5ea8c874944bf4f334f1ab5f43,
         type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 969868284760968940, guid: 6b17fa5ea8c874944bf4f334f1ab5f43,
         type: 3}
@@ -185,7 +188,7 @@ PrefabInstance:
     - target: {fileID: 4055474859167866170, guid: 6b17fa5ea8c874944bf4f334f1ab5f43,
         type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4682354391294169932, guid: 6b17fa5ea8c874944bf4f334f1ab5f43,
         type: 3}
@@ -195,7 +198,7 @@ PrefabInstance:
     - target: {fileID: 4682354391294169932, guid: 6b17fa5ea8c874944bf4f334f1ab5f43,
         type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8547912745020989791, guid: 6b17fa5ea8c874944bf4f334f1ab5f43,
         type: 3}

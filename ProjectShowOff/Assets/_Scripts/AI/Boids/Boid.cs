@@ -111,7 +111,6 @@ public class Boid : Fish
     private void eat()
     {
         if (targetThrash == null) return;
-        Debug.Log("EAT");
         health -= (Time.deltaTime * decreaseHpPerSecEating);
         targetThrash.health -= (Time.deltaTime * decreaseHpPerSecEating);
         if(health <= 0 && !dead)
