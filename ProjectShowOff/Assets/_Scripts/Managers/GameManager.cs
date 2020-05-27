@@ -12,13 +12,13 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        _gameOverPanel.SetActive(true);
+       // _gameOverPanel.SetActive(true);
     }
 
 
     public void GameWon()
     {
-        _gameWonPanel.SetActive(true);
+       // _gameWonPanel.SetActive(true);
     }
 }
 

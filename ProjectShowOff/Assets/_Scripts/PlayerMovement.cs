@@ -80,6 +80,13 @@ public class PlayerMovement : MonoBehaviour
             Vector3 n = collision.GetContact(0).normal;
             Vector3 target = transform.position + n * 10;
             transform.LookAt(target, Vector3.up);
+
+            if(transform.rotation.eulerAngles.y == 0)
+            {
+                Vector3 rotEuler = transform.rotation.eulerAngles;
+                rotEuler.y = 90;
+                transform.rotation = Quaternion.Euler(rotEuler);
+            }
         }
     }
 

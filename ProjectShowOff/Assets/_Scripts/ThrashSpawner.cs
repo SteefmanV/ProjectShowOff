@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ThrashSpawner : MonoBehaviour
 {
-    private enum SpawnerState { idle, waitingForNextWave, spawningObjects }
+    public enum SpawnerState { idle, waitingForNextWave, spawningObjects }
     [SerializeField] private bool _log = false;
     [SerializeField] private List<Wave> _spawnWaves = new List<Wave>();
     private Wave currentWave;
@@ -18,7 +18,7 @@ public class ThrashSpawner : MonoBehaviour
 
 
     [FoldoutGroup("Spawner Information"), SerializeField, ReadOnly]
-    private SpawnerState state = SpawnerState.idle;
+    public SpawnerState state = SpawnerState.idle;
 
     [FoldoutGroup("Spawner Information"), SerializeField, ReadOnly]
     private int currentWaveNumber = 0;

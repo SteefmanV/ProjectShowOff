@@ -72,6 +72,8 @@ public class Fish : MonoBehaviour
         Transform trash = nearbytrash();
         if (trash != null)
         {
+            if (!CameraView.isInCameraView(trash.transform.position)) return null;
+
             targetThrash = trash.GetComponentInChildren<Thrash>();
             return targetThrash;
         }

@@ -34,13 +34,13 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-
         if (_rb.velocity.magnitude > .1f)
         {
             setObjectActive(_playerMoving);
             _movingCollider.enabled = true;
 
             Vector3 target = _playerMovement.transform.position + _rb.velocity;
+            target.z = transform.position.z;
             transform.LookAt(target, Vector3.up);
         }
         else if (_playerMovement.mouseDrag.magnitude > _playerMovement.minimumDragLength)
