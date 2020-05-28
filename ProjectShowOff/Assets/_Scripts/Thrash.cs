@@ -82,16 +82,12 @@ public class Thrash : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collision");
         if (disabled) return;
-        Debug.Log("other: " + other.gameObject.tag);
 
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("Enabled: " + enabled);
             if (enabled)
             {
-                Debug.Log("Collided with player");
                 GetCollected();
             }
         }

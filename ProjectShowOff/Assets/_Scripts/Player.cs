@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
     [Title("Settings")]
     [SerializeField] private float _arrowScaleFactor = 1;
 
-
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();

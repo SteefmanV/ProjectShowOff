@@ -249,7 +249,7 @@ Transform:
   m_GameObject: {fileID: 8051980396140878798}
   m_LocalRotation: {x: 0, y: 0.70090926, z: 0, w: 0.71325046}
   m_LocalPosition: {x: -2.1200733, y: -0.43406346, z: 0.10841488}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
   - {fileID: 416881173}
   - {fileID: 7040231323255428367}
@@ -271,14 +271,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 12544
+    m_Bits: 28928
   collisionThreshold: 1
-  _boundsRadius: 0.5
+  _boundsRadius: 0.2
   _maxSpeed: 2
   _avoidTurnStrength: 10
-  _targetStrength: 1
+  _targetStrength: 0.5
   stopDistance: 0.2
-  _debugColission: 0
+  _debugColission: 1
 --- !u!114 &8051980396140878787
 MonoBehaviour:
   m_ObjectHideFlags: 0

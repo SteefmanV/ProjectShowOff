@@ -11,11 +11,11 @@ public class ThrashSpawner : MonoBehaviour
 
     [Header("Spawn Settings")]
     [SerializeField] private float _timeBetweenWaves = 2;
+    public bool _autoStartSpawner = false;
 
     [Header("Spawn Position")]
     [SerializeField] private Vector2 minMaxX = new Vector2(0, 0);
     [SerializeField] private float spawnHeight = 0;
-
 
     [FoldoutGroup("Spawner Information"), SerializeField, ReadOnly]
     public SpawnerState state = SpawnerState.idle;
@@ -37,11 +37,10 @@ public class ThrashSpawner : MonoBehaviour
 
     private GameManager _gameManager;
 
-    private void Start()
+    private void Awake()
     {
         _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-
-        StartSpawning();
+        if (_autoStartSpawner) StartSpawning();
     }
 
 

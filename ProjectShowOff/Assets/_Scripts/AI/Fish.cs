@@ -6,7 +6,7 @@ public class Fish : MonoBehaviour
 {
     //================= Health Settings =================
     [ProgressBar(0, 100, ColorMember = "GetHealthBarColor")]
-    [SerializeField] protected float health = 100;
+    [SerializeField] public float health = 100;
     [SerializeField] protected float decreaseHpPerSecEating = 0;
 
 

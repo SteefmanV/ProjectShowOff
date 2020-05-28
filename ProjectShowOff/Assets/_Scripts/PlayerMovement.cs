@@ -193,8 +193,6 @@ public class PlayerMovement : MonoBehaviour
                     force = force.normalized * maximumShootSpeed; // Limit shoot speed
                 }
 
-                Debug.Log("shoot speed = " + force.magnitude);
-
                 _rb.AddForce(force, ForceMode.Impulse);
                 _timer = 0;
             }

@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private ThrashSpawner _spawner = null;
     [SerializeField] private int _levelToLoad = 0;
     [SerializeField] private Animator _sceneSwitcher = null;
+    [SerializeField] private TutorialLevelManager _tutorial = null;
 
     private bool _sceneLoaded = false;
 
@@ -22,16 +23,14 @@ public class LevelManager : MonoBehaviour
     {
         if (_spawner.state == ThrashSpawner.SpawnerState.idle && trashCount() <= 0)
         {
+            if (_tutorial != null && _tutorial._tutorialState != TutorialLevelManager.state.done) return;
+
             if (!_sceneLoaded)
             {
                 _sceneLoaded = true;
                 _sceneSwitcher.SetTrigger("end");
                 StartCoroutine(delayedSceneLoad());
             }
-        }
-        else
-        {
-            Debug.Log("Spawner state: " + _spawner.state + " trash count: " + trashCount());
         }
     }
 
