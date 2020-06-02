@@ -101,7 +101,6 @@ public class TutorialLevelManager : MonoBehaviour
 
     private void SetStartPos(object pSender, Vector3 pPosition)
     {
-        Debug.Log("<size=100><b> SET START POS </b></size>");
         playerStartPos = _playerMovement.transform.position;
         _playerMovement.endJump -= SetStartPos;
     }

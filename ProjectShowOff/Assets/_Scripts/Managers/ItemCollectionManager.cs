@@ -75,7 +75,7 @@ public class ItemCollectionManager : MonoBehaviour
         {
             if (checkCombinations(combi))
             {
-                _powerUp.ActivatePowerup(combi.type);
+                _powerUp.PreparePowerup(combi.type);
                 combination = combi;
                 break;
             }

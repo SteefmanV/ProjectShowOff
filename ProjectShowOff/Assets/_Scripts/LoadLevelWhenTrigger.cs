@@ -1,0 +1,18 @@
+﻿using UnityEngine.SceneManagement;
+using UnityEngine;
+
+public class LoadLevelWhenTrigger : MonoBehaviour
+{
+    [SerializeField] private string _levelToLoad = "";
+    [SerializeField] private LevelManager _levelManager;
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            _levelManager.LoadLevel();
+            other.gameObject.SetActive(false); // Disable player
+        }
+    }
+}

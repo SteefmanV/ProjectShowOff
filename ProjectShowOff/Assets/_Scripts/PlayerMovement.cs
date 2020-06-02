@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
             _rb.velocity = Vector3.zero;
             endJump?.Invoke(this, transform.position);
-            _audio.PlayOneShot(_land);
+            if(_land != null) _audio.PlayOneShot(_land);
 
             Vector3 n = collision.GetContact(0).normal;
             Vector3 target = transform.position + n * 10;
@@ -193,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
                     force = force.normalized * maximumShootSpeed; // Limit shoot speed
                 }
 
-                _rb.AddForce(force, ForceMode.Impulse);
+                _rb.AddForce(-force, ForceMode.Impulse);
                 _timer = 0;
             }
         }

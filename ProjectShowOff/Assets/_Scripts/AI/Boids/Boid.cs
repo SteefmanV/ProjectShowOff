@@ -107,7 +107,6 @@ public class Boid : Fish
 
         return transform.forward;
     }
-
     private void eat()
     {
         if (targetThrash == null) return;
@@ -121,11 +120,11 @@ public class Boid : Fish
 
         checkHealth();
 
-        if(_audio.clip != _eating)
-        {
-            _audio.clip = _eating;
-            _audio.loop = true;
-            _audio.Play();
-        }
+        //if(_audio.clip != _eating)
+        //{
+        //    _audio.clip = _eating;
+        //    _audio.loop = true;
+        //    _audio.Play();
+        //}
     }
 }

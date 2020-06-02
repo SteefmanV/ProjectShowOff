@@ -6,10 +6,12 @@ public class PowerUp : MonoBehaviour
     [SerializeField, Required, SceneObjectsOnly] private GameObject powerUpManager;
 
     public enum PowerUps { none, net, bubblePack, airTrap }
+    public bool powerUpActivated { get; set; } = false;
+
     [ReadOnly, SerializeField] private PowerUps currentlyActive = PowerUps.none;
     [ReadOnly, SerializeField] private PowerUps nextPowerUp = PowerUps.none;
 
-    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _powerUpCharge = null; 
+    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _powerUpCharge = null;
     [FoldoutGroup("Sounds"), SerializeField] private AudioClip _powerUpOver = null;
     private AudioSource _audio;
 
@@ -40,39 +42,50 @@ public class PowerUp : MonoBehaviour
     /// <summary>
     /// Activate a powerup
     /// </summary>
-    public void ActivatePowerup(PowerUps pPowerup)
+    public void PreparePowerup(PowerUps pPowerup)
     {
         if (currentlyActive == PowerUps.none && nextPowerUp == PowerUps.none)
         {
             nextPowerUp = pPowerup;
-            Debug.Log("<color=green><b> Activated: " + pPowerup + "</b></color>");
+            Debug.Log("<color=green><b> next: " + pPowerup + "</b></color>");
         }
+    }
+
+
+    public void ActivatePowerup()
+    {
+        powerUpActivated = true;
     }
 
 
     private void OnStartJump(object pSender, Vector3 pPosition)
     {
-        if (nextPowerUp != PowerUps.none)
+        if (powerUpActivated)
         {
-            currentlyActive = nextPowerUp;
-            nextPowerUp = PowerUps.none;
+            if (nextPowerUp != PowerUps.none)
+            {
+                currentlyActive = nextPowerUp;
+                nextPowerUp = PowerUps.none;
 
-            _audio.clip = _powerUpCharge;
-            _audio.loop = true;
-            _audio.Play();
-        }
+                _audio.clip = _powerUpCharge;
+                _audio.loop = true;
+                _audio.Play();
 
-        switch (currentlyActive)
-        {
-            case PowerUps.net:
-                _netPowerUp.StartNet(pPosition);
-                break;
-            case PowerUps.bubblePack:
-                _bubblePackPowerUp.Setup();
-                break;
-            case PowerUps.airTrap:
-                _airTrapPowerUp.Setup(pPosition, _playerMovement.shootDirection);
-                break;
+                powerUpActivated = false;
+            }
+
+            switch (currentlyActive)
+            {
+                case PowerUps.net:
+                    _netPowerUp.StartNet(_playerMovement.transform.position);
+                    break;
+                case PowerUps.bubblePack:
+                    _bubblePackPowerUp.Setup();
+                    break;
+                case PowerUps.airTrap:
+                    _airTrapPowerUp.Setup(_playerMovement.transform.position, _playerMovement.shootDirection);
+                    break;
+            }
         }
     }
 

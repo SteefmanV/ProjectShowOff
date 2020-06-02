@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
             _idleCollider.enabled = true;
 
 
-            float angle = Mathf.Atan2(-_playerMovement.mouseDrag.y, -_playerMovement.mouseDrag.x);
+            float angle = Mathf.Atan2(_playerMovement.mouseDrag.y, _playerMovement.mouseDrag.x);
             _arrowIndicator.transform.rotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg);
 
             float arrowScale = _playerMovement.shootForce * _arrowScaleFactor;
