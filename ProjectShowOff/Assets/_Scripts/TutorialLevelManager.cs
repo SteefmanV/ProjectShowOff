@@ -1,6 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,6 +35,14 @@ public class TutorialLevelManager : MonoBehaviour
     [SerializeField] private GameObject _bottle2 = null;
     [SerializeField] private GameObject _tutorialEndPopup = null;
 
+
+    [Title("Tutorial Texts")]
+    [SerializeField] private TextMeshProUGUI _movementExplenationText;
+    [SerializeField] private TextMeshProUGUI _saveTheAnimalsText;
+    [SerializeField] private TextMeshProUGUI _powerupExplenationText;
+    [SerializeField] private TextMeshProUGUI _tutorialEndText;
+    private LanguageManager _languageManager = null;
+
     private Vector3 playerStartPos = Vector3.zero;
 
 
@@ -41,6 +50,9 @@ public class TutorialLevelManager : MonoBehaviour
     {
         StartTutorial();
         _playerMovement.endJump += SetStartPos;
+
+        _languageManager = FindObjectOfType<LanguageManager>();
+        if(_languageManager != null) updateTexts(_languageManager.GetTranslation());
     }
 
 
@@ -110,6 +122,15 @@ public class TutorialLevelManager : MonoBehaviour
             case state.done:
                 break;
         }
+    }
+
+
+    private void updateTexts(Translation pTranslation)
+    {
+        _movementExplenationText.text = pTranslation.movementExplenation;
+        _saveTheAnimalsText.text = pTranslation.saveTheAnimals;
+        _powerupExplenationText.text = pTranslation.powerupExplenation;
+        _tutorialEndText.text = pTranslation.tutorialEnd;
     }
 
 

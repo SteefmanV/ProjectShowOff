@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac47372d9b4dd749aa3ea2feb27cadf, type: 3}
+  m_Name: German
+  m_EditorClassIdentifier: 
+  language: 2
+  playButton: Deutch Jawooohl
+  controlsButton: ' Kontrollen'
+  textBubble1: deutze
+  textBubble2: You can recycle collected trash into Powerups, which in turn help
+    you with your task!
+  textBubble3: protect the animals by dashing through the level and collecting trash!
+  backButton: Back
+  movementExplenation: Tap on Ezra and drag your finger towards where you want to
+    dash!
+  saveTheAnimals: Save the animals by dashing through the level and collecting trash!
+  powerupExplenation: By collecting trash you can create powerups. Click on the powerup
+    button and it will be activated on the next jump!
+  tutorialEnd: Good job! But there are more pieces of trash to collect, more powerups
+    to create and more fish to save!

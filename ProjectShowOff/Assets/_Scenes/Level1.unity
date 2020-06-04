@@ -3313,7 +3313,7 @@ RectTransform:
   m_Children:
   - {fileID: 1198287596}
   m_Father: {fileID: 5460753228189119980}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7077,7 +7077,7 @@ RectTransform:
   m_Children:
   - {fileID: 2082152076}
   m_Father: {fileID: 5460753228189119980}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7210,10 +7210,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1198287597}
-    characterCount: 103
+    characterCount: 115
     spriteCount: 0
-    spaceCount: 19
-    wordCount: 20
+    spaceCount: 20
+    wordCount: 21
     linkCount: 0
     lineCount: 3
     pageCount: 1
@@ -11205,6 +11205,10 @@ MonoBehaviour:
   _powerupActivationButton: {fileID: 1874725313}
   _bottle2: {fileID: 1757731344}
   _tutorialEndPopup: {fileID: 1153313215}
+  _movementExplenationText: {fileID: 162230669}
+  _saveTheAnimalsText: {fileID: 1078510503}
+  _powerupExplenationText: {fileID: 1198287597}
+  _tutorialEndText: {fileID: 2082152077}
 --- !u!1 &2135491458
 GameObject:
   m_ObjectHideFlags: 0
@@ -12918,8 +12922,8 @@ RectTransform:
   - {fileID: 2112394773481947961}
   - {fileID: 1373786998}
   - {fileID: 370552541}
-  - {fileID: 1153313216}
   - {fileID: 580427409}
+  - {fileID: 1153313216}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
