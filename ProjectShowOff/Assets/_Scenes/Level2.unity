@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1726,12 +1726,12 @@ PrefabInstance:
     - target: {fileID: 2629644855590804027, guid: b8e2f6487995f2d4b8c0e001bd7b582a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.85
+      value: -5.27
       objectReference: {fileID: 0}
     - target: {fileID: 2629644855590804027, guid: b8e2f6487995f2d4b8c0e001bd7b582a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.69
+      value: 9.84
       objectReference: {fileID: 0}
     - target: {fileID: 2629644855590804027, guid: b8e2f6487995f2d4b8c0e001bd7b582a,
         type: 3}
@@ -3170,19 +3170,19 @@ PrefabInstance:
     - target: {fileID: 6594026051280815681, guid: 0b4b260f617354c448fef7150d12ec24,
         type: 3}
       propertyPath: _spawnWaves.Array.size
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6594026051280815681, guid: 0b4b260f617354c448fef7150d12ec24,
         type: 3}
       propertyPath: _spawnWaves.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 44756386faef63c4f8a6a83685a35e3c,
+      objectReference: {fileID: 11400000, guid: 89d812315640ad5419e7dea980172ea9,
         type: 2}
     - target: {fileID: 6594026051280815681, guid: 0b4b260f617354c448fef7150d12ec24,
         type: 3}
       propertyPath: _spawnWaves.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 44756386faef63c4f8a6a83685a35e3c,
+      objectReference: {fileID: 11400000, guid: 809b20d6f5cbcdb4ea3a03a020291f48,
         type: 2}
     - target: {fileID: 6594026051280815681, guid: 0b4b260f617354c448fef7150d12ec24,
         type: 3}
@@ -3210,7 +3210,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _spawnWaves.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: 44756386faef63c4f8a6a83685a35e3c,
+      objectReference: {fileID: 11400000, guid: 2ecf18c7ee42d874f9cef5e552565187,
         type: 2}
     - target: {fileID: 6594026051280815681, guid: 0b4b260f617354c448fef7150d12ec24,
         type: 3}

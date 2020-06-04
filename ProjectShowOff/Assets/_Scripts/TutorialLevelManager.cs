@@ -1,6 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,6 +43,7 @@ public class TutorialLevelManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _powerupExplenationText;
     [SerializeField] private TextMeshProUGUI _tutorialEndText;
     private LanguageManager _languageManager = null;
+    private bool _startedSpawning = false;
 
     private Vector3 playerStartPos = Vector3.zero;
 
@@ -114,9 +116,7 @@ public class TutorialLevelManager : MonoBehaviour
                 if (_bottle2 == null)
                 {
                     StartCoroutine(showFinalPopup(5));
-                    _thrashSpawner.StartSpawning();
-
-                    _tutorialState = state.done;
+                    StartCoroutine(startSpawning(2));
                 }
                 break;
             case state.done:
@@ -144,7 +144,13 @@ public class TutorialLevelManager : MonoBehaviour
             yield return null;
         }
 
-        if(timer > pDuration) Time.timeScale = 0;
+        if (timer > pDuration)
+        {
+            if (_playerBody.velocity.magnitude < 0.1f)
+            {
+                Time.timeScale = 0;
+            }
+        }
     }
 
 
@@ -200,5 +206,15 @@ public class TutorialLevelManager : MonoBehaviour
         _tutorialEndPopup.SetActive(true);
         yield return new WaitForSeconds(pDuration);
         _tutorialEndPopup.SetActive(false);
+    }
+
+    private IEnumerator startSpawning(float pDuration)
+    {
+        if (_startedSpawning) yield break;
+        _startedSpawning = true;
+        yield return new WaitForSeconds(pDuration);
+        Debug.Log("Star spawning!");
+        _thrashSpawner.StartSpawning();
+        _tutorialState = state.done;
     }
 }

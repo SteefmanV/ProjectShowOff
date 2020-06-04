@@ -83,7 +83,7 @@ public class PowerUp : MonoBehaviour
                     _bubblePackPowerUp.Setup();
                     break;
                 case PowerUps.airTrap:
-                    _airTrapPowerUp.Setup(_playerMovement.transform.position, _playerMovement.shootDirection);
+                    _airTrapPowerUp.Setup(_playerMovement.transform.position, -_playerMovement.shootDirection);
                     break;
             }
         }

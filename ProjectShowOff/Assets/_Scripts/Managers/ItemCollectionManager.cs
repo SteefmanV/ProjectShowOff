@@ -41,7 +41,7 @@ public class ItemCollectionManager : MonoBehaviour
     public void CollectedItem(Item pItem)
     {
         _itemsCollected[pItem]++;
-        _justCollected.Add(pItem);
+        if(_justCollected.Count < 3) _justCollected.Add(pItem);
         _audio.PlayOneShot(_thrashCollected);
 
         if (_justCollected.Count == 3) _audio.PlayOneShot(_powerUpCreated);

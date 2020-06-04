@@ -15,8 +15,7 @@ MonoBehaviour:
   objectCount: 4
   Objects:
   - {fileID: 1295525259969906772, guid: f9ad1563e2e3b0344b69f920747c473c, type: 3}
-  - {fileID: 1295525259969906772, guid: 8bdd848b43a2ba84cbf7ec30c318d502, type: 3}
   QuickThrashObjectPreview: {fileID: 1295525259969906772, guid: 8bdd848b43a2ba84cbf7ec30c318d502,
     type: 3}
-  timeBetweenSpawn: 3
-  minMaxTimeRandomeness: {x: 0.2, y: 1}
+  timeBetweenSpawn: 1
+  minMaxTimeRandomeness: {x: 0.2, y: 0.3}

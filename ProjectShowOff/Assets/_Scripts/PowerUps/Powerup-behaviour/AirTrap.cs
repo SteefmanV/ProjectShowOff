@@ -53,11 +53,14 @@ public class AirTrap : MonoBehaviour
                 _trashObject = pOther.transform.parent.gameObject;
                 _trashObject.transform.parent = _holdPosition.transform;
 
-                _trashObject.transform.position = _holdPosition.transform.position;
-                pOther.gameObject.GetComponent<Thrash>().SetDisabled(true);
+                _trashObject.transform.localPosition = Vector3.zero;
+
+
 
                 GetComponent<BoxCollider>().enabled = false;
+
                 _audio.PlayOneShot(_trapped);
+                pOther.gameObject.GetComponent<Thrash>().SetDisabled(true);
             }
         }
     }

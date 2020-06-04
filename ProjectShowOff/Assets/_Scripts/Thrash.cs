@@ -6,7 +6,8 @@ public class Thrash : MonoBehaviour
 {
     public bool disabled { get; set; } = false;
 
-    [ProgressBar(0, 100, ColorMember = "GetHealthBarColor")]
+    public float startHealth = 100;
+    [ProgressBar(0, "startHealth", ColorMember = "GetHealthBarColor")]
     public float health = 100;
 
     [Header("Thrash Settings")]
@@ -29,6 +30,7 @@ public class Thrash : MonoBehaviour
         GameObject gameManager = GameObject.FindGameObjectWithTag("GameManager");
         _powerUpManager = gameManager.GetComponent<ItemCollectionManager>();
         _scoreManager = gameManager.GetComponent<ScoreManager>();
+        health = startHealth;
     }
 
 
