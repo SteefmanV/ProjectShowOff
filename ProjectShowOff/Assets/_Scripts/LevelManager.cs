@@ -52,7 +52,7 @@ public class LevelManager : MonoBehaviour
     private void openBarier()
     {
         _barierAnimator.SetTrigger("Open");
-        _indicatorArrows.SetActive(true);
+        if(_indicatorArrows != null) _indicatorArrows.SetActive(true);
     }
 
 
