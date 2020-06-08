@@ -8,12 +8,7 @@ public class Boid : Fish
     private BoidSettings _settings;
     [SerializeField] private Transform _target;
     private Vector3 _velocity;
-    private Animator _anim;
-
-    private void Start()
-    {
-        _anim = GetComponent<Animator>();
-    }
+    [SerializeField] private Animator _anim;
 
 
     /// <summary>
@@ -35,14 +30,14 @@ public class Boid : Fish
         Vector3 acceleration = Vector3.zero;
 
         Thrash targetThrash = checkFortrash();
-        if(targetThrash != null)
+        if (targetThrash != null)
         {
             _target = targetThrash.transform;
             acceleration = turnTowards(_target.position - transform.position) * _settings.targetStrength; // Turn towards target
 
             if ((transform.position - _target.position).magnitude < _trashEatRadius * 0.8f)
             {
-                eat();   
+                eat();
             }
             else _anim.SetBool("hurt", false);
         }
@@ -63,7 +58,7 @@ public class Boid : Fish
             Vector3 collisionAvoidForce = turnTowards(collisionAvoidDir) * _settings.avoidCollisionStrength;
             acceleration += collisionAvoidForce;
         }
-        
+
         _velocity += acceleration * Time.deltaTime;
         _velocity = _velocity.normalized * Mathf.Clamp(_velocity.magnitude, _settings.minSpeed, _settings.maxSpeed); // move direction * clamped speed
         transform.forward = _velocity.normalized;
@@ -100,7 +95,7 @@ public class Boid : Fish
             Ray ray = new Ray(transform.position, direction);
             if (!Physics.SphereCast(ray, _settings.boundsRadius, _settings.collisionThreshold, _settings.obstacleLayer)) // If ray hit obstacle
             {
-                if(_settings._debugColission) Debug.DrawRay(transform.position, direction, Color.green, _settings.collisionThreshold);
+                if (_settings._debugColission) Debug.DrawRay(transform.position, direction, Color.green, _settings.collisionThreshold);
                 return direction;
             }
         }
@@ -112,11 +107,11 @@ public class Boid : Fish
         if (targetThrash == null) return;
         health -= (Time.deltaTime * decreaseHpPerSecEating);
         targetThrash.health -= (Time.deltaTime * decreaseHpPerSecEating);
-        if(health <= 0 && !dead)
+        if (health <= 0 && !dead)
         {
             _anim.SetTrigger("die");
         }
-        else _anim.SetBool("hurt", true);
+        else _anim.SetTrigger("hurt");
 
         checkHealth();
 

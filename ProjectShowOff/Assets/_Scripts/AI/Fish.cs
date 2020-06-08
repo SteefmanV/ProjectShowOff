@@ -1,9 +1,12 @@
 ﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class Fish : MonoBehaviour
 {
+    public event EventHandler OnDeath;
+
     //================= Health Settings =================
     [ProgressBar(0, 100, ColorMember = "GetHealthBarColor")]
     [SerializeField] public float health = 100;
@@ -106,7 +109,11 @@ public class Fish : MonoBehaviour
 
     protected void checkHealth()
     {
-        if (health <= 0) Die();
+        if (health <= 0)
+        {
+            Die();
+            OnDeath?.Invoke(this, EventArgs.Empty);
+        }
     }
 
 

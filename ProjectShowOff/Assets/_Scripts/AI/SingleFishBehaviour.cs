@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using System;
 using UnityEngine;
 
 public class SingleFishBehaviour : Fish
@@ -7,6 +8,7 @@ public class SingleFishBehaviour : Fish
 
     //================= References =================
     [SerializeField, Required] private FishAgent _agent = null;
+    [SerializeField, Required] private Animator _anim = null;
 
 
     //================= Behaviour Randomness =================
@@ -47,6 +49,7 @@ public class SingleFishBehaviour : Fish
     private void Start()
     {
         _targetGenerator = FindObjectOfType<EnvironmentTargetGenerator>();
+        OnDeath += die;
 
         _agent.ClearTarget();
         _oldCollisionThreshhold = _agent.collisionThreshold;
@@ -70,6 +73,12 @@ public class SingleFishBehaviour : Fish
                 eat();
                 break;
         }
+    }
+
+
+    private void OnDestroy()
+    {
+        OnDeath -= die;
     }
 
 
@@ -121,9 +130,9 @@ public class SingleFishBehaviour : Fish
         {
             _agent.ClearTarget();
 
-            if (Random.Range(0, 100) > perctangeToGoIdleAfterPatrol)
+            if (UnityEngine.Random.Range(0, 100) > perctangeToGoIdleAfterPatrol)
             {
-                _timeIdle = Random.Range(minMaxTimeIdle.x, minMaxTimeIdle.y);
+                _timeIdle = UnityEngine.Random.Range(minMaxTimeIdle.x, minMaxTimeIdle.y);
                 currentState = Behaviour.idle; // Go Idle
                 return;
             }
@@ -174,11 +183,19 @@ public class SingleFishBehaviour : Fish
         currentState = Behaviour.patrolling;
         checkHealth();
 
+        _anim.SetTrigger("hurt");
+
         if (_audio.clip != _eating)
         {
             _audio.clip = _eating;
             _audio.loop = true;
             _audio.Play();
         }
+    }
+
+
+    private void die(object pSender, EventArgs pE)
+    {
+        _anim.SetTrigger("die");
     }
 }
