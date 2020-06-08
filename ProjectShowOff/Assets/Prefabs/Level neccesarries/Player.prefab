@@ -514,6 +514,10 @@ MonoBehaviour:
   _dragThresholdSpeed: 0.4
   _movingSpeed: 0
   _isDragging: 0
+  _select: {fileID: 0}
+  _charge: {fileID: 0}
+  _jump: {fileID: 0}
+  _land: {fileID: 0}
 --- !u!114 &2629644855590804022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,6 +533,8 @@ MonoBehaviour:
   powerUpManager: {fileID: 0}
   currentlyActive: 0
   nextPowerUp: 0
+  _powerUpCharge: {fileID: 0}
+  _powerUpOver: {fileID: 0}
 --- !u!114 &1665836360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,6 +553,8 @@ MonoBehaviour:
   _playerIdle: {fileID: 8296172669270778747}
   _playerMoving: {fileID: 8488363851879326283}
   _playerCharging: {fileID: 6675480720014508377}
+  _idleCollider: {fileID: 0}
+  _movingCollider: {fileID: 0}
   _arrowScaleFactor: 0.25
 --- !u!54 &2629644855590804020
 Rigidbody:
