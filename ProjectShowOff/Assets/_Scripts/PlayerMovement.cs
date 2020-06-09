@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 shootDirection { get; private set; }
     public Vector3 mouseDrag { get; private set; }
     public float shootForce { get; private set; }
+    public bool isMoving => (_rb.velocity.magnitude > 0);
 
     //Made public for Bubblepack
     [Title("Shoot settings")]
@@ -32,13 +33,15 @@ public class PlayerMovement : MonoBehaviour
 
     [TitleGroup("Movement Information")]
     [SerializeField, ReadOnly] private float _movingSpeed = 0;
-    [SerializeField, ReadOnly] private bool _isDragging = false;
+    public bool isDragging { get; private set; } = false;
 
     [SerializeField, FoldoutGroup("Sounds")] private AudioClip _select = null;
     [SerializeField, FoldoutGroup("Sounds")] private AudioClip _charge = null;
     [SerializeField, FoldoutGroup("Sounds")] private AudioClip _jump = null;
     [SerializeField, FoldoutGroup("Sounds")] private AudioClip _land = null;
     private AudioSource _audio;
+
+    [SerializeField] private ParticleSystem _playerTrail = null;
 
     private Rigidbody _rb = null;
     private LineRenderer _lineRender;
@@ -59,7 +62,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         dragAndShoot();
-
         _timer += Time.deltaTime;
     }
 
@@ -75,13 +77,13 @@ public class PlayerMovement : MonoBehaviour
 
             _rb.velocity = Vector3.zero;
             endJump?.Invoke(this, transform.position);
-            if(_land != null) _audio.PlayOneShot(_land);
+            if (_land != null) _audio.PlayOneShot(_land);
 
             Vector3 n = collision.GetContact(0).normal;
             Vector3 target = transform.position + n * 10;
             transform.LookAt(target, Vector3.up);
 
-            if(transform.rotation.eulerAngles.y == 0)
+            if (transform.rotation.eulerAngles.y == 0)
             {
                 Vector3 rotEuler = transform.rotation.eulerAngles;
                 rotEuler.y = 90;
@@ -96,18 +98,20 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void dragAndShoot()
     {
+        checkCamera();
+
         _movingSpeed = _rb.velocity.magnitude;
 
         if (Input.GetMouseButtonDown(0) && isMouseOverObject()) // Drag start
         {
             if (_rb.velocity.magnitude < _dragThresholdSpeed)
             {
-                _isDragging = true;
+                isDragging = true;
                 dragStart();
             }
         }
 
-        if (_isDragging)
+        if (isDragging)
         {
             if (Input.GetMouseButton(0)) // Drag stay
             {
@@ -117,8 +121,17 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetMouseButtonUp(0)) // Drag Stop
             {
                 dragStop();
-                _isDragging = false;
+                isDragging = false;
             }
+        }
+
+        if (isDragging || _rb.velocity.magnitude > 0)
+        {
+            if (!_playerTrail.isPlaying) _playerTrail.Play();
+        }
+        else
+        {
+            if (_playerTrail.isPlaying) _playerTrail.Stop();
         }
     }
 
@@ -216,6 +229,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         return false;
+    }
+
+
+    private void checkCamera()
+    {
+        if (_camera == null) _camera = Camera.main;
     }
 
 

@@ -1,23 +1,31 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private ThrashSpawner _spawner = null;
-    [SerializeField] private Animator _sceneSwitcher = null;
     [SerializeField] private string _levelToLoad = "";
     [SerializeField] private TutorialLevelManager _tutorial = null;
     [SerializeField] private Animator _barierAnimator = null;
     [SerializeField] private GameObject _indicatorArrows = null;
+
+    [SerializeField] private string _sceneTransition = null;
+
+    [Title("Scene transition")]
+    [SerializeField] private float _sceneLoadDelay = 2;
 
     private bool _sceneLoaded = false;
 
 
     private void Start()
     {
-        _sceneSwitcher.SetTrigger("start");
+     //   _videoPlayer.clip = _sceneStart;
+      //  _sceneSwitcher.SetTrigger("start");
+        DontDestroyOnLoad(gameObject);
     }
 
 
@@ -36,22 +44,37 @@ public class LevelManager : MonoBehaviour
         if (!_sceneLoaded)
         {
             _sceneLoaded = true;
-            _sceneSwitcher.SetTrigger("end");
-            StartCoroutine(delayedSceneLoad());
+            string oldScene = SceneManager.GetActiveScene().name;
+
+            SceneManager.LoadScene(_sceneTransition, LoadSceneMode.Additive);
+
+            StartCoroutine(delayedSceneLoad(oldScene));
+            StartCoroutine(unloadTransition(6));
         }
     }
 
 
-    private IEnumerator delayedSceneLoad()
+    private IEnumerator delayedSceneLoad(string oldSceneName)
     {
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadSceneAsync(_levelToLoad);
+        yield return new WaitForSeconds(_sceneLoadDelay);
+        SceneManager.LoadSceneAsync(_levelToLoad, LoadSceneMode.Additive);
+        SceneManager.UnloadSceneAsync(oldSceneName);
+
     }
+
+
+    private IEnumerator unloadTransition(float pDelay)
+    {
+        yield return new WaitForSeconds(pDelay);
+        SceneManager.UnloadSceneAsync(_sceneTransition);
+        Destroy(gameObject);
+    }
+
 
 
     private void openBarier()
     {
-        _barierAnimator.SetTrigger("Open");
+        if(_barierAnimator != null) _barierAnimator.SetTrigger("Open");
         if(_indicatorArrows != null) _indicatorArrows.SetActive(true);
     }
 

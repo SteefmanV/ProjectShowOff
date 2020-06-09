@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 6383448311630822039}
   - component: {fileID: 1986545393824287722}
   m_Layer: 12
-  m_Name: Vampire-Squid
+  m_Name: single_Vampire-Squid
   m_TagString: fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,8 +175,11 @@ MonoBehaviour:
   _die: {fileID: 8300000, guid: 7fcc6d820f16c71469ea57abfe211368, type: 3}
   _thrashDetected: {fileID: 8300000, guid: e004a3d800478294ab700e8e5c0a52b9, type: 3}
   _eating: {fileID: 8300000, guid: 5e8235c5f25086544aaba9adc22e2f0a, type: 3}
+  _dieParticlePrefab: {fileID: 8653814132548670237, guid: c2149a3680666bb46bb96c47fcf2be28,
+    type: 3}
   _protectionBubble: {fileID: 3974692655969450828}
   _agent: {fileID: 6383448311630822040}
+  _anim: {fileID: 7892376711189599089}
   minMaxTimeIdle: {x: 1, y: 10}
   perctangeToGoIdleAfterPatrol: 20
   currentState: 1
@@ -492,6 +495,12 @@ PrefabInstance:
 --- !u!4 &7892376711189599054 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5524840019425006092, guid: c19e71306a82ee6459d85144dd8992bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 2390134269695820098}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7892376711189599089 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5524840019425006131, guid: c19e71306a82ee6459d85144dd8992bc,
     type: 3}
   m_PrefabInstance: {fileID: 2390134269695820098}
   m_PrefabAsset: {fileID: 0}

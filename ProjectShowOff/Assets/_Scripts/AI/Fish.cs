@@ -25,6 +25,8 @@ public class Fish : MonoBehaviour
     [FoldoutGroup("Sounds"), SerializeField] protected AudioClip _eating;
     protected AudioSource _audio;
 
+    [Title("ParticleEffects")]
+    [SerializeField] private GameObject _dieParticlePrefab = null;
 
     //================= Power Ups =================
     [Title("Protection Bubble")]
@@ -42,6 +44,7 @@ public class Fish : MonoBehaviour
         }
     }
     [SerializeField] private GameObject _protectionBubble;
+
 
 
     //================= Misc =================
@@ -65,6 +68,8 @@ public class Fish : MonoBehaviour
             dead = true;
             fishManager.CheckFishCount();
             _audio.PlayOneShot(_die);
+            Instantiate(_dieParticlePrefab, transform.position, Quaternion.identity, transform);
+            OnDeath?.Invoke(this, EventArgs.Empty);
             StartCoroutine(delayedDestroy());
         }
     }
@@ -112,7 +117,6 @@ public class Fish : MonoBehaviour
         if (health <= 0)
         {
             Die();
-            OnDeath?.Invoke(this, EventArgs.Empty);
         }
     }
 

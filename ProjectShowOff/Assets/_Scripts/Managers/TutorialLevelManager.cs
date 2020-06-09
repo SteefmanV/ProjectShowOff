@@ -12,7 +12,7 @@ public class TutorialLevelManager : MonoBehaviour
     public state _tutorialState = state.start;
 
     [Title("Level State 1 (Start)")]
-    [SerializeField] private GameObject _uiPopup = null;
+   // [SerializeField] private GameObject _uiPopup = null;
     [SerializeField] private Rigidbody _playerBody = null;
     [SerializeField] private ThrashSpawner _thrashSpawner = null;
     [SerializeField] private Vector3 _playerStartForce = new Vector3();
@@ -85,7 +85,7 @@ public class TutorialLevelManager : MonoBehaviour
                 if (_firstThrash.health <= 0 || _firstThrash == null)
                 {
                     _movementExplenation.SetActive(false);
-                    _uiPopup.SetActive(true);
+                   // _uiPopup.SetActive(true);
                     _bottle1.SetActive(true);
                     _ring2.SetActive(true);
 
