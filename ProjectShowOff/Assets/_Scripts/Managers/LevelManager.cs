@@ -23,18 +23,19 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-     //   _videoPlayer.clip = _sceneStart;
-      //  _sceneSwitcher.SetTrigger("start");
         DontDestroyOnLoad(gameObject);
     }
 
 
     void Update()
     {
-        if (_spawner.state == ThrashSpawner.SpawnerState.idle && trashCount() <= 0)
+        if (_spawner != null)
         {
-            if (_tutorial != null && _tutorial._tutorialState != TutorialLevelManager.state.done) return;
-            openBarier();
+            if (_spawner.state == ThrashSpawner.SpawnerState.idle && trashCount() <= 0)
+            {
+                if (_tutorial != null && _tutorial._tutorialState != TutorialLevelManager.state.done) return;
+                openBarier();
+            }
         }
     }
 
@@ -44,21 +45,20 @@ public class LevelManager : MonoBehaviour
         if (!_sceneLoaded)
         {
             _sceneLoaded = true;
-            string oldScene = SceneManager.GetActiveScene().name;
 
-            SceneManager.LoadScene(_sceneTransition, LoadSceneMode.Additive);
+            StartCoroutine(delayedSceneLoad(SceneManager.GetActiveScene()));
+            SceneManager.LoadSceneAsync(_sceneTransition, LoadSceneMode.Additive);
 
-            StartCoroutine(delayedSceneLoad(oldScene));
             StartCoroutine(unloadTransition(6));
         }
     }
 
 
-    private IEnumerator delayedSceneLoad(string oldSceneName)
+    private IEnumerator delayedSceneLoad(Scene pOldScene)
     {
         yield return new WaitForSeconds(_sceneLoadDelay);
         SceneManager.LoadSceneAsync(_levelToLoad, LoadSceneMode.Additive);
-        SceneManager.UnloadSceneAsync(oldSceneName);
+        SceneManager.UnloadSceneAsync(pOldScene);
 
     }
 
@@ -74,8 +74,8 @@ public class LevelManager : MonoBehaviour
 
     private void openBarier()
     {
-        if(_barierAnimator != null) _barierAnimator.SetTrigger("Open");
-        if(_indicatorArrows != null) _indicatorArrows.SetActive(true);
+        if (_barierAnimator != null) _barierAnimator.SetTrigger("Open");
+        if (_indicatorArrows != null) _indicatorArrows.SetActive(true);
     }
 
 

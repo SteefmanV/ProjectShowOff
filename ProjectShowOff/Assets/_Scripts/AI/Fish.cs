@@ -66,7 +66,7 @@ public class Fish : MonoBehaviour
         if (!dead)
         {         
             dead = true;
-            fishManager.CheckFishCount();
+            if(fishManager != null) fishManager.CheckFishCount();
             _audio.PlayOneShot(_die);
             Instantiate(_dieParticlePrefab, transform.position, Quaternion.identity, transform);
             OnDeath?.Invoke(this, EventArgs.Empty);

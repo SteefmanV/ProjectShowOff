@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class LoadLevelWhenTrigger : MonoBehaviour
 {
-    [SerializeField] private string _levelToLoad = "";
     [SerializeField] private LevelManager _levelManager;
 
 

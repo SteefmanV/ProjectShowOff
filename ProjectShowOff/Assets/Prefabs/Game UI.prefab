@@ -2183,6 +2183,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PowerUpReadyEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 1354271887994400116, guid: 1e94c4ae0a2cb0a42ac3c6fe91db2110,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1354271887994400117, guid: 1e94c4ae0a2cb0a42ac3c6fe91db2110,
         type: 3}
       propertyPath: m_LocalPosition.x
