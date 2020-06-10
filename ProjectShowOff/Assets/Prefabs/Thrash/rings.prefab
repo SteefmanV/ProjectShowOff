@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 704381579687853192}
   - component: {fileID: 7123371118420762276}
   - component: {fileID: 331830465275925295}
+  - component: {fileID: 4649489161633375997}
   m_Layer: 9
   m_Name: rings
   m_TagString: thrash
@@ -114,6 +115,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 96
   m_CollisionDetection: 0
+--- !u!95 &4649489161633375997
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295525259969906772}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 945f2aba9eb601b4ba851f240b8f2593, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7945030944957622916
 GameObject:
   m_ObjectHideFlags: 0
