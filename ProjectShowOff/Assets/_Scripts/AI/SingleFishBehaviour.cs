@@ -93,7 +93,7 @@ public class SingleFishBehaviour : Fish
             }
             else
             {
-                fishManager.CheckFishCount();
+                if(fishManager != null) fishManager.CheckFishCount();
                 //Destroy(gameObject);
             }
         }

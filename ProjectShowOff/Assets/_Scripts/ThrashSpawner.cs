@@ -142,7 +142,6 @@ public class ThrashSpawner : MonoBehaviour
         if (currentWaveNumber > _spawnWaves.Count)
         {
             if (_log) Debug.Log("<color=red><b> No more waves available... </b></color>");
-            _gameManager.GameWon();
             return false;
         }
 

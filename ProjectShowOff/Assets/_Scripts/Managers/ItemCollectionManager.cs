@@ -10,21 +10,27 @@ public class ItemCollectionManager : MonoBehaviour
     private List<Item> _justCollected = new List<Item>();
     private PowerUp _powerUp;
 
-    [SerializeField] private Transform[] _uiHolders = new Transform[4];
+    [SerializeField, TabGroup("General")] private Transform[] _uiHolders = new Transform[4];
 
-    [Title("UI Icon Prefabs")]
-    [SerializeField] private GameObject _bottleIcon = null;
-    [SerializeField] private GameObject _ringsIcon = null;
-    [SerializeField] private GameObject _strawIcon = null;
-
-    [Title("Power-up Combinations")]
-    [SerializeField] private List<Combination> powerUps = new List<Combination>();
+    [Title("Power-up Combinations"), TabGroup("General")]
+    [SerializeField, TabGroup("General")] private List<Combination> powerUps = new List<Combination>();
 
 
-    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _thrashCollected = null;
-    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _thrashAdded = null;
-    [FoldoutGroup("Sounds"), SerializeField] private AudioClip _powerUpCreated = null;
+    [Title("UI Icon Prefabs"), TabGroup("Visual-audio")]
+    [SerializeField, TabGroup("Visual-audio")] private GameObject _bottleIcon = null;
+    [SerializeField, TabGroup("Visual-audio")] private GameObject _ringsIcon = null;
+    [SerializeField, TabGroup("Visual-audio")] private GameObject _strawIcon = null;
+
+    [Title("Audio"), TabGroup("Visual-audio")]
+    [SerializeField, TabGroup("Visual-audio")] private AudioClip _thrashCollected = null;
+    [SerializeField, TabGroup("Visual-audio")] private AudioClip _thrashAdded = null;
+    [SerializeField, TabGroup("Visual-audio")] private AudioClip _powerUpCreated = null;
     private AudioSource _audio;
+
+    [Title("Particle effects"), TabGroup("Visual-audio")]
+    [SerializeField, TabGroup("Visual-audio")] private ParticleSystem[] _itemParticleSystems = new ParticleSystem[3];
+    [SerializeField, TabGroup("Visual-audio")] private ParticleSystem _powerupReady = null;
+    [SerializeField, TabGroup("Visual-audio")] private ParticleSystem _powerupActive = null;
 
     private void Start()
     {
@@ -45,7 +51,11 @@ public class ItemCollectionManager : MonoBehaviour
         _audio.PlayOneShot(_thrashCollected);
 
         if (_justCollected.Count == 3) _audio.PlayOneShot(_powerUpCreated);
-        if (_justCollected.Count < 4) _audio.PlayOneShot(_thrashAdded);
+        if (_justCollected.Count < 4)
+        {
+            _audio.PlayOneShot(_thrashAdded);
+            if (_justCollected.Count > 0) _itemParticleSystems[_justCollected.Count - 1].Play();
+        }
 
 
         checkForPowerUp();
@@ -56,6 +66,21 @@ public class ItemCollectionManager : MonoBehaviour
     {
         _justCollected.Clear();
         updateUI(null);
+        StopPowerupEffect();
+    }
+
+
+    public void ActivatePowerupEffect()
+    {
+        _powerupReady.Stop();
+        _powerupActive.Play();
+    }
+
+
+    private void StopPowerupEffect()
+    {
+        _powerupActive.Stop();
+        _powerupReady.Stop();
     }
 
 
@@ -128,10 +153,17 @@ public class ItemCollectionManager : MonoBehaviour
                     break;
             }
 
-            if(iconObject != null) Instantiate(iconObject, _uiHolders[i]);
+            if (iconObject != null)
+            {
+                Instantiate(iconObject, _uiHolders[i]);
+            }
         }
 
-        if(pPowerUp != null) Instantiate(pPowerUp.powerUpIcon, _uiHolders[3]); // Put powerup in UI slot
+        if (pPowerUp != null)
+        {
+            Instantiate(pPowerUp.powerUpIcon, _uiHolders[3]); // Put powerup in UI slot
+            _powerupReady.Play();
+        }
     }
 
 

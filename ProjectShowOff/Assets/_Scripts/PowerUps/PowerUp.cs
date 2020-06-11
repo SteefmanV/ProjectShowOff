@@ -13,6 +13,7 @@ public class PowerUp : MonoBehaviour
 
     [FoldoutGroup("Sounds"), SerializeField] private AudioClip _powerUpCharge = null;
     [FoldoutGroup("Sounds"), SerializeField] private AudioClip _powerUpOver = null;
+    [SerializeField] private ParticleSystem _powerUpEffect = null;
     private AudioSource _audio;
 
     // powerup references
@@ -39,6 +40,19 @@ public class PowerUp : MonoBehaviour
     }
 
 
+    private void Update()
+    {
+        if(powerUpActivated && (_playerMovement.isDragging || _playerMovement.isMoving))
+        {
+            if (!_powerUpEffect.isPlaying) _powerUpEffect.Play();
+        }
+        else
+        {
+            if (_powerUpEffect.isPlaying) _powerUpEffect.Stop();
+        }
+    }
+
+
     /// <summary>
     /// Activate a powerup
     /// </summary>
@@ -54,7 +68,12 @@ public class PowerUp : MonoBehaviour
 
     public void ActivatePowerup()
     {
-        powerUpActivated = true;
+        if (nextPowerUp != PowerUps.none)
+        {
+            Debug.Log("Activate");
+            powerUpActivated = true;
+            _itemCollection.ActivatePowerupEffect();
+        }
     }
 
 
