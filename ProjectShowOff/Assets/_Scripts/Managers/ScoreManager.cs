@@ -11,10 +11,10 @@ public class ScoreManager : MonoBehaviour
     [ShowInInspector]
     public int score
     {
-        get { return _score; }
+        get { return session.score; }
         private set
         {
-            _score = value;
+            session.score = value;
             NewScore?.Invoke(this, value);
         }
     }
@@ -25,15 +25,16 @@ public class ScoreManager : MonoBehaviour
     [Title("UI")]
     [SerializeField, Required, SceneObjectsOnlyAttribute] private TextMeshProUGUI _scoreUI = null;
 
-    private int _score;
-
+    private PlaySession session;
 
 
 
     private void Start()
     {
+        session = FindObjectOfType<PlaySession>();
         NewScore += updateUI;
-        score = 0;
+
+        updateUI(null, score);
     }
 
 

@@ -54,6 +54,12 @@ public class MainScreen : MonoBehaviour
     }
 
 
+    public void ResetSessionScore()
+    {
+        FindObjectOfType<PlaySession>().StartNewSession();
+    }
+
+
     private void languageChanged(object pSender, Translation pTranslation)
     {
         updateTexts(pTranslation);
