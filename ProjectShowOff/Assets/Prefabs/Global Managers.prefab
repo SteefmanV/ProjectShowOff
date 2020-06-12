@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &283396213831524876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 283396213831524850}
+  - component: {fileID: 283396213831524877}
+  - component: {fileID: 283396213831524851}
+  - component: {fileID: 283396213831524848}
+  m_Layer: 0
+  m_Name: Global Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &283396213831524850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283396213831524876}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &283396213831524877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283396213831524876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c02ed34923dfc48a6a06a67d0b00ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLanaguage: 0
+  _dutch: {fileID: 11400000, guid: 56b05e028138abe4a9a4cf1993eb0c90, type: 2}
+  _english: {fileID: 11400000, guid: af42ca2b9f6a6ec44b269c4f5d595d25, type: 2}
+  _german: {fileID: 11400000, guid: 0c67b93a44a9b9c4fb279fa39af4864f, type: 2}
+--- !u!114 &283396213831524851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283396213831524876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee980e51b221e714b89f39c46f1da5dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _globalScoreCache: []
+  _dailyHighscore: []
+  randomNames:
+  - Saila
+  - Stefan
+  - Fynn
+  - Jason
+  - Trang
+  - Mike
+  - Anna
+  - Sebastian
+  - Renee
+  - Herman
+--- !u!114 &283396213831524848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283396213831524876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f044ce27c0d1de4e8ffa469cb702cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0

@@ -14,6 +14,8 @@ public class HighscoresManager : MonoBehaviour
     const string relativeDirectory = "blob/stir";
     const string fileName = "highscores.json";
 
+    [SerializeField] private List<string> randomNames = new List<string>();
+
 
     private void Awake()
     {
@@ -37,7 +39,7 @@ public class HighscoresManager : MonoBehaviour
 
             _globalScoreCache.Add(score);
             _globalScoreCache = _globalScoreCache.OrderBy(x => -x.score).ToList();
-            _globalScoreCache[25] = null;
+            _globalScoreCache.Remove(_globalScoreCache[25]);
 
             saveToJson();
         }
@@ -120,9 +122,9 @@ public class HighscoresManager : MonoBehaviour
 
     private void populateDailyHighscore()
     {
-        for (int i = 0; i < 10; i++)
+        foreach(string name in randomNames)
         {
-            _dailyHighscore.Add(new Score(0, ""));
+            _dailyHighscore.Add(new Score(UnityEngine.Random.Range(0,30), name));
         }
     }
 }

@@ -28,21 +28,21 @@ public class Leaderboard : MonoBehaviour
     }
 
 
-    public void InsertRandomScore()
-    {
-        _highscoreManager.InsertNewScore(Random.Range(0, 100), _nameInputField.text);
-        cleanLeaderboards();
-        loadDailyLeaderboard();
-        loadGlobalLeaderboard();
-        _nameInputField.text = "";
-    }
+    //public void InsertRandomScore()
+    //{
+    //    _highscoreManager.InsertNewScore(Random.Range(0, 100), _nameInputField.text);
+    //    cleanLeaderboards();
+    //    loadDailyLeaderboard();
+    //    loadGlobalLeaderboard();
+    //    _nameInputField.text = "";
+    //}
 
 
-    private void insertScore()
+    public void InsertScore()
     {
         if (_highscoreManager != null)
         {
-            _highscoreManager.InsertNewScore(_session.score, _nameInputField.name);
+            _highscoreManager.InsertNewScore(_session.score, _nameInputField.text);
             cleanLeaderboards();
             loadDailyLeaderboard();
             loadGlobalLeaderboard();

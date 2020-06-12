@@ -42,7 +42,11 @@ public class InputFieldKeyboard : MonoBehaviour
 
     private void launchKeyboard()
     {
-        if (_keyboard == null) _keyboard = Process.Start("osk.exe");
+        if (_keyboard == null)
+        {
+            ProcessStartInfo info = new ProcessStartInfo("osk.exe");
+            _keyboard = Process.Start(info);
+        }
     }
 
 
