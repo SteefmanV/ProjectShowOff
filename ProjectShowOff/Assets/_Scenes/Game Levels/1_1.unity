@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1988,8 +1988,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9999998, y: 0.9999998, z: 1.0028604}
-  m_Center: {x: 3.094788e-13, y: -4.728402e-13, z: -0.0014289889}
+  m_Size: {x: 0.2853138, y: 0.9999999, z: 1.0028604}
+  m_Center: {x: 0.35734275, y: 0, z: -0.0014289827}
 --- !u!23 &557937566
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7947,6 +7947,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 668857519798942906, guid: c6f0ff77b71791f41af14467db730bd2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1779734402773466697, guid: c6f0ff77b71791f41af14467db730bd2,
         type: 3}
       propertyPath: m_Name
@@ -8024,6 +8029,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: d41e8e545200cdd41889f70ed2013b87,
         type: 2}
+    - target: {fileID: 4841454001881673678, guid: c6f0ff77b71791f41af14467db730bd2,
+        type: 3}
+      propertyPath: _autoStartSpawner
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6f0ff77b71791f41af14467db730bd2, type: 3}
 --- !u!1 &1779734403085335310 stripped

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6594026051280815682}
   - component: {fileID: 6594026051280815681}
   m_Layer: 0
-  m_Name: Thrash
+  m_Name: Thrash Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,6 +50,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 72b3a40aa8ffe284f9c51dd12abfa359, type: 2}
   - {fileID: 11400000, guid: 2ecf18c7ee42d874f9cef5e552565187, type: 2}
   _timeBetweenWaves: 3
+  _autoStartSpawner: 1
   minMaxX: {x: -5.7, y: 4.7}
   spawnHeight: 8
   state: 0
