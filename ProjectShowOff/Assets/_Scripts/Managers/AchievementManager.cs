@@ -58,7 +58,7 @@ public class AchievementManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        _powerUp.OnPowerupUsed -= onPowerupUsed;
+        if(_powerUp != null) _powerUp.OnPowerupUsed -= onPowerupUsed;
         SceneManager.sceneLoaded -= onSceneLoaded;
     }
 }

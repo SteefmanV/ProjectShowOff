@@ -23,4 +23,7 @@ public class Translation : ScriptableObject
     public string saveTheAnimals;
     public string powerupExplenation;
     public string tutorialEnd;
+
+    [Title("PlaceHOlder")]
+    public string cutSceneText;
 }

@@ -57,7 +57,8 @@ public class MainScreen : MonoBehaviour
     public void ResetStatistics()
     {
         FindObjectOfType<PlaySession>().StartNewSession();
-        FindObjectOfType<AchievementManager>().ResetAchievements();
+        AchievementManager achievementManager = FindObjectOfType<AchievementManager>();
+        if(achievementManager != null) achievementManager.ResetAchievements();
     }
 
 
