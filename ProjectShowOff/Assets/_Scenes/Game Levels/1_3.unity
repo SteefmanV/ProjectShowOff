@@ -8467,6 +8467,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 4.68
       objectReference: {fileID: 0}
+    - target: {fileID: 4381020654320247653, guid: c6f0ff77b71791f41af14467db730bd2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4841454001881673678, guid: c6f0ff77b71791f41af14467db730bd2,
         type: 3}
       propertyPath: _spawnWaves.Array.size
