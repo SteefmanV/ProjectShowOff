@@ -11,10 +11,10 @@ public class ScoreManager : MonoBehaviour
     [ShowInInspector]
     public int score
     {
-        get { return session.score; }
+        get { return (session != null) ? session.score : 0; }
         private set
         {
-            session.score = value;
+            if(session != null) session.score = value;
             NewScore?.Invoke(this, value);
         }
     }
