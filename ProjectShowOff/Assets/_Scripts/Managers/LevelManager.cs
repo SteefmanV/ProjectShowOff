@@ -45,6 +45,7 @@ public class LevelManager : MonoBehaviour
         if (!_sceneLoaded)
         {
             _sceneLoaded = true;
+            updateAchievements();
 
             StartCoroutine(delayedSceneLoad(SceneManager.GetActiveScene()));
             SceneManager.LoadSceneAsync(_sceneTransition, LoadSceneMode.Additive);
@@ -79,10 +80,20 @@ public class LevelManager : MonoBehaviour
     }
 
 
-
     private int trashCount()
     {
         Thrash[] thrash = FindObjectsOfType<Thrash>();
         return thrash.Count();
+    }
+
+
+    private void updateAchievements()
+    {
+        AchievementManager achievements = FindObjectOfType<AchievementManager>();
+        if (achievements != null)
+        {
+            int fishSaved = FindObjectsOfType<Fish>().Length;
+            achievements.EndOfLevel(fishSaved);
+        }
     }
 }

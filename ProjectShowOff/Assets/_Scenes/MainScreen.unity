@@ -2303,11 +2303,11 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level1
+          m_StringArgument: StartCutScene
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 764410905}
-        m_MethodName: ResetSessionScore
+        m_MethodName: ResetStatistics
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3460,3 +3460,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3227f977ee263a94fbe5363885baf925, type: 3}
+--- !u!1 &283396214333271027 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 283396213831524876, guid: 3227f977ee263a94fbe5363885baf925,
+    type: 3}
+  m_PrefabInstance: {fileID: 283396214333271026}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &283396214333271028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283396214333271027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05e895c14b2be8d4996c6f477122f48c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _powerUp: {fileID: 0}

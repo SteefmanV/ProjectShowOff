@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &2148900624873756257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730638303463266144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff6044a2a57b98a47b8e7c41bf56dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animationName: Take 001
+  _minMaxOffset: {x: 0, y: 4.2}
 --- !u!1 &8378526990337398016
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +23,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8378526990337398023}
-  - component: {fileID: 8633753191834346740}
   - component: {fileID: 6943561404013081969}
   - component: {fileID: 6264398519918811043}
   - component: {fileID: 2842296747909915014}
@@ -35,18 +48,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8633753191834346740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8378526990337398016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff6044a2a57b98a47b8e7c41bf56dc52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6943561404013081969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,7 +61,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  decreaseHpPerSecEating: 50
   _trashDetectionRadius: 2
   _trashLayer:
     serializedVersion: 2
@@ -75,6 +75,7 @@ MonoBehaviour:
   _protectionBubble: {fileID: 0}
   _target: {fileID: 0}
   _anim: {fileID: 2936325663765194437}
+  _eatTimer: 0
 --- !u!82 &6264398519918811043
 AudioSource:
   m_ObjectHideFlags: 0
@@ -273,6 +274,12 @@ Transform:
 --- !u!95 &2936325663765194437 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4178388503258436498, guid: 3b7265dcbaf9ff9468ff20918cf7acea,
+    type: 3}
+  m_PrefabInstance: {fileID: 1243963914478024023}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &730638303463266144 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1972802296968716855, guid: 3b7265dcbaf9ff9468ff20918cf7acea,
     type: 3}
   m_PrefabInstance: {fileID: 1243963914478024023}
   m_PrefabAsset: {fileID: 0}

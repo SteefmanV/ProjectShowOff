@@ -54,9 +54,10 @@ public class MainScreen : MonoBehaviour
     }
 
 
-    public void ResetSessionScore()
+    public void ResetStatistics()
     {
         FindObjectOfType<PlaySession>().StartNewSession();
+        FindObjectOfType<AchievementManager>().ResetAchievements();
     }
 
 

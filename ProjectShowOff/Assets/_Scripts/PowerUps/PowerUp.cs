@@ -6,6 +6,8 @@ public class PowerUp : MonoBehaviour
 {
     [SerializeField, Required, SceneObjectsOnly] private GameObject powerUpManager;
 
+    public event EventHandler<PowerUps> OnPowerupUsed;
+
     public enum PowerUps { none, net, bubblePack, airTrap }
     public bool powerUpActivated { get; set; } = false;
 
@@ -77,6 +79,7 @@ public class PowerUp : MonoBehaviour
             Debug.Log("Activate");
             powerUpActivated = true;
             _itemCollection.ActivatePowerupEffect();
+            OnPowerupUsed?.Invoke(this, nextPowerUp);
         }
     }
 
