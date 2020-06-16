@@ -22,9 +22,9 @@ public class ItemCollectionManager : MonoBehaviour
     [SerializeField, TabGroup("Visual-audio")] private GameObject _strawIcon = null;
 
     [Title("Audio"), TabGroup("Visual-audio")]
-    [SerializeField, TabGroup("Visual-audio")] private AudioClip _thrashCollected = null;
-    [SerializeField, TabGroup("Visual-audio")] private AudioClip _thrashAdded = null;
-    [SerializeField, TabGroup("Visual-audio")] private AudioClip _powerUpCreated = null;
+    [SerializeField, TabGroup("Visual-audio")] private AudioClip _collectTrash = null;
+    [SerializeField, TabGroup("Visual-audio")] private AudioClip _addItemToInventory = null;
+    [SerializeField, TabGroup("Visual-audio")] private AudioClip _createPowerup = null;
     private AudioSource _audio;
 
     [Title("Particle effects"), TabGroup("Visual-audio")]
@@ -47,16 +47,25 @@ public class ItemCollectionManager : MonoBehaviour
     public void CollectedItem(Item pItem)
     {
         _itemsCollected[pItem]++;
-        if(_justCollected.Count < 3) _justCollected.Add(pItem);
-        _audio.PlayOneShot(_thrashCollected);
 
-        if (_justCollected.Count == 3) _audio.PlayOneShot(_powerUpCreated);
-        if (_justCollected.Count < 4)
+        if (_justCollected.Count < 3) // If UI is not full
         {
-            _audio.PlayOneShot(_thrashAdded);
-            if (_justCollected.Count > 0) _itemParticleSystems[_justCollected.Count - 1].Play();
-        }
+            _justCollected.Add(pItem);
+            _itemParticleSystems[_justCollected.Count - 1].Play(); // Play particle effect in ui slot
 
+            if (_justCollected.Count == 3) // Powerup ready
+            {
+                _audio.PlayOneShot(_createPowerup);
+            }
+            else
+            {
+                _audio.PlayOneShot(_addItemToInventory);
+            }
+        }
+        else
+        {
+            _audio.PlayOneShot(_collectTrash);
+        }
 
         checkForPowerUp();
     }
@@ -96,7 +105,7 @@ public class ItemCollectionManager : MonoBehaviour
     private void checkForPowerUp()
     {
         Combination combination = null;
-        foreach(Combination combi in powerUps)
+        foreach (Combination combi in powerUps)
         {
             if (checkCombinations(combi))
             {
@@ -134,7 +143,7 @@ public class ItemCollectionManager : MonoBehaviour
 
         for (int i = 0; i < 3; i++) // Put Item icon in each UI slot
         {
-            Item item = (_justCollected.Count - 1 >= i)? _justCollected[i] : Item.empty;
+            Item item = (_justCollected.Count - 1 >= i) ? _justCollected[i] : Item.empty;
             GameObject iconObject = null;
 
             switch (item)
@@ -171,7 +180,7 @@ public class ItemCollectionManager : MonoBehaviour
     {
         for (int i = 0; i < _uiHolders.Length; i++)
         {
-            foreach(Transform trans in _uiHolders[i])
+            foreach (Transform trans in _uiHolders[i])
             {
                 if (!trans.CompareTag("backgroundUi"))
                 {

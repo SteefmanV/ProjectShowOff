@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using System;
 using UnityEngine;
 
 public class PowerUp : MonoBehaviour
@@ -11,10 +12,11 @@ public class PowerUp : MonoBehaviour
     [ReadOnly, SerializeField] private PowerUps currentlyActive = PowerUps.none;
     [ReadOnly, SerializeField] private PowerUps nextPowerUp = PowerUps.none;
 
+    [FoldoutGroup("Sounds"), SerializeField] private AudioSource _audio;
     [FoldoutGroup("Sounds"), SerializeField] private AudioClip _powerUpCharge = null;
     [FoldoutGroup("Sounds"), SerializeField] private AudioClip _powerUpOver = null;
     [SerializeField] private ParticleSystem _powerUpEffect = null;
-    private AudioSource _audio;
+
 
     // powerup references
     private NetPowerUp _netPowerUp = null;
@@ -27,12 +29,14 @@ public class PowerUp : MonoBehaviour
 
     private void Awake()
     {
-        _audio = GetComponent<AudioSource>();
+        //_audio = GetComponent<AudioSource>();
         _itemCollection = FindObjectOfType<ItemCollectionManager>();
 
         _playerMovement = FindObjectOfType<PlayerMovement>();
         _playerMovement.startJump += OnStartJump;
         _playerMovement.endJump += OnEndJump;
+        _playerMovement.startDrag += OnStartDrag;
+        _playerMovement.endDrag += OnEndDrag;
 
         _netPowerUp = powerUpManager.GetComponent<NetPowerUp>();
         _airTrapPowerUp = powerUpManager.GetComponent<airTrapPowerUp>();
@@ -42,7 +46,7 @@ public class PowerUp : MonoBehaviour
 
     private void Update()
     {
-        if(powerUpActivated && (_playerMovement.isDragging || _playerMovement.isMoving))
+        if (powerUpActivated && (_playerMovement.isDragging || _playerMovement.isMoving))
         {
             if (!_powerUpEffect.isPlaying) _powerUpEffect.Play();
         }
@@ -86,10 +90,6 @@ public class PowerUp : MonoBehaviour
                 currentlyActive = nextPowerUp;
                 nextPowerUp = PowerUps.none;
 
-                _audio.clip = _powerUpCharge;
-                _audio.loop = true;
-                _audio.Play();
-
                 powerUpActivated = false;
             }
 
@@ -111,7 +111,7 @@ public class PowerUp : MonoBehaviour
 
     private void OnEndJump(object pSender, Vector3 pPosition)
     {
-        _audio.Stop();
+       // _audio.Stop();
 
         switch (currentlyActive)
         {
@@ -130,7 +130,36 @@ public class PowerUp : MonoBehaviour
         {
             _itemCollection.ResetCount();
             currentlyActive = PowerUps.none;
+        }
+    }
+
+
+    private void OnStartDrag(object pSender, EventArgs pE)
+    {
+        if (powerUpActivated)
+        {
+            Debug.Log("Start drag powerup");
+            _audio.clip = _powerUpCharge;
+            _audio.loop = true;
+            _audio.Play();
+        }
+    }
+
+
+    private void OnEndDrag(object pSender, EventArgs pE)
+    {
+        if (nextPowerUp != PowerUps.none)
+        {
+            Debug.Log("<color=red>End drag powerup</color>");
+            _audio.Stop();
             _audio.PlayOneShot(_powerUpOver);
         }
+    }
+
+
+    private void OnDestroy()
+    {
+        _playerMovement.startJump -= OnStartJump;
+        _playerMovement.endJump -= OnEndJump;
     }
 }

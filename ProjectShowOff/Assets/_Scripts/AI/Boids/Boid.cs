@@ -1,6 +1,4 @@
-﻿using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class Boid : Fish
@@ -9,6 +7,8 @@ public class Boid : Fish
     [SerializeField] private Transform _target;
     private Vector3 _velocity;
     [SerializeField] private Animator _anim;
+
+    [SerializeField] private float _eatTimer = 0;
 
 
     /// <summary>
@@ -19,6 +19,7 @@ public class Boid : Fish
         _settings = pBoidSettings;
         _target = pTarget;
         _velocity = transform.forward * ((_settings.minSpeed + _settings.maxSpeed) / 2);
+        OnDeath += die;
     }
 
 
@@ -105,21 +106,27 @@ public class Boid : Fish
     private void eat()
     {
         if (targetThrash == null) return;
-        health -= (Time.deltaTime * decreaseHpPerSecEating);
-        targetThrash.health -= (Time.deltaTime * decreaseHpPerSecEating);
-        if (health <= 0 && !dead)
+        else
         {
-            _anim.SetTrigger("die");
+            _eatTimer += Time.deltaTime;
+            if (_eatTimer > 1)
+            {
+                health -= 1;
+                _anim.SetTrigger("hurt");
+
+                if (checkHealth()) targetThrash.Delete();
+                _eatTimer = 0;
+            }
         }
-        else _anim.SetTrigger("hurt");
+    }
 
-        checkHealth();
+    private void die(object pSender, EventArgs pE)
+    {
+        _anim.SetTrigger("die");
+    }
 
-        //if(_audio.clip != _eating)
-        //{
-        //    _audio.clip = _eating;
-        //    _audio.loop = true;
-        //    _audio.Play();
-        //}
+    private void OnDestroy()
+    {
+        OnDeath -= die;
     }
 }

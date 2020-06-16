@@ -6,9 +6,11 @@ public class Thrash : MonoBehaviour
 {
     public bool disabled { get; set; } = false;
 
-    public float startHealth = 100;
-    [ProgressBar(0, "startHealth", ColorMember = "GetHealthBarColor")]
-    public float health = 100;
+    // public float startHealth = 100;
+    public Fish fishTargetedThisTrash = null;
+
+    //  [ProgressBar(0, "startHealth", ColorMember = "GetHealthBarColor")]
+    // public float health = 100;
 
     [Header("Thrash Settings")]
     [SerializeField] private ItemCollectionManager.Item trashType = ItemCollectionManager.Item.bottle;
@@ -30,7 +32,7 @@ public class Thrash : MonoBehaviour
         GameObject gameManager = GameObject.FindGameObjectWithTag("GameManager");
         _powerUpManager = gameManager.GetComponent<ItemCollectionManager>();
         _scoreManager = gameManager.GetComponent<ScoreManager>();
-        health = startHealth;
+        //   health = startHealth;
     }
 
 
@@ -50,8 +52,6 @@ public class Thrash : MonoBehaviour
         {
             _rb.velocity = minimumForce;
         }
-
-        if (health <= 0) Destroy(_mainObject);
     }
 
 
@@ -59,15 +59,15 @@ public class Thrash : MonoBehaviour
     {
         _powerUpManager.CollectedItem(trashType);
         _scoreManager.ThrashDestroyed();
-        Destroy(_mainObject);
+        Delete();
     }
 
-    
+
     public void SetDisabled(bool pActive)
     {
         disabled = pActive;
 
-        if(disabled)
+        if (disabled)
         {
             GetComponentInParent<BoxCollider>().enabled = false;
             _rb.isKinematic = true;
@@ -79,6 +79,12 @@ public class Thrash : MonoBehaviour
             _rb.isKinematic = false;
             _rb.AddForce(new Vector3(0, _startFallSpeed, 0), ForceMode.Force);
         }
+    }
+
+
+    public void Delete()
+    {
+        Destroy(_mainObject);
     }
 
 

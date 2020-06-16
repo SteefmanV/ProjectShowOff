@@ -33,7 +33,7 @@ public class MainScreen : MonoBehaviour
 
     public void LoadScene(string pSceneToLoad)
     {
-        SceneManager.LoadScene(pSceneToLoad);
+        SceneManager.LoadSceneAsync(pSceneToLoad);
     }
 
 

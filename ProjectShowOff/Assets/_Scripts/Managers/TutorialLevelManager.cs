@@ -12,11 +12,12 @@ public class TutorialLevelManager : MonoBehaviour
     public state _tutorialState = state.start;
 
     [Title("Level State 1 (Start)")]
-   // [SerializeField] private GameObject _uiPopup = null;
+    // [SerializeField] private GameObject _uiPopup = null;
     [SerializeField] private Rigidbody _playerBody = null;
     [SerializeField] private ThrashSpawner _thrashSpawner = null;
     [SerializeField] private Vector3 _playerStartForce = new Vector3();
-    [SerializeField] private List<Fish> _fishes = new List<Fish>();
+    //  [SerializeField] private List<Fish> _fishes = new List<Fish>();
+    [SerializeField] private Fish _tutorialFirstFish = null;
 
     [Title("Level State 2(Movement)")]
     [SerializeField] private PlayerMovement _playerMovement = null;
@@ -54,7 +55,7 @@ public class TutorialLevelManager : MonoBehaviour
         _playerMovement.endJump += SetStartPos;
 
         _languageManager = FindObjectOfType<LanguageManager>();
-        if(_languageManager != null) updateTexts(_languageManager.GetTranslation());
+        if (_languageManager != null) updateTexts(_languageManager.GetTranslation());
     }
 
 
@@ -63,29 +64,20 @@ public class TutorialLevelManager : MonoBehaviour
         switch (_tutorialState)
         {
             case state.start:
-                foreach (Fish fish in _fishes)
-                {
-                    if (fish.health < 100)
-                    {
-                        _tutorialState = state.movement;
-                        StartCoroutine(delayedFreeze(0.5f));
-                        _playerMovement.startJump += startJump;
-                        _movementExplenation.SetActive(true);
-                    }
+                StartCoroutine(movementExplenation(2.5f));
 
-                    if ((playerStartPos != Vector3.zero) && Vector3.Distance(_playerMovement.transform.position, playerStartPos) > .5f)
-                    {
-                        _tutorialState = state.movement;
-                    }
+                if ((playerStartPos != Vector3.zero) && Vector3.Distance(_playerMovement.transform.position, playerStartPos) > .5f)
+                {
+                    _tutorialState = state.movement;
                 }
 
-                if (_firstThrash == null) _tutorialState = state.movement;
+                //   if (_firstThrash == null) _tutorialState = state.movement;
                 break;
             case state.movement:
-                if (_firstThrash.health <= 0 || _firstThrash == null)
+                if (_firstThrash == null)
                 {
                     _movementExplenation.SetActive(false);
-                   // _uiPopup.SetActive(true);
+                    // _uiPopup.SetActive(true);
                     _bottle1.SetActive(true);
                     _ring2.SetActive(true);
 
@@ -134,10 +126,23 @@ public class TutorialLevelManager : MonoBehaviour
     }
 
 
+    private IEnumerator movementExplenation(float pDelay)
+    {
+        yield return new WaitForSeconds(pDelay);
+
+        if (_firstThrash != null)
+        {
+            _tutorialState = state.movement;
+            StartCoroutine(delayedFreeze(0.2f));
+            _playerMovement.startJump += startJump;
+            _movementExplenation.SetActive(true);
+        }
+    }
+
     private IEnumerator delayedFreeze(float pDuration)
     {
         float timer = 0;
-        while((_bottle1 == null && _ring2 == null) == false)
+        while ((_bottle1 == null && _ring2 == null) == false)
         {
             timer += Time.deltaTime;
             if (timer > pDuration) break;
@@ -156,7 +161,7 @@ public class TutorialLevelManager : MonoBehaviour
 
     private void startJump(object pSender, Vector3 pPosition)
     {
-        if(_bottle1 == null && _ring2 == null) _playerMovement.startJump -= startJump;
+        if (_bottle1 == null && _ring2 == null) _playerMovement.startJump -= startJump;
         Time.timeScale = 1;
     }
 

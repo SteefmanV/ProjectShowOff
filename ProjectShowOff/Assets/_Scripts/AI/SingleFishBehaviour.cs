@@ -44,6 +44,8 @@ public class SingleFishBehaviour : Fish
     private EnvironmentTargetGenerator _targetGenerator;
     private float _oldCollisionThreshhold = 0;
 
+    [SerializeField] private float _eatTimer = 0;
+
 
 
     private void Start()
@@ -94,7 +96,6 @@ public class SingleFishBehaviour : Fish
             else
             {
                 if(fishManager != null) fishManager.CheckFishCount();
-                //Destroy(gameObject);
             }
         }
     }
@@ -175,22 +176,26 @@ public class SingleFishBehaviour : Fish
 
     private void eat()
     {
-        if (targetThrash == null) currentState = Behaviour.patrolling;
-
-        _agent.moving = false;
-        health -= (Time.deltaTime * decreaseHpPerSecEating);
-        targetThrash.health -= (Time.deltaTime * decreaseHpPerSecEating);
-        currentState = Behaviour.patrolling;
-        checkHealth();
-
-        _anim.SetTrigger("hurt");
-
-        if (_audio.clip != _eating)
+        if (targetThrash == null)
         {
-            _audio.clip = _eating;
-            _audio.loop = true;
-            _audio.Play();
+            currentState = Behaviour.patrolling;
         }
+        else
+        {
+            _eatTimer += Time.deltaTime;
+            if(_eatTimer > 1)
+            {
+                health -= 1;
+                _anim.SetTrigger("hurt");
+                _audio.PlayOneShot(_eating);
+
+                if(checkHealth()) targetThrash.Delete();
+
+                _eatTimer = 0;
+            }
+        }
+
+       // _agent.moving = false;
     }
 
 

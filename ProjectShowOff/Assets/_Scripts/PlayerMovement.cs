@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public event EventHandler<Vector3> startJump;
     public event EventHandler<Vector3> endJump;
+    public event EventHandler<EventArgs> startDrag;
+    public event EventHandler<EventArgs> endDrag;
 
     //Added for air trap raycast
     public Vector2 shootDirection { get; private set; }
@@ -35,11 +37,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, ReadOnly] private float _movingSpeed = 0;
     public bool isDragging { get; private set; } = false;
 
+    [SerializeField, FoldoutGroup("Sounds")] private AudioSource _audio;
     [SerializeField, FoldoutGroup("Sounds")] private AudioClip _select = null;
     [SerializeField, FoldoutGroup("Sounds")] private AudioClip _charge = null;
     [SerializeField, FoldoutGroup("Sounds")] private AudioClip _jump = null;
     [SerializeField, FoldoutGroup("Sounds")] private AudioClip _land = null;
-    private AudioSource _audio;
 
     [SerializeField] private ParticleSystem _playerTrail = null;
 
@@ -52,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Awake()
     {
-        _audio = GetComponent<AudioSource>();
+        //_audio = GetComponent<AudioSource>();
         _rb = GetComponent<Rigidbody>();
         _lineRender = GetComponent<LineRenderer>();
         _camera = Camera.main;
@@ -152,6 +154,8 @@ public class PlayerMovement : MonoBehaviour
         _audio.clip = _charge;
         _audio.loop = true;
         _audio.Play();
+
+        startDrag?.Invoke(this, new EventArgs());
     }
 
 
@@ -184,6 +188,8 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void dragStop()
     {
+        endDrag?.Invoke(this, new EventArgs());
+
         if (!isMouseOverObject())
         {
             Vector3 mouse = _camera.ScreenToWorldPoint(Input.mousePosition);

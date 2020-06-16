@@ -7,10 +7,7 @@ public class Fish : MonoBehaviour
 {
     public event EventHandler OnDeath;
 
-    //================= Health Settings =================
-    [ProgressBar(0, 100, ColorMember = "GetHealthBarColor")]
-    [SerializeField] public float health = 100;
-    [SerializeField] protected float decreaseHpPerSecEating = 0;
+    [SerializeField] public int health = 3;
 
 
     //================= Thrash Searching =================
@@ -64,9 +61,9 @@ public class Fish : MonoBehaviour
     protected void Die()
     {
         if (!dead)
-        {         
+        {
             dead = true;
-            if(fishManager != null) fishManager.CheckFishCount();
+            if (fishManager != null) fishManager.CheckFishCount();
             _audio.PlayOneShot(_die);
             Instantiate(_dieParticlePrefab, transform.position, Quaternion.identity, transform);
             OnDeath?.Invoke(this, EventArgs.Empty);
@@ -77,16 +74,21 @@ public class Fish : MonoBehaviour
 
     protected Thrash checkFortrash()
     {
-        Transform trash = nearbytrash();
-        if (trash != null)
+        if (targetThrash != null) return targetThrash;
+        else
         {
-            if (!CameraView.isInCameraView(trash.transform.position)) return null;
+            Transform trash = nearbytrash();
+            if (trash != null)
+            {
+                if (!CameraView.isInCameraView(trash.transform.position)) return null;
 
-            targetThrash = trash.GetComponentInChildren<Thrash>();
-            return targetThrash;
+                targetThrash = trash.GetComponentInChildren<Thrash>();
+                targetThrash.fishTargetedThisTrash = this;
+                return targetThrash;
+            }
+
+            return null;
         }
-
-        return null;
     }
 
 
@@ -100,6 +102,9 @@ public class Fish : MonoBehaviour
         float closestDistance = float.MaxValue;
         foreach (Collider trash in trashColliders)
         {
+            Thrash trashObject = trash.GetComponentInChildren<Thrash>();
+            if (trashObject == null || trashObject.fishTargetedThisTrash != null) continue; //If not trash or trash is already targeted by another fish
+
             float distance = (trash.transform.position - transform.position).magnitude;
             if (distance < closestDistance)
             {
@@ -112,12 +117,18 @@ public class Fish : MonoBehaviour
     }
 
 
-    protected void checkHealth()
+    /// <summary>
+    /// Return true if dead
+    /// </summary>
+    protected bool checkHealth()
     {
         if (health <= 0)
         {
             Die();
+            return true;
         }
+
+        else return false;
     }
 
 
