@@ -65,14 +65,18 @@ public class Player : MonoBehaviour
 
     private void setObjectActive(GameObject pObject)
     {
-        _playerMoving.SetActive(false);
-        _playerCharging.SetActive(false);
-        _playerIdle.SetActive(false);
-        _arrowIndicator.SetActive(false);
-        _idleCollider.enabled = false;
-        _movingCollider.enabled = false;
+        if (!pObject.activeSelf)
+        {
+            _arrowIndicator.SetActive(false);
+            _playerMoving.SetActive(false);
+            _playerCharging.SetActive(false);
+            _playerIdle.SetActive(false);
+            _idleCollider.enabled = false;
+            _movingCollider.enabled = false;
 
-        pObject.SetActive(true);
+            pObject.SetActive(true);
+        }
+
     }
 
 
