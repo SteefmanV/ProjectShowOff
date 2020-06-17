@@ -111,6 +111,7 @@ public class Boid : Fish
             _eatTimer += Time.deltaTime;
             if (_eatTimer > 1)
             {
+                _audio.PlayOneShot(_eating);
                 health -= 1;
                 _anim.SetTrigger("hurt");
 

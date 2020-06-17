@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2768,7 +2768,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _barierAnimator
       value: 
-      objectReference: {fileID: 1455318807}
+      objectReference: {fileID: 885544997}
     - target: {fileID: 3606655001109994962, guid: 789ed9c02f6d35844bcf3b384270de3e,
         type: 3}
       propertyPath: _indicatorArrows
@@ -2782,7 +2782,7 @@ PrefabInstance:
     - target: {fileID: 3606655001109994962, guid: 789ed9c02f6d35844bcf3b384270de3e,
         type: 3}
       propertyPath: _levelToLoad
-      value: LeaderBoard
+      value: 2_3
       objectReference: {fileID: 0}
     - target: {fileID: 3606655001109994963, guid: 789ed9c02f6d35844bcf3b384270de3e,
         type: 3}
@@ -3455,6 +3455,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 40}
   m_Center: {x: 0, y: 0, z: 10}
+--- !u!95 &885544997 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4743434684092389332, guid: d47551cebde4e554e8ed3a7e769740c9,
+    type: 3}
+  m_PrefabInstance: {fileID: 2032770965}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &901212471
 GameObject:
   m_ObjectHideFlags: 0
@@ -6792,12 +6798,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 40}
   m_Center: {x: 0, y: 0, z: 10}
---- !u!95 &1455318807 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4743434684092389332, guid: d47551cebde4e554e8ed3a7e769740c9,
-    type: 3}
-  m_PrefabInstance: {fileID: 2032770965}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1457261034
 GameObject:
   m_ObjectHideFlags: 0
@@ -9885,6 +9885,11 @@ PrefabInstance:
       value: -1.67
       objectReference: {fileID: 0}
     - target: {fileID: 4381020654320247653, guid: c6f0ff77b71791f41af14467db730bd2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841454001881673676, guid: c6f0ff77b71791f41af14467db730bd2,
         type: 3}
       propertyPath: m_IsActive
       value: 0

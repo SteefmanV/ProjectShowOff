@@ -54,7 +54,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295525259969906772}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -113,7 +113,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 96
+  m_Constraints: 104
   m_CollisionDetection: 0
 --- !u!95 &4649489161633375997
 Animator:
@@ -123,7 +123,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295525259969906772}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 945f2aba9eb601b4ba851f240b8f2593, type: 2}
   m_CullingMode: 0
@@ -195,8 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 357a9b6e5ee99a44b8a9dde6db210fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 100
-  health: 100
+  fishTargetedThisTrash: {fileID: 0}
   trashType: 2
   _startFallSpeed: -4
   _minForcePercentage: 0.2
@@ -387,10 +386,20 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 337.5
       objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: 2bbaac9857d58e84c80c7e37ec2055cb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 2bbaac9857d58e84c80c7e37ec2055cb,
         type: 3}
       propertyPath: m_Name
       value: Sixpack
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 2bbaac9857d58e84c80c7e37ec2055cb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bbaac9857d58e84c80c7e37ec2055cb, type: 3}

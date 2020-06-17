@@ -41,6 +41,12 @@ public class Player : MonoBehaviour
             Vector3 target = _playerMovement.transform.position + _rb.velocity;
             target.z = transform.position.z;
             transform.LookAt(target, Vector3.up);
+
+            if (_rb.velocity.magnitude < 5)
+            {
+                _rb.velocity.Normalize();
+                _rb.velocity *= 5;
+            }
         }
         else if (_playerMovement.mouseDrag.magnitude > _playerMovement.minimumDragLength)
         {
@@ -59,6 +65,7 @@ public class Player : MonoBehaviour
         {
             setObjectActive(_playerIdle);
             _idleCollider.enabled = true;
+            _rb.velocity = Vector3.zero;
         }
     }
 

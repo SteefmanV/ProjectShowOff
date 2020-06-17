@@ -61,8 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 357a9b6e5ee99a44b8a9dde6db210fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 100
-  health: 100
+  fishTargetedThisTrash: {fileID: 0}
   trashType: 3
   _startFallSpeed: -4
   _minForcePercentage: 0.2
@@ -217,7 +216,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295525259969906772}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 8c412972f559f1b4f947130d49b11fea, type: 2}
   m_CullingMode: 0

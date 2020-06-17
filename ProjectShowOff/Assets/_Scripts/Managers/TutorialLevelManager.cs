@@ -64,6 +64,7 @@ public class TutorialLevelManager : MonoBehaviour
         switch (_tutorialState)
         {
             case state.start:
+                SetHealthOfAllFish(int.MaxValue);
                 StartCoroutine(movementExplenation(2.5f));
 
                 if ((playerStartPos != Vector3.zero) && Vector3.Distance(_playerMovement.transform.position, playerStartPos) > .5f)
@@ -109,6 +110,7 @@ public class TutorialLevelManager : MonoBehaviour
                 {
                     StartCoroutine(showFinalPopup(5));
                     StartCoroutine(startSpawning(2));
+                    ResetFishHealth();
                 }
                 break;
             case state.done:
@@ -221,5 +223,23 @@ public class TutorialLevelManager : MonoBehaviour
         Debug.Log("Star spawning!");
         _thrashSpawner.StartSpawning();
         _tutorialState = state.done;
+    }
+
+
+    private void SetHealthOfAllFish(int pValue)
+    {
+        foreach(Fish fish in FindObjectsOfType<Fish>())
+        {
+            fish.health = pValue;
+        }
+    }
+
+
+    private void ResetFishHealth()
+    {
+        foreach (Fish fish in FindObjectsOfType<Fish>())
+        {
+            fish.ResetHealth();
+        }
     }
 }

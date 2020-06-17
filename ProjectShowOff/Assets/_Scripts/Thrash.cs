@@ -44,14 +44,19 @@ public class Thrash : MonoBehaviour
 
     private void Update()
     {
-        if (disabled) { return; }
-
-        Vector3 minimumForce = new Vector3(0, _startFallSpeed * _minForcePercentage, 0);
-
-        if (_rb.velocity.magnitude < minimumForce.magnitude)
+        if (!disabled)
         {
-            _rb.velocity = minimumForce;
+            Vector3 minimumForce = new Vector3(0, _startFallSpeed * _minForcePercentage, 0);
+
+            if (_rb.velocity.magnitude < minimumForce.magnitude)
+            {
+                _rb.velocity = minimumForce;
+            }
         }
+
+        Vector3 pos = transform.parent.position;
+        pos.z = 0;
+        transform.parent.position = pos;
     }
 
 

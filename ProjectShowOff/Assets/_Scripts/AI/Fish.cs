@@ -41,7 +41,7 @@ public class Fish : MonoBehaviour
         }
     }
     [SerializeField] private GameObject _protectionBubble;
-
+    private int _startHealth = 0;
 
 
     //================= Misc =================
@@ -53,8 +53,15 @@ public class Fish : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        _startHealth = health;
         fishManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<FishManager>();
         _audio = GetComponent<AudioSource>();
+    }
+
+
+    public void ResetHealth()
+    {
+        health = _startHealth;
     }
 
 
