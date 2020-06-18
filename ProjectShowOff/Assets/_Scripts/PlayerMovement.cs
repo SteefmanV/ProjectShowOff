@@ -45,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, FoldoutGroup("Sounds")] private AudioClip _land = null;
 
     [SerializeField] private ParticleSystem _playerTrail = null;
+    [SerializeField] private Collider _idleCollider = null;
 
     private Rigidbody _rb = null;
     private LineRenderer _lineRender;
@@ -68,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
         dragAndShoot();
         _launchedTimer += Time.deltaTime;
         _lastCollisionTimer += Time.deltaTime;
+
+        _idleCollider.enabled = _launchedTimer > 0.1f;
     }
 
 
@@ -78,36 +81,22 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("sticky"))
         {
-         //   if (_lastCollisionTimer < .1f) return;
-          //  _lastCollisionTimer = 0;
-
             _rb.velocity = Vector3.zero;
             endJump?.Invoke(this, transform.position);
-            if (_land != null) _audio.PlayOneShot(_land);            
+            if (_land != null) _audio.PlayOneShot(_land);
 
             Debug.Log("Contact points: " + collision.contacts.Length);
-
-            //Vector3 averageNormal = Vector3.zero;
-
-            //foreach (ContactPoint contact in collision.contacts)
-            //{
-            //    averageNormal += contact.normal;
-            //}
-
-            //averageNormal /= collision.contacts.Length;
-
-            //   collision.contacts[0].thisCollider
 
             Vector3 n = collision.GetContact(0).normal;
             Vector3 target = transform.position + n * 10;
             transform.LookAt(target, Vector3.up);
 
-            //if (transform.rotation.eulerAngles.y == 0)
-            //{
-            //    Vector3 rotEuler = transform.rotation.eulerAngles;
-            //    rotEuler.y = 90;
-            //    transform.rotation = Quaternion.Euler(rotEuler);
-            //}
+            if (transform.rotation.eulerAngles.y == 0)
+            {
+                Vector3 rotEuler = transform.rotation.eulerAngles;
+                rotEuler.y = 90;
+                transform.rotation = Quaternion.Euler(rotEuler);
+            }
         }
     }
 
