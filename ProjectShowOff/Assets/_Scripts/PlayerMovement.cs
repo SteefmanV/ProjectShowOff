@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public float minimumDragLength = 1;
     [SerializeField] private float _dragTrailOffsetStrength = 0.1f;
     [SerializeField] private float _dragThresholdSpeed = 0.1f; // If the player moves slower than this speed, allow to shoot
+    [SerializeField] private float _mouseRadious = 5;
 
     [TitleGroup("Movement Information")]
     [SerializeField, ReadOnly] private float _movingSpeed = 0;
@@ -49,7 +50,8 @@ public class PlayerMovement : MonoBehaviour
     private LineRenderer _lineRender;
     private Camera _camera;
 
-    private float _timer = 0;
+    private float _launchedTimer = 0;
+    private float _lastCollisionTimer = 0;
 
 
     void Awake()
@@ -64,7 +66,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         dragAndShoot();
-        _timer += Time.deltaTime;
+        _launchedTimer += Time.deltaTime;
+        _lastCollisionTimer += Time.deltaTime;
     }
 
 
@@ -75,22 +78,36 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("sticky"))
         {
-            if (_timer < 0.1f) return;
+         //   if (_lastCollisionTimer < .1f) return;
+          //  _lastCollisionTimer = 0;
 
             _rb.velocity = Vector3.zero;
             endJump?.Invoke(this, transform.position);
-            if (_land != null) _audio.PlayOneShot(_land);
+            if (_land != null) _audio.PlayOneShot(_land);            
+
+            Debug.Log("Contact points: " + collision.contacts.Length);
+
+            //Vector3 averageNormal = Vector3.zero;
+
+            //foreach (ContactPoint contact in collision.contacts)
+            //{
+            //    averageNormal += contact.normal;
+            //}
+
+            //averageNormal /= collision.contacts.Length;
+
+            //   collision.contacts[0].thisCollider
 
             Vector3 n = collision.GetContact(0).normal;
             Vector3 target = transform.position + n * 10;
             transform.LookAt(target, Vector3.up);
 
-            if (transform.rotation.eulerAngles.y == 0)
-            {
-                Vector3 rotEuler = transform.rotation.eulerAngles;
-                rotEuler.y = 90;
-                transform.rotation = Quaternion.Euler(rotEuler);
-            }
+            //if (transform.rotation.eulerAngles.y == 0)
+            //{
+            //    Vector3 rotEuler = transform.rotation.eulerAngles;
+            //    rotEuler.y = 90;
+            //    transform.rotation = Quaternion.Euler(rotEuler);
+            //}
         }
     }
 
@@ -189,32 +206,30 @@ public class PlayerMovement : MonoBehaviour
     private void dragStop()
     {
         endDrag?.Invoke(this, new EventArgs());
+        Debug.Log("Drag stop");
 
-        if (!isMouseOverObject())
+        Vector3 mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
+        mouse.z = -1;
+        Vector3 delta = mouse - transform.position;
+
+        if (delta.magnitude > minimumDragLength)
         {
-            Vector3 mouse = _camera.ScreenToWorldPoint(Input.mousePosition);
-            mouse.z = -1;
-            Vector3 delta = mouse - transform.position;
+            Vector3 endPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+            shootDirection = transform.position - endPosition;
 
-            if (delta.magnitude > minimumDragLength)
+            _audio.Stop(); // stop charge loop
+            startJump?.Invoke(this, transform.position);
+            _audio.PlayOneShot(_jump);
+
+            Vector3 force = shootStrength * shootDirection;
+
+            if (force.magnitude > maximumShootSpeed)
             {
-                Vector3 endPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-                shootDirection = transform.position - endPosition;
-
-                _audio.Stop(); // stop charge loop
-                startJump?.Invoke(this, transform.position);
-                _audio.PlayOneShot(_jump);
-
-                Vector3 force = shootStrength * shootDirection;
-
-                if (force.magnitude > maximumShootSpeed)
-                {
-                    force = force.normalized * maximumShootSpeed; // Limit shoot speed
-                }
-
-                _rb.AddForce(-force, ForceMode.Impulse);
-                _timer = 0;
+                force = force.normalized * maximumShootSpeed; // Limit shoot speed
             }
+
+            _rb.AddForce(-force, ForceMode.Impulse);
+            _launchedTimer = 0;
         }
 
         _lineRender.positionCount = 0;
@@ -227,14 +242,12 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private bool isMouseOverObject()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, _playerLayer))
-        {
-            if (hit.collider.gameObject == gameObject) return true;
-        }
+        Vector3 mouseWorldposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldposition.z = transform.position.z;
 
-        return false;
+        Vector3 deltaPos = transform.position - mouseWorldposition;
+
+        return deltaPos.magnitude < _mouseRadious;
     }
 
 

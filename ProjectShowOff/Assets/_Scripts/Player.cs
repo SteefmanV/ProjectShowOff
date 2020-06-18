@@ -18,7 +18,6 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _playerCharging = null;
 
     [Title("Colliders")]
-    [SerializeField] private Collider _idleCollider = null;
     [SerializeField] private Collider _movingCollider = null;
 
     [Title("Settings")]
@@ -41,18 +40,11 @@ public class Player : MonoBehaviour
             Vector3 target = _playerMovement.transform.position + _rb.velocity;
             target.z = transform.position.z;
             transform.LookAt(target, Vector3.up);
-
-            if (_rb.velocity.magnitude < 5)
-            {
-                _rb.velocity.Normalize();
-                _rb.velocity *= 5;
-            }
         }
         else if (_playerMovement.mouseDrag.magnitude > _playerMovement.minimumDragLength)
         {
             setObjectActive(_playerCharging);
             _arrowIndicator.SetActive(true);
-            _idleCollider.enabled = true;
 
 
             float angle = Mathf.Atan2(_playerMovement.mouseDrag.y, _playerMovement.mouseDrag.x);
@@ -64,7 +56,7 @@ public class Player : MonoBehaviour
         else
         {
             setObjectActive(_playerIdle);
-            _idleCollider.enabled = true;
+            _movingCollider.enabled = false;
             _rb.velocity = Vector3.zero;
         }
     }
@@ -78,7 +70,6 @@ public class Player : MonoBehaviour
             _playerMoving.SetActive(false);
             _playerCharging.SetActive(false);
             _playerIdle.SetActive(false);
-            _idleCollider.enabled = false;
             _movingCollider.enabled = false;
 
             pObject.SetActive(true);
@@ -87,7 +78,16 @@ public class Player : MonoBehaviour
     }
 
 
-    public void SetJetpack(bool pActive)
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("sticky"))
+        {
+            _movingCollider.enabled = false;
+        }
+    }
+
+
+            public void SetJetpack(bool pActive)
     {
         _jetPack.SetActive(pActive);
     }

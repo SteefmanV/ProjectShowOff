@@ -442,7 +442,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2629644855395530119
 Transform:
   m_ObjectHideFlags: 0
@@ -471,7 +471,6 @@ GameObject:
   - component: {fileID: 2629644855590804027}
   - component: {fileID: 2629644855590804026}
   - component: {fileID: 2629644855590804025}
-  - component: {fileID: 2629644855590804024}
   - component: {fileID: 1665836361}
   - component: {fileID: 2629644855590804031}
   - component: {fileID: 2629644855590804022}
@@ -554,19 +553,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &2629644855590804024
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2629644855590804030}
-  m_Material: {fileID: 13400000, guid: e5968bd0b0056604fb4acb0f50f34548, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.84
-  m_Center: {x: -0.24, y: 0.024858315, z: 0}
 --- !u!65 &1665836361
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -600,6 +586,7 @@ MonoBehaviour:
   minimumDragLength: 1
   _dragTrailOffsetStrength: 0.3
   _dragThresholdSpeed: 0.4
+  _mouseRadious: 5
   _movingSpeed: 0
   _audio: {fileID: 0}
   _select: {fileID: 0}
@@ -644,7 +631,6 @@ MonoBehaviour:
   _playerIdle: {fileID: 1005705434796996012}
   _playerMoving: {fileID: 8615519297762306427}
   _playerCharging: {fileID: 1490497534800730642}
-  _idleCollider: {fileID: 0}
   _movingCollider: {fileID: 0}
   _arrowScaleFactor: 0.25
 --- !u!54 &2629644855590804020
@@ -1764,7 +1750,7 @@ PrefabInstance:
     - target: {fileID: 484294657663111644, guid: a27ca6b3edf2de646994695b4ccc2bd4,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3522895402975617999, guid: a27ca6b3edf2de646994695b4ccc2bd4,
         type: 3}

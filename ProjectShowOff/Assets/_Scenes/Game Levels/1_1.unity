@@ -2156,6 +2156,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 557937563}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &566996704 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 1779734404494160810, guid: c6f0ff77b71791f41af14467db730bd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779734403085335304}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &568321157
 GameObject:
   m_ObjectHideFlags: 0
@@ -2541,8 +2547,8 @@ Transform:
   - {fileID: 1940411451}
   - {fileID: 1919463793}
   - {fileID: 1888081497}
-  - {fileID: 1852695722}
   - {fileID: 2079440997}
+  - {fileID: 1852695722}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6347,14 +6353,14 @@ MonoBehaviour:
   _tutorialFirstFish: {fileID: 0}
   _playerMovement: {fileID: 1779734403085335318}
   _movementExplenation: {fileID: 39906434}
-  _firstThrash: {fileID: 1779734403085335316}
-  _bottle1: {fileID: 1779734403085335315}
-  _ring2: {fileID: 1779734403085335314}
+  _firstThrash: {fileID: 0}
+  _bottle1: {fileID: 0}
+  _ring2: {fileID: 0}
   _animalExplenation: {fileID: 776331419}
   _freezeAfterSeconds: 5
   _powerupExplenation: {fileID: 1796843160}
   _powerupActivationButton: {fileID: 322546915}
-  _bottle2: {fileID: 1779734403085335310}
+  _bottle2: {fileID: 0}
   _tutorialEndPopup: {fileID: 1795744414}
   _movementExplenationText: {fileID: 572494694}
   _saveTheAnimalsText: {fileID: 40512746}
@@ -8208,6 +8214,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1779734404494160811, guid: c6f0ff77b71791f41af14467db730bd2,
+        type: 3}
+      propertyPath: _movingCollider
+      value: 
+      objectReference: {fileID: 566996704}
     - target: {fileID: 1779734404675657280, guid: c6f0ff77b71791f41af14467db730bd2,
         type: 3}
       propertyPath: sebasMat
@@ -8272,36 +8283,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6f0ff77b71791f41af14467db730bd2, type: 3}
---- !u!1 &1779734403085335310 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 668857519727765843, guid: c6f0ff77b71791f41af14467db730bd2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1779734403085335304}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1779734403085335314 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 668857519642233520, guid: c6f0ff77b71791f41af14467db730bd2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1779734403085335304}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1779734403085335315 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 668857518437224468, guid: c6f0ff77b71791f41af14467db730bd2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1779734403085335304}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1779734403085335316 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4921001659147576715, guid: c6f0ff77b71791f41af14467db730bd2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1779734403085335304}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 357a9b6e5ee99a44b8a9dde6db210fc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1779734403085335318 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4381020654142262492, guid: c6f0ff77b71791f41af14467db730bd2,
