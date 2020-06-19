@@ -10,11 +10,14 @@ public class Leaderboard : MonoBehaviour
     private HighscoresManager _highscoreManager;
 
     [Title("Ui elements")]
-    [SerializeField] private GameObject _highscorePrefab = null;
+    [SerializeField] private GameObject _dailyHighscorePrefab = null;
+    [SerializeField] private GameObject _alltimeHighscorePrefab = null;
     [SerializeField] private Transform _dailyHighscoreHolder = null;
     [SerializeField] private Transform _globalHighscoreHolder = null;
     [SerializeField] private TMP_InputField _nameInputField = null;
-
+    [SerializeField] private TextMeshProUGUI _PlayersScore = null;
+    [SerializeField] private TextMeshProUGUI _fishSavedScore = null;
+    [SerializeField] private TextMeshProUGUI _powerupsUseddScore = null;
 
 
 
@@ -25,17 +28,8 @@ public class Leaderboard : MonoBehaviour
 
         loadDailyLeaderboard();
         loadGlobalLeaderboard();
+        loadPlayerStats();
     }
-
-
-    //public void InsertRandomScore()
-    //{
-    //    _highscoreManager.InsertNewScore(Random.Range(0, 100), _nameInputField.text);
-    //    cleanLeaderboards();
-    //    loadDailyLeaderboard();
-    //    loadGlobalLeaderboard();
-    //    _nameInputField.text = "";
-    //}
 
 
     public void InsertScore()
@@ -59,7 +53,7 @@ public class Leaderboard : MonoBehaviour
         foreach (Score score in globalLeaderboard)
         {
             index++;
-            HighscoreItem item = Instantiate(_highscorePrefab, _globalHighscoreHolder).GetComponent<HighscoreItem>();
+            HighscoreItem item = Instantiate(_alltimeHighscorePrefab, _globalHighscoreHolder).GetComponent<HighscoreItem>();
             item.Initialize(index, score.name, score.score);
         }
     }
@@ -73,9 +67,20 @@ public class Leaderboard : MonoBehaviour
         foreach (Score score in dailyLeaderboard)
         {
             index++;
-            HighscoreItem item = Instantiate(_highscorePrefab, _dailyHighscoreHolder).GetComponent<HighscoreItem>();
+            HighscoreItem item = Instantiate(_dailyHighscorePrefab, _dailyHighscoreHolder).GetComponent<HighscoreItem>();
             item.Initialize(index, score.name, score.score);
         }
+    }
+
+
+    private void loadPlayerStats()
+    {
+        _PlayersScore.text = FindObjectOfType<PlaySession>().score.ToString();
+
+        AchievementManager achievement = FindObjectOfType<AchievementManager>();
+
+        _powerupsUseddScore.text = achievement.powerupsUsed.ToString();
+        _fishSavedScore.text = achievement.fishSaved.ToString();
     }
 
 

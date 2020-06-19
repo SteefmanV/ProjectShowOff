@@ -4,8 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class AchievementManager : MonoBehaviour
 {
-    [ShowInInspector, ReadOnly] public int _fishSaved { get; private set; } = 0;
-    [ShowInInspector, ReadOnly] public int _powerupsUsed { get; private set; } = 0;
+    [ShowInInspector, ReadOnly] public int fishSaved { get; private set; } = 0;
+    [ShowInInspector, ReadOnly] public int powerupsUsed { get; private set; } = 0;
 
     [SerializeField] private PowerUp _powerUp = null;
 
@@ -19,20 +19,20 @@ public class AchievementManager : MonoBehaviour
 
     public void EndOfLevel(int pSavedFish)
     {
-        _fishSaved += pSavedFish;
+        fishSaved += pSavedFish;
     }
 
 
     public void ResetAchievements()
     {
-        _fishSaved = 0;
-        _powerupsUsed = 0;
+        fishSaved = 0;
+        powerupsUsed = 0;
     }
 
 
     private void onPowerupUsed(object pSender, PowerUp.PowerUps poweupUp)
     {
-        _powerupsUsed++;
+        powerupsUsed++;
     }
 
 
@@ -47,7 +47,7 @@ public class AchievementManager : MonoBehaviour
         if(_powerUp == null)
         {
             _powerUp = FindObjectOfType<PowerUp>();
-            if (_powerUp == null) Debug.Log("<color=red><b>Could not find PowerUp in scene.</b></color>");
+            if (_powerUp == null) /*Debug.Log("<color=red><b>Could not find PowerUp in scene.</b></color>")*/;
             else
             {
                 _powerUp.OnPowerupUsed += onPowerupUsed;
