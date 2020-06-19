@@ -85,8 +85,6 @@ public class PlayerMovement : MonoBehaviour
             endJump?.Invoke(this, transform.position);
             if (_land != null) _audio.PlayOneShot(_land);
 
-            Debug.Log("Contact points: " + collision.contacts.Length);
-
             Vector3 n = collision.GetContact(0).normal;
             Vector3 target = transform.position + n * 10;
             transform.LookAt(target, Vector3.up);

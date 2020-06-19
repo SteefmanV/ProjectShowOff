@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -801,6 +801,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 30}
   m_Center: {x: 0, y: 0, z: 2.54}
+--- !u!1 &143300190 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 668857518437224468, guid: c6f0ff77b71791f41af14467db730bd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779734403085335304}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &143936126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1497,6 +1503,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &369608140 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 668857519727765843, guid: c6f0ff77b71791f41af14467db730bd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779734403085335304}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &371238484
 GameObject:
   m_ObjectHideFlags: 0
@@ -3906,6 +3918,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 30}
   m_Center: {x: 0, y: 0, z: 2.54}
+--- !u!114 &1074614079 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4921001659147576715, guid: c6f0ff77b71791f41af14467db730bd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779734403085335304}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 357a9b6e5ee99a44b8a9dde6db210fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1092240555
 GameObject:
   m_ObjectHideFlags: 0
@@ -4228,6 +4252,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 30}
   m_Center: {x: 0, y: 0, z: 2.54}
+--- !u!1 &1170546761 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 668857519642233520, guid: c6f0ff77b71791f41af14467db730bd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779734403085335304}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1177794588
 GameObject:
   m_ObjectHideFlags: 0
@@ -4374,6 +4404,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 30}
   m_Center: {x: 0, y: 0, z: 2.54}
+--- !u!114 &1313286122 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8714077479522593079, guid: c6f0ff77b71791f41af14467db730bd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779734403085335304}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f4d7c52b7799964da58476724433daa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1330272067 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1156405645220420239, guid: c6f0ff77b71791f41af14467db730bd2,
@@ -6000,17 +6042,17 @@ MonoBehaviour:
   _playerBody: {fileID: 1779734403085335324}
   _thrashSpawner: {fileID: 1779734403085335323}
   _playerStartForce: {x: -2, y: -2, z: 0}
-  _tutorialFirstFish: {fileID: 0}
+  _tutorialFirstFish: {fileID: 1313286122}
   _playerMovement: {fileID: 1779734403085335318}
   _movementExplenation: {fileID: 39906434}
-  _firstThrash: {fileID: 0}
-  _bottle1: {fileID: 0}
-  _ring2: {fileID: 0}
+  _firstThrash: {fileID: 1074614079}
+  _bottle1: {fileID: 1170546761}
+  _ring2: {fileID: 143300190}
   _animalExplenation: {fileID: 776331419}
   _freezeAfterSeconds: 5
   _powerupExplenation: {fileID: 1796843160}
   _powerupActivationButton: {fileID: 322546915}
-  _bottle2: {fileID: 0}
+  _bottle2: {fileID: 369608140}
   _tutorialEndPopup: {fileID: 1795744414}
   _movementExplenationText: {fileID: 572494694}
   _saveTheAnimalsText: {fileID: 40512746}
@@ -7766,6 +7808,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 668857518437224468, guid: c6f0ff77b71791f41af14467db730bd2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 668857519642233520, guid: c6f0ff77b71791f41af14467db730bd2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 668857519798942906, guid: c6f0ff77b71791f41af14467db730bd2,
         type: 3}
       propertyPath: m_IsActive
@@ -7841,6 +7893,16 @@ PrefabInstance:
       propertyPath: sebasMat
       value: 
       objectReference: {fileID: 2100000, guid: 684087e3d41d63943850874a14fcb781, type: 2}
+    - target: {fileID: 4381020654142262488, guid: c6f0ff77b71791f41af14467db730bd2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 4381020654142262488, guid: c6f0ff77b71791f41af14467db730bd2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.63
+      objectReference: {fileID: 0}
     - target: {fileID: 4381020654320247653, guid: c6f0ff77b71791f41af14467db730bd2,
         type: 3}
       propertyPath: m_IsActive

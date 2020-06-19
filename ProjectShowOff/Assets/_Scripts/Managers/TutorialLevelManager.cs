@@ -77,6 +77,7 @@ public class TutorialLevelManager : MonoBehaviour
             case state.movement:
                 if (_firstThrash == null)
                 {
+                    Debug.Log("go go go");
                     _movementExplenation.SetActive(false);
                     // _uiPopup.SetActive(true);
                     _bottle1.SetActive(true);
