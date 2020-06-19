@@ -8,6 +8,10 @@ public class Net : MonoBehaviour
 
     [FoldoutGroup("Sounds"), SerializeField] private AudioClip _netSpawned = null;
     [FoldoutGroup("Sounds"), SerializeField] private AudioClip _thrashDestroyed = null;
+
+    public GameObject _netEndHolder = null;
+    public GameObject _netStart = null;
+    public GameObject _netEnd = null;
     private AudioSource _audio;
 
     private void Start()

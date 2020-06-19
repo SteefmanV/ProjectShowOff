@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -10230,6 +10230,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1523058714079618215, guid: c6f0ff77b71791f41af14467db730bd2,
+        type: 3}
+      propertyPath: _offset
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 1779734402773466697, guid: c6f0ff77b71791f41af14467db730bd2,
         type: 3}
       propertyPath: m_Name
@@ -10319,7 +10324,7 @@ PrefabInstance:
     - target: {fileID: 4841454001881673678, guid: c6f0ff77b71791f41af14467db730bd2,
         type: 3}
       propertyPath: _spawnWaves.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4841454001881673678, guid: c6f0ff77b71791f41af14467db730bd2,
         type: 3}
@@ -10331,7 +10336,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _spawnWaves.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: a9f69067a1b33994eb05e9221ef7ac59,
+      objectReference: {fileID: 11400000, guid: e6c6b85d324ce974d9e4757968bb67ec,
         type: 2}
     - target: {fileID: 4841454001881673678, guid: c6f0ff77b71791f41af14467db730bd2,
         type: 3}

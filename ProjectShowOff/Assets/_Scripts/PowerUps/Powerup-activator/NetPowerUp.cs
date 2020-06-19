@@ -6,7 +6,8 @@ public class NetPowerUp : MonoBehaviour
     [ReadOnly] public bool netActive = false;
 
     [Required("Please add a Net prefab")]
-    [SerializeField] private GameObject _netPrefab = null; 
+    [SerializeField] private GameObject _netPrefab = null;
+    [SerializeField] private float _offset = 2;
 
     private Vector3 _netStartPos = new Vector3();
     private Vector3 _netStopPos = new Vector3();
@@ -35,16 +36,26 @@ public class NetPowerUp : MonoBehaviour
 
     private void GenerateNet()
     {
-        GameObject netObject = Instantiate(_netPrefab, _netStartPos, Quaternion.identity, transform);
-
         Vector3 direction = _netStopPos - _netStartPos;
+        Vector3 startPos = _netStartPos -= direction.normalized * _offset;
+
+
+        GameObject netObject = Instantiate(_netPrefab, startPos, Quaternion.identity, transform);
+
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Debug.Log("NetAngle should be: " + angle);
 
-        Vector3 netRotation = netObject.transform.rotation.eulerAngles;
+        Net net = netObject.GetComponentInChildren<Net>();
+        Transform actualNet = net.transform;
+
+        Vector3 netRotation = actualNet.rotation.eulerAngles;
         netRotation.z = angle;
         netObject.transform.rotation = Quaternion.Euler(netRotation);
 
-        netObject.transform.localScale = new Vector3(direction.magnitude, .2f, .2f);
+        actualNet.localScale = new Vector3(direction.magnitude + _offset * 2, .2f, .2f);
+        actualNet.transform.localPosition = actualNet.localScale / 2;
+
+        net._netEnd.transform.position = _netStopPos;
+        net._netStart.transform.position = _netStartPos;
     }
 }
