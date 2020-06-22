@@ -26,4 +26,13 @@ public class Translation : ScriptableObject
 
     [Title("PlaceHOlder")]
     public string cutSceneText;
+
+    [Title("Leaderboard")]
+    public string powerUpsUsed;
+    public string fishSaved;
+    public string daily;
+    public string allTime;
+    public string continueButtonText;
+    public string fillInYourName;
+    public string enterName;
 }

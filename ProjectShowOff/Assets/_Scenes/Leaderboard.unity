@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 121786142}
   - component: {fileID: 121786141}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Power ups used
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -337,7 +337,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Power Ups used
+  m_text: 'Power Ups used
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 349cda2be0cbf674ca27826b4a788991, type: 2}
   m_sharedMaterial: {fileID: -3450517219540380708, guid: 349cda2be0cbf674ca27826b4a788991,
@@ -366,8 +368,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 48.1
-  m_fontSizeBase: 48.1
+  m_fontSize: 40.39
+  m_fontSizeBase: 40.39
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -383,7 +385,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 0
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -407,9 +409,9 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 121786141}
-    characterCount: 14
+    characterCount: 15
     spriteCount: 0
-    spaceCount: 2
+    spaceCount: 3
     wordCount: 3
     linkCount: 0
     lineCount: 1
@@ -1924,7 +1926,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Daily
+  m_text: 'Daily
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 349cda2be0cbf674ca27826b4a788991, type: 2}
   m_sharedMaterial: {fileID: -3450517219540380708, guid: 349cda2be0cbf674ca27826b4a788991,
@@ -1953,8 +1957,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 76.4
-  m_fontSizeBase: 76.4
+  m_fontSize: 64.8
+  m_fontSizeBase: 64.8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1994,9 +1998,9 @@ MonoBehaviour:
   m_margin: {x: -2.7361298, y: 0.17019653, z: -0.17780304, w: 0.59906006}
   m_textInfo:
     textComponent: {fileID: 718346043}
-    characterCount: 5
+    characterCount: 6
     spriteCount: 0
-    spaceCount: 0
+    spaceCount: 1
     wordCount: 1
     linkCount: 0
     lineCount: 1
@@ -2081,7 +2085,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'All Time             '
+  m_text: All Time
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 349cda2be0cbf674ca27826b4a788991, type: 2}
   m_sharedMaterial: {fileID: -3450517219540380708, guid: 349cda2be0cbf674ca27826b4a788991,
@@ -2110,8 +2114,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 76.4
-  m_fontSizeBase: 76.4
+  m_fontSize: 64.8
+  m_fontSizeBase: 64.8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2151,9 +2155,9 @@ MonoBehaviour:
   m_margin: {x: -0.015258789, y: 0.8487854, z: 0.5317383, w: 0.0039367676}
   m_textInfo:
     textComponent: {fileID: 737771690}
-    characterCount: 21
+    characterCount: 8
     spriteCount: 0
-    spaceCount: 14
+    spaceCount: 1
     wordCount: 2
     linkCount: 0
     lineCount: 1
@@ -4592,6 +4596,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639366310}
   m_CullTransparentMesh: 0
+--- !u!1 &1644578208
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1644578210}
+  - component: {fileID: 1644578209}
+  m_Layer: 0
+  m_Name: Leaderboard Scene Translation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1644578209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644578208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d4f9a2f5d1f5a44587f11768af0bd8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fillInName: {fileID: 1881618861}
+  _enterName: {fileID: 1172936113}
+  _powerupsUsed: {fileID: 121786141}
+  _fishSaved: {fileID: 1735748468}
+  _daily: {fileID: 718346043}
+  _allTime: {fileID: 737771690}
+  _continueButtonText: {fileID: 1818742315}
+--- !u!4 &1644578210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644578208}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1682680785
 GameObject:
   m_ObjectHideFlags: 0
@@ -4640,7 +4694,7 @@ GameObject:
   - component: {fileID: 1735748469}
   - component: {fileID: 1735748468}
   m_Layer: 5
-  m_Name: Text (TMP) (3)
+  m_Name: fish saved
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4663,7 +4717,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.000012398, y: -110.4}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 270, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1735748468
 MonoBehaviour:
@@ -4713,8 +4767,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 48.1
-  m_fontSizeBase: 48.1
+  m_fontSize: 40.39
+  m_fontSizeBase: 40.39
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4730,7 +4784,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 0
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -5090,8 +5144,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -142.8, y: 97}
-  m_SizeDelta: {x: 308.42224, y: 50}
+  m_AnchoredPosition: {x: -91, y: 97}
+  m_SizeDelta: {x: 412.0094, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1881618861
 MonoBehaviour:
@@ -5148,7 +5202,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 514
+  m_textAlignment: 513
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
