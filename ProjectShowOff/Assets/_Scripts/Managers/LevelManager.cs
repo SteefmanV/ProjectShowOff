@@ -58,8 +58,8 @@ public class LevelManager : MonoBehaviour
     private IEnumerator delayedSceneLoad(Scene pOldScene)
     {
         yield return new WaitForSeconds(_sceneLoadDelay);
+        yield return new WaitWhile(() => SceneManager.UnloadSceneAsync(pOldScene).isDone);
         SceneManager.LoadSceneAsync(_levelToLoad, LoadSceneMode.Additive);
-        SceneManager.UnloadSceneAsync(pOldScene);
 
     }
 

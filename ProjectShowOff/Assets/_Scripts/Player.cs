@@ -87,8 +87,8 @@ public class Player : MonoBehaviour
     }
 
 
-            public void SetJetpack(bool pActive)
+    public void SetJetpack(bool pActive)
     {
-        _jetPack.SetActive(pActive);
+        if(_jetPack != null) _jetPack.SetActive(pActive);
     }
 }

@@ -50,11 +50,11 @@ public class PowerUp : MonoBehaviour
     {
         if (powerUpActivated && (_playerMovement.isDragging || _playerMovement.isMoving))
         {
-            if (!_powerUpEffect.isPlaying) _powerUpEffect.Play();
+            _powerUpEffect.Play();
         }
         else
         {
-            if (_powerUpEffect.isPlaying) _powerUpEffect.Stop();
+            _powerUpEffect.Stop();
         }
     }
 

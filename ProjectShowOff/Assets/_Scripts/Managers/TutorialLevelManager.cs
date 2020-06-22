@@ -23,6 +23,7 @@ public class TutorialLevelManager : MonoBehaviour
     [SerializeField] private PlayerMovement _playerMovement = null;
     [SerializeField] private GameObject _movementExplenation = null;
     [SerializeField] private Thrash _firstThrash = null;
+    private bool _activatedMovementExplenation = false;
 
     [Title("Level State 3 (Power up collection)")]
     [SerializeField] private GameObject _bottle1 = null;
@@ -72,14 +73,15 @@ public class TutorialLevelManager : MonoBehaviour
                     _tutorialState = state.movement;
                 }
 
-                //   if (_firstThrash == null) _tutorialState = state.movement;
                 break;
             case state.movement:
+                if ((playerStartPos != Vector3.zero) && Vector3.Distance(_playerMovement.transform.position, playerStartPos) > .5f)
+                {
+                    _movementExplenation.SetActive(false);
+                }
+
                 if (_firstThrash == null)
                 {
-                    Debug.Log("go go go");
-                    _movementExplenation.SetActive(false);
-                    // _uiPopup.SetActive(true);
                     _bottle1.SetActive(true);
                     _ring2.SetActive(true);
 
@@ -90,6 +92,7 @@ public class TutorialLevelManager : MonoBehaviour
 
                     _tutorialState = state.powerupCollect;
                 }
+
                 break;
             case state.powerupCollect:
                 if (_bottle1 == null && _ring2 == null)
@@ -131,9 +134,12 @@ public class TutorialLevelManager : MonoBehaviour
 
     private IEnumerator movementExplenation(float pDelay)
     {
+        if (_activatedMovementExplenation) yield break;
+
+        _activatedMovementExplenation = true;
         yield return new WaitForSeconds(pDelay);
 
-        if (_firstThrash != null)
+        if (_firstThrash != null && Vector3.Distance(_playerMovement.transform.position, playerStartPos) < .5f)
         {
             _tutorialState = state.movement;
             StartCoroutine(delayedFreeze(0.2f));
@@ -170,6 +176,7 @@ public class TutorialLevelManager : MonoBehaviour
 
     private void SetStartPos(object pSender, Vector3 pPosition)
     {
+        Debug.Log("sdajk;lfas;klfajsd;lkfasjd;lkhl;");
         playerStartPos = _playerMovement.transform.position;
         _playerMovement.endJump -= SetStartPos;
     }
@@ -229,7 +236,7 @@ public class TutorialLevelManager : MonoBehaviour
 
     private void SetHealthOfAllFish(int pValue)
     {
-        foreach(Fish fish in FindObjectsOfType<Fish>())
+        foreach (Fish fish in FindObjectsOfType<Fish>())
         {
             fish.health = pValue;
         }

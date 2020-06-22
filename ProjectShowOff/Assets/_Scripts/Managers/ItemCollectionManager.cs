@@ -1,6 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Linq;
 using UnityEngine;
 
 public class ItemCollectionManager : MonoBehaviour
@@ -51,20 +52,27 @@ public class ItemCollectionManager : MonoBehaviour
         if (_justCollected.Count < 3) // If UI is not full
         {
             _justCollected.Add(pItem);
-            _itemParticleSystems[_justCollected.Count - 1].Play(); // Play particle effect in ui slot
+
+            ParticleSystem particle = null;
+            if (_justCollected.Count <= _itemParticleSystems.Length)
+            {
+                particle = _itemParticleSystems[_justCollected.Count - 1];
+                if (particle != null) particle.Play(); // Play particle effect in ui slot
+            }
+
 
             if (_justCollected.Count == 3) // Powerup ready
             {
-                _audio.PlayOneShot(_createPowerup);
+                playOneShot(_createPowerup);
             }
             else
             {
-                _audio.PlayOneShot(_addItemToInventory);
+                playOneShot(_addItemToInventory);
             }
         }
         else
         {
-            _audio.PlayOneShot(_collectTrash);
+            playOneShot(_collectTrash);
         }
 
         checkForPowerUp();
@@ -81,8 +89,12 @@ public class ItemCollectionManager : MonoBehaviour
 
     public void ActivatePowerupEffect()
     {
-        _powerupReady.Stop();
-        _powerupActive.Play();
+        if (_justCollected.Count >= 3)
+        {
+            Debug.Log("Activate powperup effect!");
+            _powerupReady.Stop();
+            if (_powerupActive != null) _powerupActive.Play();
+        }
     }
 
 
@@ -140,7 +152,7 @@ public class ItemCollectionManager : MonoBehaviour
     private void updateUI(Combination pPowerUp)
     {
         cleanUI();
-
+        Debug.Log("Put items in slots");
         for (int i = 0; i < 3; i++) // Put Item icon in each UI slot
         {
             Item item = (_justCollected.Count - 1 >= i) ? _justCollected[i] : Item.empty;
@@ -170,23 +182,35 @@ public class ItemCollectionManager : MonoBehaviour
 
         if (pPowerUp != null)
         {
+            Debug.Log("Powerup ready!");
             Instantiate(pPowerUp.powerUpIcon, _uiHolders[3]); // Put powerup in UI slot
-            _powerupReady.Play();
+            if (_powerupReady != null) _powerupReady.Play();
+            Debug.Log("Powerup places");
         }
     }
 
 
     private void cleanUI()
     {
+        Debug.Log("Clean UI");
+
         for (int i = 0; i < _uiHolders.Length; i++)
         {
-            foreach (Transform trans in _uiHolders[i])
+            //if (_uiHolders[i] == null) continue;
+            for (int j = 0; j < _uiHolders[i].transform.childCount; j++)
             {
-                if (!trans.CompareTag("backgroundUi"))
+                Transform trans = _uiHolders[i].transform.GetChild(j);
+                if (trans != null && !trans.CompareTag("backgroundUi"))
                 {
                     Destroy(trans.gameObject); // Destroy all children in UI Holder
                 }
             }
         }
+    }
+
+
+    private void playOneShot(AudioClip pClip)
+    {
+        if (pClip != null && _audio != null) _audio.PlayOneShot(pClip);
     }
 }

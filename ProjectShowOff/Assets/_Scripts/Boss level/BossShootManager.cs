@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class BossShootManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class BossShootManager : MonoBehaviour
     public BossState bossState = BossState.firstPipe;
     public UnityEvent OnStartNewWave;
     public UnityEvent OnBossFightNextState;
+
+    [SerializeField] private LevelManager _levelManager = null;
     
     [SerializeField] private FactoryPipe _pipe1;
     [SerializeField] private FactoryPipe _pipe2;
@@ -97,6 +100,7 @@ public class BossShootManager : MonoBehaviour
         }
         else if (pState == BossState.completed)
         {
+            _levelManager.LoadLevel();
             Debug.Log("BOSS FIGHT COMPLETED");
         }
 
