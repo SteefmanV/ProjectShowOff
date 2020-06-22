@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4449809686034731273}
   - component: {fileID: 8699356458434577197}
   m_Layer: 0
-  m_Name: Coral_bounce
+  m_Name: Coral_bounce_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,6 +30,7 @@ Transform:
   m_Children:
   - {fileID: 4008463160146056888}
   - {fileID: 5658928912904267925}
+  - {fileID: 5687616389477278712}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -92,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5658928912904267925}
   - component: {fileID: 7312018223871412250}
+  - component: {fileID: 4646563964862956228}
   m_Layer: 0
   m_Name: pSphere1
   m_TagString: Untagged
@@ -166,6 +168,65 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.52717453, y: 0.009368062, z: -0.017949224}
     m_Extent: {x: 0.53792614, y: 0.6263667, z: 0.63083684}
   m_DirtyAABB: 0
+--- !u!64 &4646563964862956228
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6370269374679631344}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
+--- !u!1 &7843693927097727916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5687616389477278712}
+  - component: {fileID: 7975519970257267274}
+  m_Layer: 13
+  m_Name: capsule
+  m_TagString: bouncy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5687616389477278712
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7843693927097727916}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.06299992, y: 0.5140002, z: 0.03}
+  m_LocalScale: {x: 1, y: 0.35630792, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4449809686034731273}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &7975519970257267274
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7843693927097727916}
+  m_Material: {fileID: 13400000, guid: 3fd6f7b42eb549f47a2908e042d4316a, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 24.12
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8446589042588858979
 GameObject:
   m_ObjectHideFlags: 0
