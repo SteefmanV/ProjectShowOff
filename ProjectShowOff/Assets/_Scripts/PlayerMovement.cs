@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _dragTrailOffsetStrength = 0.1f;
     [SerializeField] private float _dragThresholdSpeed = 0.1f; // If the player moves slower than this speed, allow to shoot
     [SerializeField] private float _mouseRadious = 5;
+    [SerializeField] private float _bounceIsStickyBelowSpeed = 2f;
 
     [TitleGroup("Movement Information")]
     [SerializeField, ReadOnly] private float _movingSpeed = 0;
@@ -79,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("sticky"))
+        if (collision.gameObject.CompareTag("sticky") || collision.gameObject.CompareTag("bouncy") && _rb.velocity.magnitude < _bounceIsStickyBelowSpeed)
         {
             _rb.velocity = Vector3.zero;
             endJump?.Invoke(this, transform.position);

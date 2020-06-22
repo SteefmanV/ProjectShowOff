@@ -194,8 +194,6 @@ public class SingleFishBehaviour : Fish
                 _eatTimer = 0;
             }
         }
-
-       // _agent.moving = false;
     }
 
 

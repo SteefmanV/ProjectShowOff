@@ -40,7 +40,7 @@ public class Fish : MonoBehaviour
             _protectionBubble.SetActive(value);
         }
     }
-    [SerializeField] private GameObject _protectionBubble;
+    private GameObject _protectionBubble;
     private int _startHealth = 0;
 
 
