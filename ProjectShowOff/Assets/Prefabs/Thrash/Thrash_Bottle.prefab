@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -1716802359547818502}
   - component: {fileID: 8609650052617937560}
   - component: {fileID: 2214364933560645362}
-  - component: {fileID: 22935949279919305}
+  - component: {fileID: 721245236206785554}
   m_Layer: 9
   m_Name: Thrash_Bottle
   m_TagString: thrash
@@ -138,7 +138,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295525259969906772}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 52fb2f7ef73a6bf4a98b48961b13d3e7, type: 2}
   m_CullingMode: 0
@@ -149,7 +149,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &22935949279919305
+--- !u!114 &721245236206785554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,11 +158,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1295525259969906772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a14ff07b79219ea4086938883532ba52, type: 3}
+  m_Script: {fileID: 11500000, guid: 499cc509d69ac544891a83aa3595014f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  events:
-  - {fileID: 0}
+  _keepPausingSeconds: 0.5
 --- !u!1 &2934614570768477552
 GameObject:
   m_ObjectHideFlags: 0
