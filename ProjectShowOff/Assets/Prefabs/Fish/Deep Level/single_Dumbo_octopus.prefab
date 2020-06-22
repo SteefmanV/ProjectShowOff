@@ -239,7 +239,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8051980396140878786
 Transform:
   m_ObjectHideFlags: 0
@@ -291,8 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f9fa483f454f641bc7216b9f689755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  decreaseHpPerSecEating: 150
+  health: 2
   _trashDetectionRadius: 10
   _trashLayer:
     serializedVersion: 2
@@ -304,7 +303,6 @@ MonoBehaviour:
   _eating: {fileID: 8300000, guid: 5e8235c5f25086544aaba9adc22e2f0a, type: 3}
   _dieParticlePrefab: {fileID: 8653814132548670237, guid: c2149a3680666bb46bb96c47fcf2be28,
     type: 3}
-  _protectionBubble: {fileID: 416881172}
   _agent: {fileID: 8051980396140878784}
   _anim: {fileID: 3813446194256102202}
   minMaxTimeIdle: {x: 1, y: 10}
@@ -314,6 +312,7 @@ MonoBehaviour:
   targetDistance: 0
   _timer: 0
   _targetGenerator: {fileID: 0}
+  _eatTimer: 0
 --- !u!65 &8051980396140878799
 BoxCollider:
   m_ObjectHideFlags: 0

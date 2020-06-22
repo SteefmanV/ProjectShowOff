@@ -100,6 +100,9 @@ public class BossShootManager : MonoBehaviour
         }
         else if (pState == BossState.completed)
         {
+            ScoreManager scoreManager = FindObjectOfType<ScoreManager>();
+            if (scoreManager != null) scoreManager.UpdateScore();
+
             _levelManager.LoadLevel();
             Debug.Log("BOSS FIGHT COMPLETED");
         }

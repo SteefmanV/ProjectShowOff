@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CoralBounce : MonoBehaviour
 {
+    public UnityEvent OnBounce;
+
     [SerializeField] private float _timeBetweenBounces = 0;
     private Animator _anim;
 
@@ -28,6 +31,7 @@ public class CoralBounce : MonoBehaviour
             if (_timer > _timeBetweenBounces)
             {
                 _anim.SetTrigger("bounce");
+                OnBounce?.Invoke();
                 _timer = 0;
             }
         }

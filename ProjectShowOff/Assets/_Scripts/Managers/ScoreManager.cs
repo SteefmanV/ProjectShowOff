@@ -8,19 +8,24 @@ public class ScoreManager : MonoBehaviour
 {
     public event EventHandler<int> NewScore;
 
+    private int _score;
     [ShowInInspector]
     public int score
     {
-        get { return (session != null) ? session.score : 0; }
+        get { return _score; }
         private set
         {
-            if(session != null) session.score = value;
+            _score = value;
             NewScore?.Invoke(this, value);
         }
     }
 
     [Title("Score Settings")]
     [SerializeField] private int scorePerThrash = 0;
+    [SerializeField] private int scorePerFishSaved = 15;
+    [SerializeField] private int scorePerPowerupUsed = 5;
+
+    [SerializeField] private int _levelIndex = 0;
 
     [Title("UI")]
     [SerializeField, Required, SceneObjectsOnlyAttribute] private TextMeshProUGUI _scoreUI = null;
@@ -48,6 +53,24 @@ public class ScoreManager : MonoBehaviour
     public void ThrashDestroyed()
     {
         score += scorePerThrash;
+    }
+
+
+    public void FishSaved(int pFishSaved)
+    {
+        score += pFishSaved * scorePerFishSaved;
+    }
+
+
+    public void PowerUpsUsed(int pPowerUpsUsed)
+    {
+        score += pPowerUpsUsed * scorePerPowerupUsed;
+    }
+
+
+    public void UpdateScore()
+    {
+        session.SetScores(_levelIndex, score);
     }
 
 

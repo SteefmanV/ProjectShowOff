@@ -970,7 +970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loadLevelafterSeconds: 5
-  _levelToLoad: Leaderboard
+  _levelToLoad: PlayerPerformanceFeedback
   _countDownText: {fileID: 438185840}
 --- !u!1 &1480429639
 GameObject:
@@ -1002,7 +1002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawner: {fileID: 0}
-  _levelToLoad: Leaderboard
+  _levelToLoad: PlayerPerformanceFeedback
   _tutorial: {fileID: 0}
   _barierAnimator: {fileID: 0}
   _indicatorArrows: {fileID: 0}

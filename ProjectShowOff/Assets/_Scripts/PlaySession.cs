@@ -4,6 +4,8 @@ public class PlaySession : MonoBehaviour
 {
     public int score = 0;
 
+    public int[] _scores = new int[4];
+
     private static PlaySession _instance;
     public PlaySession instance { get { return _instance; } }
 
@@ -24,5 +26,17 @@ public class PlaySession : MonoBehaviour
     public void StartNewSession()
     {
         score = 0;
+    }
+
+
+    public void SetScores(int pLevelIndex, int pScore)
+    {
+        _scores[pLevelIndex] = pScore;
+    }
+
+
+    public int[] GetScores()
+    {
+        return _scores;
     }
 }

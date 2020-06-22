@@ -9,6 +9,8 @@ public class AchievementManager : MonoBehaviour
 
     [SerializeField] private PowerUp _powerUp = null;
 
+    private int _powerUpsUsedThisLevel = 0;
+
 
     private void Start()
     {
@@ -20,6 +22,16 @@ public class AchievementManager : MonoBehaviour
     public void EndOfLevel(int pSavedFish)
     {
         fishSaved += pSavedFish;
+
+        ScoreManager scoreManager = FindObjectOfType<ScoreManager>();
+        if (scoreManager != null)
+        {
+            scoreManager.FishSaved(pSavedFish);
+            scoreManager.PowerUpsUsed(_powerUpsUsedThisLevel);
+            scoreManager.UpdateScore();
+
+            _powerUpsUsedThisLevel = 0;
+        }
     }
 
 
@@ -33,6 +45,7 @@ public class AchievementManager : MonoBehaviour
     private void onPowerupUsed(object pSender, PowerUp.PowerUps poweupUp)
     {
         powerupsUsed++;
+        _powerUpsUsedThisLevel++;
     }
 
 

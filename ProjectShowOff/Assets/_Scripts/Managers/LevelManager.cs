@@ -7,15 +7,15 @@ using UnityEngine.Video;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private ThrashSpawner _spawner = null;
     [SerializeField] private string _levelToLoad = "";
-    [SerializeField] private TutorialLevelManager _tutorial = null;
-    [SerializeField] private Animator _barierAnimator = null;
-    [SerializeField] private GameObject _indicatorArrows = null;
+    [SerializeField, FoldoutGroup("Optional")] private ThrashSpawner _spawner = null;
+    [SerializeField, FoldoutGroup("Optional")] private TutorialLevelManager _tutorial = null;
+    [SerializeField, FoldoutGroup("Optional")] private Animator _barierAnimator = null;
+    [SerializeField, FoldoutGroup("Optional")] private GameObject _indicatorArrows = null;
 
-    [SerializeField] private string _sceneTransition = null;
 
     [Title("Scene transition")]
+    [SerializeField] private string _sceneTransition = null;
     [SerializeField] private float _sceneLoadDelay = 2;
 
     private bool _sceneLoaded = false;

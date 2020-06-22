@@ -178,6 +178,7 @@ public class SingleFishBehaviour : Fish
     {
         if (targetThrash == null)
         {
+
             currentState = Behaviour.patrolling;
         }
         else
