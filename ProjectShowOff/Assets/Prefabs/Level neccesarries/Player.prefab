@@ -479,6 +479,7 @@ GameObject:
   - component: {fileID: 2629644855590804021}
   - component: {fileID: 2609307820322233372}
   - component: {fileID: 4400272142931417252}
+  - component: {fileID: 6339105111916305573}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -587,6 +588,7 @@ MonoBehaviour:
   _dragTrailOffsetStrength: 0.3
   _dragThresholdSpeed: 0.4
   _mouseRadious: 5
+  _bounceIsStickyBelowSpeed: 2
   _movingSpeed: 0
   _audio: {fileID: 0}
   _select: {fileID: 0}
@@ -594,6 +596,7 @@ MonoBehaviour:
   _jump: {fileID: 0}
   _land: {fileID: 0}
   _playerTrail: {fileID: 3183329534607915384}
+  _idleCollider: {fileID: 0}
 --- !u!114 &2629644855590804022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -868,6 +871,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6339105111916305573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2629644855590804030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b46fba83b2e409a47957c2bd87808492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nemo: {fileID: 2960219360234209083, guid: 7b2fdc3a05499f94fb66174279f0d143, type: 3}
+  _playerHolder: {fileID: 2629644855590804027}
 --- !u!1 &2629644855854637737
 GameObject:
   m_ObjectHideFlags: 0

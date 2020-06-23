@@ -9,8 +9,6 @@ public class InputFieldKeyboard : MonoBehaviour
     private TMP_InputField _inputField = null;
     private Process _keyboard;
 
-    VirtualKeyboard vk;
-
     private void Start()
     {
         _inputField = GetComponent<TMP_InputField>();
