@@ -2,15 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class FactoryPipe : MonoBehaviour
 {
+    [SerializeField, FoldoutGroup("Events")] public UnityEvent OnPlayerHit;
+    [SerializeField, FoldoutGroup("Events")] public UnityEvent OnPipeEnabled;
+
     [SerializeField] private bool _pipeEnabled = false;
     public bool pipeEnabled
     {
         get { return _pipeEnabled; }
         set {
             _pipeEnabled = value;
+            if (_pipeEnabled) OnPipeEnabled?.Invoke();
             updatePipe();
         }
     }
@@ -19,6 +24,7 @@ public class FactoryPipe : MonoBehaviour
 
     [SerializeField] private TrashShooter _trashShooter = null;
 
+    [Title("Different Pipe States")]
     [SerializeField] private GameObject _fullHealth;
     [SerializeField] private GameObject _1Hit;
     [SerializeField] private GameObject _2Hit;
@@ -57,6 +63,7 @@ public class FactoryPipe : MonoBehaviour
                 {
                     health--;
                     if (health < 0) health = 0;
+                    OnPlayerHit?.Invoke();
                     updatePipe();
                     _lastHittimer = 0;
                 }

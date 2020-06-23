@@ -50,6 +50,7 @@ public class BossShootManager : MonoBehaviour
     private void NextWave()
     {
         currentWaveIndex++;
+        _currentSpawningObject = 0;
         if (currentWaveIndex > waves.Count - 1) currentWaveIndex = 0;
         currentWave = waves[currentWaveIndex];
         OnStartNewWave?.Invoke();

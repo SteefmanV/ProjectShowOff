@@ -30,7 +30,7 @@ public class ItemCollectionManager : MonoBehaviour
 
     [Title("Particle effects"), TabGroup("Visual-audio")]
     [SerializeField, TabGroup("Visual-audio")] private ParticleSystem[] _itemParticleSystems = new ParticleSystem[3];
-    [SerializeField, TabGroup("Visual-audio")] private ParticleSystem _powerupReady = null;
+    [SerializeField, TabGroup("Visual-audio")] private GameObject _powerupReady = null;
     [SerializeField, TabGroup("Visual-audio")] private ParticleSystem _powerupActive = null;
 
     private void Start()
@@ -92,7 +92,7 @@ public class ItemCollectionManager : MonoBehaviour
         if (_justCollected.Count >= 3)
         {
             Debug.Log("Activate powperup effect!");
-            _powerupReady.Stop();
+            _powerupReady.SetActive(true);
             if (_powerupActive != null) _powerupActive.Play();
         }
     }
@@ -101,7 +101,7 @@ public class ItemCollectionManager : MonoBehaviour
     private void StopPowerupEffect()
     {
         _powerupActive.Stop();
-        _powerupReady.Stop();
+        _powerupReady.SetActive(false);
     }
 
 
@@ -184,7 +184,7 @@ public class ItemCollectionManager : MonoBehaviour
         {
             Debug.Log("Powerup ready!");
             Instantiate(pPowerUp.powerUpIcon, _uiHolders[3]); // Put powerup in UI slot
-            if (_powerupReady != null) _powerupReady.Play();
+            if (_powerupReady != null) _powerupReady.SetActive(true);
             Debug.Log("Powerup places");
         }
     }
