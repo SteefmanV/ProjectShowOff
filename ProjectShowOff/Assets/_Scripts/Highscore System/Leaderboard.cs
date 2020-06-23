@@ -75,23 +75,27 @@ public class Leaderboard : MonoBehaviour
 
     private void loadPlayerStats()
     {
-        _PlayersScore.text = FindObjectOfType<PlaySession>().score.ToString();
+        PlaySession session = FindObjectOfType<PlaySession>();
+        if (session != null) _PlayersScore.text = session.score.ToString();
 
         AchievementManager achievement = FindObjectOfType<AchievementManager>();
 
-        _powerupsUseddScore.text = achievement.powerupsUsed.ToString();
-        _fishSavedScore.text = achievement.fishSaved.ToString();
+        if (achievement != null)
+        {
+            _powerupsUseddScore.text = achievement.powerupsUsed.ToString();
+            _fishSavedScore.text = achievement.fishSaved.ToString();
+        }
     }
 
 
     private void cleanLeaderboards()
     {
-        foreach(Transform trans in _dailyHighscoreHolder)
+        foreach (Transform trans in _dailyHighscoreHolder)
         {
             Destroy(trans.gameObject);
         }
 
-        foreach(Transform trans in _globalHighscoreHolder)
+        foreach (Transform trans in _globalHighscoreHolder)
         {
             Destroy(trans.gameObject);
         }

@@ -589,8 +589,10 @@ PlayerSettings:
     1: ODIN_INSPECTOR
     7: ODIN_INSPECTOR
     13: ODIN_INSPECTOR
+    14: ODIN_INSPECTOR
   platformArchitecture: {}
-  scriptingBackend: {}
+  scriptingBackend:
+    Standalone: 0
   il2cppCompilerConfiguration: {}
   managedStrippingLevel: {}
   incrementalIl2cppBuild: {}
@@ -600,16 +602,16 @@ PlayerSettings:
   gcIncremental: 0
   gcWBarrierValidation: 0
   apiCompatibilityLevelPerPlatform:
-    Standalone: 3
+    Standalone: 6
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: Template_Lightweight
   metroPackageVersion: 
-  metroCertificatePath: 
+  metroCertificatePath: Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: Blob
+  metroCertificateIssuer: Blob
+  metroCertificateNotAfter: 00456e874268d701
   metroApplicationDescription: Template_Lightweight
   wsaImages: {}
   metroTileShortName: 

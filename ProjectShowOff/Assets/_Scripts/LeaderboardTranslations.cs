@@ -16,14 +16,18 @@ public class LeaderboardTranslations : MonoBehaviour
 
     void Start()
     {
-        Translation translation = FindObjectOfType<LanguageManager>().GetTranslation();
+        LanguageManager languageManager = FindObjectOfType<LanguageManager>();
 
-        _fillInName.text = translation.fillInYourName;
-        _enterName.text = translation.enterName;
-        _powerupsUsed.text = translation.powerUpsUsed;
-        _fishSaved.text = translation.fishSaved;
-        _daily.text = translation.daily;
-        _allTime.text = translation.allTime;
-        _continueButtonText.text = translation.continueButtonText;
+        if (languageManager != null)
+        {
+            Translation translation = languageManager.GetTranslation();
+            _fillInName.text = translation.fillInYourName;
+            _enterName.text = translation.enterName;
+            _powerupsUsed.text = translation.powerUpsUsed;
+            _fishSaved.text = translation.fishSaved;
+            _daily.text = translation.daily;
+            _allTime.text = translation.allTime;
+            _continueButtonText.text = translation.continueButtonText;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 using System.Diagnostics;
+using System.IO;
 
 [RequireComponent(typeof(TMP_InputField))]
 public class InputFieldKeyboard : MonoBehaviour
@@ -8,6 +9,7 @@ public class InputFieldKeyboard : MonoBehaviour
     private TMP_InputField _inputField = null;
     private Process _keyboard;
 
+    VirtualKeyboard vk;
 
     private void Start()
     {
@@ -42,11 +44,7 @@ public class InputFieldKeyboard : MonoBehaviour
 
     private void launchKeyboard()
     {
-        if (_keyboard == null)
-        {
-            ProcessStartInfo info = new ProcessStartInfo("osk.exe");
-            _keyboard = Process.Start(info);
-        }
+        if (_keyboard == null) _keyboard = Process.Start("osk.exe");
     }
 
 
