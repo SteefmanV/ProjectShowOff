@@ -7,14 +7,16 @@ public class AchievementManager : MonoBehaviour
     [ShowInInspector, ReadOnly] public int fishSaved { get; private set; } = 0;
     [ShowInInspector, ReadOnly] public int powerupsUsed { get; private set; } = 0;
 
-    [SerializeField] private PowerUp _powerUp = null;
+    private PowerUp _powerUp = null;
+    private ScoreManager _scoreManager;
 
     private int _powerUpsUsedThisLevel = 0;
 
 
     private void Start()
     {
-        checkPowerupReference(); 
+        checkReferences();
+        _scoreManager = FindObjectOfType<ScoreManager>();
         SceneManager.sceneLoaded += onSceneLoaded;
     }
 
@@ -26,8 +28,7 @@ public class AchievementManager : MonoBehaviour
         ScoreManager scoreManager = FindObjectOfType<ScoreManager>();
         if (scoreManager != null)
         {
-            scoreManager.FishSaved(pSavedFish);
-            scoreManager.PowerUpsUsed(_powerUpsUsedThisLevel);
+             scoreManager.FishSaved(pSavedFish);
             scoreManager.UpdateScore();
 
             _powerUpsUsedThisLevel = 0;
@@ -44,6 +45,7 @@ public class AchievementManager : MonoBehaviour
 
     private void onPowerupUsed(object pSender, PowerUp.PowerUps poweupUp)
     {
+        _scoreManager.PowerupUsed();
         powerupsUsed++;
         _powerUpsUsedThisLevel++;
     }
@@ -51,11 +53,11 @@ public class AchievementManager : MonoBehaviour
 
     public void onSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        checkPowerupReference();
+        checkReferences();
     }
 
 
-    private void checkPowerupReference()
+    private void checkReferences()
     {
         if(_powerUp == null)
         {
@@ -66,6 +68,8 @@ public class AchievementManager : MonoBehaviour
                 _powerUp.OnPowerupUsed += onPowerupUsed;
             }
         }
+
+        if (_scoreManager == null) _scoreManager = FindObjectOfType<ScoreManager>();
     }
 
 

@@ -122,9 +122,12 @@ public class HighscoresManager : MonoBehaviour
 
     private void populateDailyHighscore()
     {
+
         foreach(string name in randomNames)
         {
             _dailyHighscore.Add(new Score(UnityEngine.Random.Range(0,30), name));
         }
+
+        _dailyHighscore = _dailyHighscore.OrderBy(x => -x.score).ToList();
     }
 }

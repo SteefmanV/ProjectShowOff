@@ -36,7 +36,7 @@ public class Leaderboard : MonoBehaviour
     {
         if (_highscoreManager != null)
         {
-            _highscoreManager.InsertNewScore(_session.score, _nameInputField.text);
+            _highscoreManager.InsertNewScore(_session.GetTotalScore(), _nameInputField.text);
             cleanLeaderboards();
             loadDailyLeaderboard();
             loadGlobalLeaderboard();
@@ -76,7 +76,7 @@ public class Leaderboard : MonoBehaviour
     private void loadPlayerStats()
     {
         PlaySession session = FindObjectOfType<PlaySession>();
-        if (session != null) _PlayersScore.text = session.score.ToString();
+        if (session != null) _PlayersScore.text = session.GetTotalScore().ToString();
 
         AchievementManager achievement = FindObjectOfType<AchievementManager>();
 

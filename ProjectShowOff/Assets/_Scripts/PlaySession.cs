@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public class PlaySession : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class PlaySession : MonoBehaviour
 
     private void Awake()
     {
-        if(instance != this && _instance != null)
+        if (instance != this && _instance != null)
         {
             Destroy(gameObject);
         }
@@ -26,6 +27,7 @@ public class PlaySession : MonoBehaviour
     public void StartNewSession()
     {
         score = 0;
+        _scores = new int[4];
     }
 
 
@@ -38,5 +40,11 @@ public class PlaySession : MonoBehaviour
     public int[] GetScores()
     {
         return _scores;
+    }
+
+
+    public int GetTotalScore()
+    {
+        return _scores.Sum();
     }
 }

@@ -50,6 +50,13 @@ public class ScoreManager : MonoBehaviour
     }
 
 
+    public void PowerupUsed()
+    {
+        Debug.Log("Powerup used");
+        AddPoints(scorePerPowerupUsed);
+    }
+
+
     public void ThrashDestroyed()
     {
         score += scorePerThrash;
@@ -62,10 +69,10 @@ public class ScoreManager : MonoBehaviour
     }
 
 
-    public void PowerUpsUsed(int pPowerUpsUsed)
-    {
-        score += pPowerUpsUsed * scorePerPowerupUsed;
-    }
+    //public void PowerUpsUsed(int pPowerUpsUsed)
+    //{
+    //    score += pPowerUpsUsed * scorePerPowerupUsed;
+    //}
 
 
     public void UpdateScore()
