@@ -11,7 +11,7 @@ public class FactoryPipe : MonoBehaviour
         get { return _pipeEnabled; }
         set {
             _pipeEnabled = value;
-            updatePipeColor();
+            updatePipe();
         }
     }
 
@@ -19,11 +19,11 @@ public class FactoryPipe : MonoBehaviour
 
     [SerializeField] private TrashShooter _trashShooter = null;
 
-    [SerializeField] private Color _fullHealth;
-    [SerializeField] private Color _1Hit;
-    [SerializeField] private Color _2Hit;
-    [SerializeField] private Color _broken;
-    [SerializeField] private Color _disabled;
+    [SerializeField] private GameObject _fullHealth;
+    [SerializeField] private GameObject _1Hit;
+    [SerializeField] private GameObject _2Hit;
+    [SerializeField] private GameObject _broken;
+    [SerializeField] private GameObject _disabled;
 
     private MeshRenderer _pipeMeshRenderer;
     private float _lastHittimer = 0;
@@ -31,7 +31,7 @@ public class FactoryPipe : MonoBehaviour
     private void Awake()
     {
         _pipeMeshRenderer = GetComponent<MeshRenderer>();
-        updatePipeColor();
+        updatePipe();
     }
 
 
@@ -57,7 +57,7 @@ public class FactoryPipe : MonoBehaviour
                 {
                     health--;
                     if (health < 0) health = 0;
-                    updatePipeColor();
+                    updatePipe();
                     _lastHittimer = 0;
                 }
             }
@@ -65,29 +65,31 @@ public class FactoryPipe : MonoBehaviour
     }
 
 
-    private void updatePipeColor()
+    private void updatePipe()
     {
+        deactivateAllPipes();
+
         if (pipeEnabled)
         {
             switch (health)
             {
                 case 3:
-                    SetPipeColor(_fullHealth);
+                    _fullHealth.SetActive(true);
                     break;
                 case 2:
-                    SetPipeColor(_1Hit);
+                    _1Hit.SetActive(true);
                     break;
                 case 1:
-                    SetPipeColor(_2Hit);
+                    _2Hit.SetActive(true);
                     break;
                 case 0:
-                    SetPipeColor(_broken);
+                    _broken.SetActive(true);
                     break;
             }
         }
         else
         {
-            SetPipeColor(_disabled);
+            _disabled.SetActive(true);
         }
     }
 
@@ -95,5 +97,15 @@ public class FactoryPipe : MonoBehaviour
     private void SetPipeColor(Color pColor)
     {
         _pipeMeshRenderer.material.color = pColor;
+    }
+
+
+    private void deactivateAllPipes()
+    {
+        if (_fullHealth.activeSelf) _fullHealth.SetActive(false);
+        if (_1Hit.activeSelf) _1Hit.SetActive(false);
+        if (_2Hit.activeSelf) _2Hit.SetActive(false);
+        if (_broken.activeSelf) _broken.SetActive(false);
+        if (_disabled.activeSelf) _disabled.SetActive(false);
     }
 }
