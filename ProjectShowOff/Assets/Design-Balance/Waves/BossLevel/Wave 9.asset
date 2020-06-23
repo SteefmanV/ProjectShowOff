@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cb161e3b882bf44f8154712d1e623db, type: 3}
   m_Name: Wave 9
   m_EditorClassIdentifier: 
-  objectCount: 20
+  objectCount: 5
   Objects:
-  - {fileID: 3298962065572892326, guid: 154570694e0c1a54da3bbf4d55ea2466, type: 3}
   - {fileID: 197803129856521291, guid: 18dea3bbcdd9b2b41bd9546327f59b63, type: 3}
   QuickThrashObjectPreview: {fileID: 1295525259969906772, guid: 8bdd848b43a2ba84cbf7ec30c318d502,
     type: 3}
-  timeBetweenSpawn: 0.2
-  minMaxTimeRandomeness: {x: 0, y: 0}
+  timeBetweenSpawn: 5
+  minMaxTimeRandomeness: {x: 1, y: 1}
