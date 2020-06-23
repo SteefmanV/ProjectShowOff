@@ -38,6 +38,7 @@ public class BossShootManager : MonoBehaviour
     private void Start()
     {
         currentWave = waves[0];
+        _pipe1.pipeEnabled = true;
     }
 
     private void Update()

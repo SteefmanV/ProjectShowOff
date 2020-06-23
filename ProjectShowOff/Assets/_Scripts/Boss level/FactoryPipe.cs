@@ -13,7 +13,8 @@ public class FactoryPipe : MonoBehaviour
     public bool pipeEnabled
     {
         get { return _pipeEnabled; }
-        set {
+        set
+        {
             _pipeEnabled = value;
             if (_pipeEnabled) OnPipeEnabled?.Invoke();
             updatePipe();
@@ -62,8 +63,8 @@ public class FactoryPipe : MonoBehaviour
                 if (_lastHittimer > 1)
                 {
                     health--;
+                    if (health >= 0) OnPlayerHit?.Invoke();
                     if (health < 0) health = 0;
-                    OnPlayerHit?.Invoke();
                     updatePipe();
                     _lastHittimer = 0;
                 }
