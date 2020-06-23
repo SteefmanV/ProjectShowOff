@@ -12,6 +12,7 @@ public class BossShootManager : MonoBehaviour
     public UnityEvent OnStartNewWave;
     public UnityEvent OnBossFightNextState;
 
+    [SerializeField] private int _scoreOnWin = 500;
     [SerializeField] private LevelManager _levelManager = null;
     
     [SerializeField] private FactoryPipe _pipe1;
@@ -103,8 +104,13 @@ public class BossShootManager : MonoBehaviour
         else if (pState == BossState.completed)
         {
             ScoreManager scoreManager = FindObjectOfType<ScoreManager>();
-            if (scoreManager != null) scoreManager.UpdateScore();
+            if (scoreManager != null)
+            {
+                scoreManager.UpdateScore();
+                scoreManager.AddPoints(_scoreOnWin);
+            }
 
+            
             _levelManager.LoadLevel();
             Debug.Log("BOSS FIGHT COMPLETED");
         }
