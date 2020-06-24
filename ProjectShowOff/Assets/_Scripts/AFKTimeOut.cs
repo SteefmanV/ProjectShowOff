@@ -26,4 +26,10 @@ public class AFKTimeOut : MonoBehaviour
             SceneManager.LoadSceneAsync(_loadSceneWhenInactive);
         }
     }
+
+
+    public void ResetTimer()
+    {
+        _inactiveTimer = 0;
+    }
 }

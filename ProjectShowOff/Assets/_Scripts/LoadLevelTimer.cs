@@ -10,12 +10,15 @@ public class LoadLevelTimer : MonoBehaviour
     [SerializeField] private string _levelToLoad = "";
     [SerializeField] private TextMeshProUGUI _countDownText = null;
 
+    private AFKTimeOut _afkTimer = null;
+
     private float _timer = 0;
     private bool _levelLoaded = false;
 
     void Start()
     {
         _timer = _loadLevelafterSeconds;
+        _afkTimer = FindObjectOfType<AFKTimeOut>();
     }
 
 
@@ -36,6 +39,8 @@ public class LoadLevelTimer : MonoBehaviour
         {
             _countDownText.text = _timer.ToString("0.0");
         }
+
+        if (_afkTimer != null) _afkTimer.ResetTimer();
     }
 
 
