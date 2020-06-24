@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[]
 public class WebGLMemorySetter : MonoBehaviour
 {
     private const int buildSize = 1024;
