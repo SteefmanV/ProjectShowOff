@@ -47,20 +47,26 @@ public class LevelManager : MonoBehaviour
             _sceneLoaded = true;
             updateAchievements();
 
-            StartCoroutine(delayedSceneLoad(SceneManager.GetActiveScene()));
-            SceneManager.LoadSceneAsync(_sceneTransition, LoadSceneMode.Additive);
+            StartCoroutine(SceneTransition(SceneManager.GetActiveScene()));
 
             StartCoroutine(unloadTransition(6));
         }
     }
 
 
-    private IEnumerator delayedSceneLoad(Scene pOldScene)
+    private IEnumerator SceneTransition(Scene pOldScene)
     {
+        // Load scene transition
+        SceneManager.LoadSceneAsync(_sceneTransition, LoadSceneMode.Additive);
         yield return new WaitForSeconds(_sceneLoadDelay);
-        yield return new WaitWhile(() => SceneManager.UnloadSceneAsync(pOldScene).isDone);
-        SceneManager.LoadSceneAsync(_levelToLoad, LoadSceneMode.Additive);
 
+        // Unload old level
+        AsyncOperation unloadOldLevel = SceneManager.UnloadSceneAsync(pOldScene);
+        yield return new WaitWhile(() => unloadOldLevel.isDone == false);
+        yield return null; // wait 1 extra frame
+
+        // Load new level
+        SceneManager.LoadSceneAsync(_levelToLoad, LoadSceneMode.Additive);
     }
 
 
