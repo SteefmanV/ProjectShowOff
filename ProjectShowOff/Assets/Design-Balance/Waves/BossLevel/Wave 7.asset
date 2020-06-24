@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectCount: 5
   Objects:
-  - {fileID: 3298962065572892326, guid: 154570694e0c1a54da3bbf4d55ea2466, type: 3}
-  QuickThrashObjectPreview: {fileID: 1295525259969906772, guid: f9ad1563e2e3b0344b69f920747c473c,
+  - {fileID: 4337782112288196506, guid: 154570694e0c1a54da3bbf4d55ea2466, type: 3}
+  QuickThrashObjectPreview: {fileID: 3298962065572892326, guid: 154570694e0c1a54da3bbf4d55ea2466,
     type: 3}
-  timeBetweenSpawn: 1
-  minMaxTimeRandomeness: {x: 1, y: 1.1}
+  timeBetweenSpawn: 3
+  minMaxTimeRandomeness: {x: 0, y: 0}

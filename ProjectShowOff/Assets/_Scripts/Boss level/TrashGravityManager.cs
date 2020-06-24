@@ -9,7 +9,7 @@ public class TrashGravityManager : MonoBehaviour
     private Rigidbody _rb = null;
 
     private Transform _waterSurface;
-    private bool gravityEnabled = false;
+    [SerializeField] private bool gravityEnabled = false;
 
     private void Awake()
     {
@@ -21,6 +21,7 @@ public class TrashGravityManager : MonoBehaviour
     {
         if(transform.position.y > _waterSurface.position.y) // Above water
         {
+            Debug.Log("Above water");
             if(!gravityEnabled)
             {
                 enableGravity(true);
@@ -28,7 +29,8 @@ public class TrashGravityManager : MonoBehaviour
         }
         else // In water
         {
-            if(gravityEnabled)
+            Debug.Log("under water");
+            if (gravityEnabled)
             {
                 enableGravity(false);
             }
