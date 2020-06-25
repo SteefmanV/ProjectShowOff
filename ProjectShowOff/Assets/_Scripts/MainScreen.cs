@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainScreen : MonoBehaviour
 {
     private LanguageManager _languageManager = null;
+    [SerializeField] private string firstLevelName = "1_1";
 
     [Title("Main screen")]
     [SerializeField] private TextMeshProUGUI _playText = null;
@@ -34,6 +35,20 @@ public class MainScreen : MonoBehaviour
     public void LoadScene(string pSceneToLoad)
     {
         SceneManager.LoadSceneAsync(pSceneToLoad);
+    }
+
+
+    public void StartGame()
+    {
+        // Clean up levelmanagers
+        LevelManager[] managers = FindObjectsOfType<LevelManager>();
+
+        foreach(LevelManager manager in managers)
+        {
+            Destroy(manager.gameObject);
+        }
+
+        SceneManager.LoadSceneAsync(firstLevelName);
     }
 
 

@@ -1573,6 +1573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cc31421a9d0e4b815799ea37bc85a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstLevelName: StartCutScene
   _playText: {fileID: 1947887477}
   _controlsText: {fileID: 1627196263}
   _textBubble1: {fileID: 1601694010}
@@ -2299,8 +2300,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 764410905}
-        m_MethodName: LoadScene
-        m_Mode: 5
+        m_MethodName: StartGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3725,4 +3726,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e895c14b2be8d4996c6f477122f48c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _powerUp: {fileID: 0}
